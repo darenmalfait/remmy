@@ -1,0 +1,14 @@
+@import '@daren/theme/dist/darenui.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply max-w-full overflow-x-hidden overscroll-none font-sans bg-primary;
+  }
+
+  code {
+    @apply rounded-lg bg-transparent px-2 py-1 !text-2xs text-primary shadow-outline;
+  }
+}
