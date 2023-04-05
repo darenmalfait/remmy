@@ -15,7 +15,7 @@ function formatDate(date?: Date, format?: string) {
       break
     }
     case 'yyyy_mm_dd': {
-      dateStr = `${day}_${month}_${year}`
+      dateStr = `${year}_${month}_${day}`
       break
     }
     case 'dd-mm-yyyy': {
