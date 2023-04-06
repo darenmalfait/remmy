@@ -1,13 +1,13 @@
-import slugify from 'slugify'
+import {defaultFilenameSettings} from '../../components/modules/filename-configuration'
 
-function transformName(str: string, separator = '-') {
-  return slugify(str, {
-    lower: true,
-    remove: /[*+~.()'"!:@]/g,
-    replacement: separator,
-    strict: true,
-    trim: true,
-  })
+function transformName(
+  str: string,
+  separator = defaultFilenameSettings.textSeparator,
+) {
+  return str
+    .replace(/[^a-zA-Z0-9]/g, separator)
+    .replace(new RegExp(`${separator}{2,}`, 'g'), separator)
+    .replace(new RegExp(`^${separator}|${separator}$`, 'g'), '')
 }
 
 function padZero(str: string | number, length = 2) {

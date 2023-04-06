@@ -67,7 +67,6 @@
     "react-final-form": "^6.5.9",
     "react-router-dom": "^6.9.0",
     "react-transition-group": "^4.4.5",
-    "slugify": "^1.6.5",
     "stream-to-array": "^2.3.0",
     "tailwindcss": "^3.2.7",
     "tesseract.js": "^4.0.2",

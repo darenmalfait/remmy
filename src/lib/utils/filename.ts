@@ -75,6 +75,14 @@ function rename({
     }
   })
 
+  const lastSeparator = filenameConfiguration
+    .filter(c => c.type === 'separator')
+    .pop()
+
+  if (lastSeparator && fileName.endsWith(lastSeparator.value)) {
+    fileName = fileName.slice(0, -1)
+  }
+
   return extension ? `${fileName}.${extension}` : fileName
 }
 
