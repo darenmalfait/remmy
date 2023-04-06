@@ -87,12 +87,12 @@ function AddDestination({
             onChange={e => setPath(e.target.value)}
             name="new-destination-path"
           >
-            <Button size="sm" onClick={onFolderSelect}>
+            <Button size="sm" variant="outline" onClick={onFolderSelect}>
               Browse
             </Button>
           </Input>
         </div>
-        <Button size="sm" onClick={handleSave}>
+        <Button size="sm" variant="success" onClick={handleSave}>
           Save destination
         </Button>
       </div>

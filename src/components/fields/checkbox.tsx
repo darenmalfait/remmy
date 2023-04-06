@@ -10,7 +10,7 @@ interface IFieldCheckbox {
 
 export const FieldCheckbox = (props: IFieldCheckbox) => {
   return (
-    <div className="mt-1 mb-3 flex items-start">
+    <div className="mb-3 mt-1 flex items-start">
       <div className="flex h-5 items-center">
         <input
           type="checkbox"

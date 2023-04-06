@@ -31,6 +31,11 @@ const colorStyles = {
     medium:
       'ring-gray-200 bg-gray-50 text-gray-500 dark:ring-gray-500/20 dark:bg-gray-400/10 dark:text-gray-400',
   },
+  outline: {
+    small: 'text-gray-400 dark:text-gray-500',
+    medium:
+      'ring-gray-200 bg-transparent text-gray-500 dark:ring-gray-500/20 dark:text-gray-400',
+  },
 }
 
 export function Tag({

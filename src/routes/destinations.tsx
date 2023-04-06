@@ -34,7 +34,7 @@ function DestinationItem(destination: Destination) {
         {destination.isDefault ? (
           <Tag color="success">default</Tag>
         ) : (
-          <Tag as="button" color="default" onClick={setAsDefault}>
+          <Tag as="button" color="outline" onClick={setAsDefault}>
             set default
           </Tag>
         )}

@@ -22,12 +22,12 @@ function Sidebar() {
     'flex justify-evenly items-center bg-transparent border-0 w-full text-sm text-gray-900 dark:text-gray-100 my-1 py-2 cursor-pointer hover:text-gray-500 focus:outline-none'
 
   return (
-    <div className="fixed top-0 left-14 -ml-14 flex h-full w-14 flex-col overflow-y-auto bg-black/5 dark:bg-white/5	">
+    <div className="fixed left-14 top-0 -ml-14 flex h-full w-14 flex-col overflow-y-auto bg-black/5 dark:bg-white/5	">
       <div className="flex flex-1 flex-col items-center py-4">
-        <Logo className="my-3 mx-auto w-7 cursor-pointer" onClick={goToHome} />
+        <Logo className="mx-auto my-3 w-7 cursor-pointer" onClick={goToHome} />
       </div>
 
-      <div className="py-4 px-3">
+      <div className="px-3 py-4">
         <button
           className={footerButtonClasses}
           onClick={() => {
