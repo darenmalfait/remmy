@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {Button, Combobox, Input} from '@nerdfish/ui'
+import {Button, Combobox, Datepicker, Input} from '@nerdfish/ui'
 
 import {useDestinations} from '../../context/destinations-provider'
 import {useSettings} from '../../context/settings-provider'
@@ -97,11 +97,10 @@ function FileActions({
     <Section>
       <form noValidate onSubmit={handleSubmit} onChange={onFormChange}>
         <fieldset className="space-y-4">
-          <Input
+          <Datepicker
             name="date"
             error={result?.errors?.date}
-            defaultValue={values.date?.toISOString().split('T')[0]}
-            type="date"
+            defaultSelected={values.date}
             label="Date"
           />
           <Input

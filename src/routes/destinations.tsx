@@ -1,11 +1,10 @@
 import * as React from 'react'
-import {Alert, Button, Dialog} from '@nerdfish/ui'
+import {Alert, Badge, Button, Dialog} from '@nerdfish/ui'
 import {Trash} from 'lucide-react'
 
 import {Layout} from '../components/layout'
 import {AddDestination} from '../components/modules/add-destination'
 import {Section} from '../components/section'
-import {Tag} from '../components/tag'
 import {Destination, useDestinations} from '../context/destinations-provider'
 
 function DestinationItem(destination: Destination) {
@@ -32,11 +31,17 @@ function DestinationItem(destination: Destination) {
       </div>
       <div className="flex items-center space-x-2">
         {destination.isDefault ? (
-          <Tag color="success">default</Tag>
+          <Badge variant="success" className="cursor-pointer">
+            default
+          </Badge>
         ) : (
-          <Tag as="button" color="outline" onClick={setAsDefault}>
+          <Badge
+            variant="outline"
+            className="cursor-pointer"
+            onClick={setAsDefault}
+          >
             set default
-          </Tag>
+          </Badge>
         )}
         <button onClick={onDelete}>
           <Trash className="h-3 w-3 text-danger" />
