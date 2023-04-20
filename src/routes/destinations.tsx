@@ -36,7 +36,7 @@ function DestinationItem(destination: Destination) {
           </Badge>
         ) : (
           <Badge
-            variant="outline"
+            variant="secondary"
             className="cursor-pointer"
             onClick={setAsDefault}
           >

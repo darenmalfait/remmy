@@ -82,7 +82,7 @@ function SettingsRoute() {
 
                 <Alert
                   variant="info"
-                  description="VAT number lookup is used to extract the company name from the VAT number. This only works for EU VAT numbers. There might be 2 VAT numbers on an invoice, filling in yours helps not taking the wrong VAT number."
+                  description="Automatically look up a VAT number to identify the company it belongs to. Entering your own VAT number on an invoice helps ensure Remmy takes the correct one."
                 />
               </>
             ) : null}
