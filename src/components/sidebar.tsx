@@ -1,10 +1,15 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+import path from 'path'
+
 import React from 'react'
 import {ipcRenderer} from 'electron'
 import {Cog, Folder, LogOut} from 'lucide-react'
 import {useNavigate} from 'react-router-dom'
 
-import {Logo} from '../components/logo'
 import {useFileUpload} from '../context/file-upload-provider'
+
+const logo = path.join(__dirname, 'assets/images', 'logo.png')
 
 function Sidebar() {
   const navigate = useNavigate()
@@ -24,7 +29,12 @@ function Sidebar() {
   return (
     <div className="fixed left-14 top-0 -ml-14 flex h-full w-14 flex-col overflow-y-auto bg-black/5 dark:bg-white/5	">
       <div className="flex flex-1 flex-col items-center py-4">
-        <Logo className="mx-auto my-3 w-7 cursor-pointer" onClick={goToHome} />
+        <img
+          src={logo}
+          alt="logo"
+          className="mx-auto my-3 w-10 cursor-pointer"
+          onClick={goToHome}
+        />
       </div>
 
       <div className="px-3 py-4">
