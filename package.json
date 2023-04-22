@@ -16,7 +16,6 @@
     "type": "git",
     "url": "https://github.com/darenmalfait/remmy.git"
   },
-  "license": "MIT",
   "author": "Daren Malfait <daren@nerdfish.be> (https://nerdfish.be)",
   "main": "main.js",
   "scripts": {
@@ -113,15 +112,15 @@
     "webpack-merge": "^5.8.0"
   },
   "build": {
-    "appId": "com.electron.remmy",
+    "appId": "be.nerdfish.remmy",
     "productName": "Remmy",
     "files": [
       "build/**/*",
       "assets/**/*",
       "index.html",
-      "LICENSE",
       "main.js",
-      "first-run.js"
+      "first-run.js",
+      "!certificates"
     ],
     "mac": {
       "category": "public.app-category.developer-tools",
