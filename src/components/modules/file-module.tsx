@@ -50,6 +50,7 @@ function FileModule({file, onDone}: {file: string; onDone: () => void}) {
 
         setLoadingStatus('loaded')
       } catch (error) {
+        console.error(error)
         setLoadingStatus('loaded')
       }
     }

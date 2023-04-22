@@ -1,6 +1,31 @@
+import path from 'path'
+
 import {Destination} from '../../context/destinations-provider'
 import {SettingsState} from '../../context/settings-provider'
 import {Constants} from './constants'
+
+function getAppDataPath() {
+  switch (process.platform) {
+    case 'darwin': {
+      return path.join(
+        process.env.HOME ?? '',
+        'Library',
+        'Application Support',
+        'Remmy',
+      )
+    }
+    case 'win32': {
+      return path.join(process.env.APPDATA ?? '', 'Remmy')
+    }
+    case 'linux': {
+      return path.join(process.env.HOME ?? '', '.Remmy')
+    }
+    default: {
+      console.info('Unsupported platform!')
+      process.exit(1)
+    }
+  }
+}
 
 function saveLocal(key: string, value: any): void {
   localStorage.setItem(key, JSON.stringify(value))
@@ -41,4 +66,5 @@ export {
   clearStorage,
   loadDestinations,
   saveDestinations,
+  getAppDataPath,
 }

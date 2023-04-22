@@ -4,6 +4,7 @@ const {ipcMain, app, nativeTheme} = require('electron')
 const {autoUpdater} = require('electron-updater')
 const {menubar} = require('menubar')
 const remoteMain = require('@electron/remote/main')
+const PDFParser = require('pdf2json')
 const {onFirstRunMaybe} = require('./first-run')
 
 remoteMain.initialize()
@@ -93,5 +94,21 @@ menubarApp.on('ready', () => {
         menubarApp.tray.setImage(iconIdle)
       }
     }
+  })
+  ipcMain.on('prefix-convert-pdf', (event, file_base_path) => {
+    const pdfParser = new PDFParser(null, 1)
+
+    pdfParser.on('pdfParser_dataError', errData => {
+      event.sender.send('prefix-pdf-converted-error', errData)
+    })
+
+    pdfParser.on('pdfParser_dataReady', pdfData => {
+      event.sender.send(
+        'prefix-pdf-converted',
+        pdfParser.getRawTextContent(pdfData),
+      )
+    })
+
+    pdfParser.loadPDF(file_base_path)
   })
 })

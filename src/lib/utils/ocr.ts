@@ -1,59 +1,31 @@
 import fs from 'fs'
 import path from 'path'
 
-import {createWorker} from 'tesseract.js'
+import {ipcRenderer} from 'electron'
 
-import {fileToImage} from '../../lib/utils/pdf'
-
-async function imageToText(filePath: string) {
-  return new Promise<string>(async resolve => {
-    const worker = await createWorker()
-    await worker.loadLanguage('eng')
-    await worker.initialize('eng')
-
-    const timeout = setTimeout(async () => {
-      console.error('ocr timeout')
-      await worker.terminate()
-      resolve('')
-    }, 8000)
-
-    const {
-      data: {text},
-    } = (await worker
-      .recognize(filePath, {pdfTitle: 'temp'}, {pdf: true})
-      .catch(e => {
-        console.error('ocr error', e)
-        clearTimeout(timeout)
-        resolve('')
-      })
-      .finally(async () => {
-        clearTimeout(timeout)
-        await worker.terminate()
-      })) || {data: {text: ''}}
-
-    resolve(text)
-  })
-}
+import {getAppDataPath} from './storage'
 
 async function ocr(filePath: string): Promise<string | undefined> {
-  const __dirname = path.resolve(path.dirname(''))
-  const tmpFile = fs.readFileSync(filePath, null)
+  return new Promise<string>(async resolve => {
+    const __dirname = getAppDataPath()
 
-  if (!filePath.toLocaleLowerCase().endsWith('.pdf')) return
+    if (!filePath.toLocaleLowerCase().endsWith('.pdf')) return
 
-  if (!fs.existsSync(path.resolve(__dirname, 'temp'))) {
-    fs.mkdirSync(path.resolve(__dirname, 'temp'))
-  }
+    if (!fs.existsSync(path.resolve(__dirname, 'temp'))) {
+      fs.mkdirSync(path.resolve(__dirname, 'temp'))
+    }
 
-  const image = await fileToImage(tmpFile, 0)
-  if (!image) return ''
+    ipcRenderer.send('prefix-convert-pdf', filePath)
 
-  const tempFilePath = path.resolve(__dirname, 'temp', 'tmp.png')
-
-  if (!tempFilePath) return ''
-  fs.writeFileSync(tempFilePath, image, null)
-
-  return imageToText(tempFilePath)
+    ipcRenderer
+      .on('prefix-pdf-converted-error', (_event, errData) => {
+        console.error(errData)
+        resolve('')
+      })
+      .on('prefix-pdf-converted', (_event, pdfData) => {
+        resolve(pdfData)
+      })
+  })
 }
 
 function getVATNumbers(text: string) {
