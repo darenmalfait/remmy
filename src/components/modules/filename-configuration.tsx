@@ -1,5 +1,17 @@
+'use client'
+
 import * as React from 'react'
-import {Button, Command, Popover, getInputClassName} from '@nerdfish/ui'
+import {
+  Button,
+  Command,
+  CommandGroup,
+  CommandItem,
+  CommandList,
+  inputVariants,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@nerdfish/ui'
 import {cx} from '@nerdfish/utils'
 import {AnimatePresence, Reorder} from 'framer-motion'
 import {Calendar, Check, ChevronsUpDown, Plus, Trash} from 'lucide-react'
@@ -52,7 +64,7 @@ const OptionSelector = React.forwardRef<
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <Popover.Trigger asChild>
+      <PopoverTrigger asChild>
         <Button
           variant="subtle"
           role="combobox"
@@ -60,8 +72,9 @@ const OptionSelector = React.forwardRef<
           aria-controls="listbox"
           aria-expanded={open}
           className={cx(
-            getInputClassName(className, false, inputSize),
-            '!ring-0 !ring-offset-0 w-auto',
+            className,
+            inputVariants({inputSize}),
+            '!ring-0 px-3 py-1 bg-inverted/5 !ring-offset-0 w-auto',
             className,
           )}
         >
@@ -74,33 +87,35 @@ const OptionSelector = React.forwardRef<
             <Icon className="ml-auto h-4 w-4 shrink-0 opacity-50" />
           </div>
         </Button>
-      </Popover.Trigger>
-      <Popover.Content className="w-full min-w-[200px] p-0">
+      </PopoverTrigger>
+      <PopoverContent className="w-full min-w-[200px] p-0">
         <Command>
-          <Command.Group>
-            {items.map(item => (
-              <Command.Item
-                key={item.value}
-                onSelect={() => handleChange(item.value)}
-              >
-                <Check
-                  className={cx(
-                    'mr-2 h-4 w-4',
-                    value === item.value ? 'opacity-100' : 'opacity-0',
-                  )}
-                />
-                {item.label}
-              </Command.Item>
-            ))}
-            {onRemove ? (
-              <Command.Item onSelect={handleRemove} className="text-red-400">
-                <Trash className="mr-2 h-4 w-4" />
-                Remove
-              </Command.Item>
-            ) : null}
-          </Command.Group>
+          <CommandList>
+            <CommandGroup>
+              {items.map(item => (
+                <CommandItem
+                  key={item.value}
+                  onSelect={() => handleChange(item.value)}
+                >
+                  <Check
+                    className={cx(
+                      'mr-2 h-4 w-4',
+                      value === item.value ? 'opacity-100' : 'opacity-0',
+                    )}
+                  />
+                  {item.label}
+                </CommandItem>
+              ))}
+              {onRemove ? (
+                <CommandItem onSelect={handleRemove} className="text-red-400">
+                  <Trash className="mr-2 h-4 w-4" />
+                  Remove
+                </CommandItem>
+              ) : null}
+            </CommandGroup>
+          </CommandList>
         </Command>
-      </Popover.Content>
+      </PopoverContent>
     </Popover>
   )
 })
@@ -208,29 +223,24 @@ function AddNewSection({onSelect}: {onSelect: (value: string) => void}) {
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <Popover.Trigger asChild>
-        <Button
-          type="button"
-          variant="subtle"
-          className={cx(
-            getInputClassName(),
-            '!ring-0 !ring-offset-0 text-center max-w-2 justify-center',
-          )}
-        >
-          <Plus />
+      <PopoverTrigger asChild>
+        <Button type="button" variant="ghost" size="icon">
+          <Plus className="size-4" />
         </Button>
-      </Popover.Trigger>
-      <Popover.Content className="w-full min-w-[200px] p-0">
+      </PopoverTrigger>
+      <PopoverContent className="w-full min-w-[200px] p-0">
         <Command>
-          <Command.Group>
-            {Object.keys(ComponentMap).map(key => (
-              <Command.Item key={key} onSelect={onSelect}>
-                {key}
-              </Command.Item>
-            ))}
-          </Command.Group>
+          <CommandList>
+            <CommandGroup>
+              {Object.keys(ComponentMap).map(key => (
+                <CommandItem key={key} onSelect={onSelect}>
+                  {key}
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          </CommandList>
         </Command>
-      </Popover.Content>
+      </PopoverContent>
     </Popover>
   )
 }
@@ -242,10 +252,8 @@ function FilenameConfiguration() {
   return (
     <div
       className={cx(
-        getInputClassName(
-          'flex flex-row w-full space-x-2 overflow-x-scroll pr-2',
-        ),
-        '!ring-0',
+        inputVariants(),
+        'flex flex-row w-full space-x-2 overflow-x-scroll pr-2',
       )}
     >
       <Reorder.Group

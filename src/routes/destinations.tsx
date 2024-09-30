@@ -1,5 +1,14 @@
 import * as React from 'react'
-import {Alert, Badge, Button, Dialog} from '@nerdfish/ui'
+import {
+  Alert,
+  Badge,
+  Button,
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@nerdfish/ui'
 import {Trash} from 'lucide-react'
 
 import {Layout} from '../components/layout'
@@ -24,8 +33,8 @@ function DestinationItem(destination: Destination) {
       className="flex max-w-full justify-between space-x-4 py-4"
     >
       <div className="flex max-w-[300px] flex-col">
-        <p className="text-sm font-medium text-primary">{destination.name}</p>
-        <p className="max-w-full truncate text-sm text-secondary ">
+        <p className="text-primary text-sm font-medium">{destination.name}</p>
+        <p className="text-secondary max-w-full truncate text-sm ">
           {destination.path}
         </p>
       </div>
@@ -44,7 +53,7 @@ function DestinationItem(destination: Destination) {
           </Badge>
         )}
         <button onClick={onDelete}>
-          <Trash className="h-3 w-3 text-danger" />
+          <Trash className="text-danger h-3 w-3" />
         </button>
       </div>
     </li>
@@ -68,9 +77,9 @@ function DestinationsRoute() {
               Destinations are the paths to where your documents get moved after
               renaming.
             </p>
-            <Dialog.Trigger asChild>
+            <DialogTrigger asChild>
               <Button>Add first destination</Button>
-            </Dialog.Trigger>
+            </DialogTrigger>
           </Section>
         ) : (
           <Section>
@@ -79,21 +88,21 @@ function DestinationsRoute() {
                 <DestinationItem key={destination.id} {...destination} />
               ))}
             </ul>
-            <Dialog.Trigger asChild>
+            <DialogTrigger asChild>
               <Button>Add destination</Button>
-            </Dialog.Trigger>
+            </DialogTrigger>
           </Section>
         )}
-        <Dialog.Content className="sm:max-w-[425px]">
-          <Dialog.Header>
-            <Dialog.Title>Add destination path</Dialog.Title>
-          </Dialog.Header>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Add destination path</DialogTitle>
+          </DialogHeader>
           <AddDestination
             onSave={() => {
               setIsAdding(false)
             }}
           />
-        </Dialog.Content>
+        </DialogContent>
       </Dialog>
     </Layout>
   )

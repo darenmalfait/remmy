@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {Input} from '@nerdfish/ui'
+import {Field, Input, Label} from '@nerdfish/ui'
 
 import {useSettings} from '../../context/settings-provider'
 import {NamePreview} from '../name-preview'
@@ -20,22 +20,31 @@ function FilenameFormat() {
         detail="example detail"
       />
 
-      <Input
-        name="textSeparator"
-        label="Text separator"
-        onChange={event => {
-          updateSetting('textSeparator', event.target.value)
-        }}
-        defaultValue={settings.textSeparator}
-      />
-      <Input
-        name="defaultSeparator"
-        label="Default separator"
-        defaultValue={settings.defaultSeparator}
-        onChange={event => {
-          updateSetting('defaultSeparator', event.target.value)
-        }}
-      />
+      <Field>
+        <Label>
+          Text separator
+          <Input
+            name="textSeparator"
+            onChange={event => {
+              updateSetting('textSeparator', event.target.value)
+            }}
+            defaultValue={settings.textSeparator}
+          />
+        </Label>
+      </Field>
+
+      <Field>
+        <Label>
+          Default separator
+          <Input
+            name="defaultSeparator"
+            defaultValue={settings.defaultSeparator}
+            onChange={event => {
+              updateSetting('defaultSeparator', event.target.value)
+            }}
+          />
+        </Label>
+      </Field>
     </Section>
   )
 }

@@ -1,5 +1,15 @@
 import * as React from 'react'
-import {Alert, Checkbox, Input, Tabs} from '@nerdfish/ui'
+import {
+  Alert,
+  Checkbox,
+  Field,
+  Input,
+  Label,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from '@nerdfish/ui'
 import {ipcRenderer} from 'electron'
 
 import {Layout} from '../components/layout'
@@ -23,12 +33,15 @@ function SettingsRoute() {
   return (
     <Layout title="Settings">
       <Tabs defaultValue="appearance">
-        <Tabs.List>
-          <Tabs.Trigger value="appearance">Appearance</Tabs.Trigger>
-          <Tabs.Trigger value="files">Files</Tabs.Trigger>
-          <Tabs.Trigger value="about">About</Tabs.Trigger>
-        </Tabs.List>
-        <Tabs.Content value="appearance">
+        <TabsList>
+          <TabsTrigger value="appearance">Appearance</TabsTrigger>
+          <TabsTrigger value="files">Files</TabsTrigger>
+          <TabsTrigger value="about">About</TabsTrigger>
+        </TabsList>
+        <TabsContent
+          value="appearance"
+          className="shadow-outline bg-transparent"
+        >
           <Section>
             <h4 className="font-semibold">Theme</h4>
             <RadioGroup
@@ -44,40 +57,57 @@ function SettingsRoute() {
               <RadioGroup.Option value={Appearance.DARK} label="Dark" />
             </RadioGroup>
           </Section>
-        </Tabs.Content>
-        <Tabs.Content value="files">
+        </TabsContent>
+        <TabsContent value="files" className="shadow-outline bg-transparent">
           <Section>
             <h2>Format</h2>
             <FilenameFormat />
             <h2>Document analysis</h2>
-            <Checkbox
-              name="ocrEnabled"
-              label="Enable file analysis"
-              checked={settings.ocrEnabled}
-              onChange={event =>
-                updateSetting('ocrEnabled', event.target.checked)
-              }
-            />
+            <Field className="flex items-center">
+              <Checkbox
+                id="ocrEnabled"
+                name="ocrEnabled"
+                checked={settings.ocrEnabled}
+                onChange={event =>
+                  updateSetting('ocrEnabled', event.target.checked)
+                }
+              />
+              <Label className="flex items-center pl-2" htmlFor="ocrEnabled">
+                Enable file analysis
+              </Label>
+            </Field>
             {settings.ocrEnabled ? (
               <>
-                <Checkbox
-                  name="vatLookupEnabled"
-                  label="Lookup VAT numbers"
-                  checked={settings.vatLookupEnabled}
-                  onChange={event =>
-                    updateSetting('vatLookupEnabled', event.target.checked)
-                  }
-                />
-
-                {settings.vatLookupEnabled ? (
-                  <Input
-                    name="ownVatNumber"
-                    label="Your VAT Number"
-                    value={settings.ownVatNumber}
+                <Field className="flex items-center">
+                  <Checkbox
+                    id="vatLookupEnabled"
+                    name="vatLookupEnabled"
+                    checked={settings.vatLookupEnabled}
                     onChange={event =>
-                      updateSetting('ownVatNumber', event.target.value)
+                      updateSetting('vatLookupEnabled', event.target.checked)
                     }
                   />
+                  <Label
+                    className="flex items-center pl-2"
+                    htmlFor="vatLookupEnabled"
+                  >
+                    Lookup VAT numbers
+                  </Label>
+                </Field>
+
+                {settings.vatLookupEnabled ? (
+                  <Field>
+                    <Label>
+                      Your VAT Number
+                      <Input
+                        name="ownVatNumber"
+                        value={settings.ownVatNumber}
+                        onChange={event =>
+                          updateSetting('ownVatNumber', event.target.value)
+                        }
+                      />
+                    </Label>
+                  </Field>
                 ) : null}
 
                 <Alert
@@ -87,10 +117,10 @@ function SettingsRoute() {
               </>
             ) : null}
           </Section>
-        </Tabs.Content>
-        <Tabs.Content value="about">
+        </TabsContent>
+        <TabsContent value="about" className="shadow-outline bg-transparent">
           <About />
-        </Tabs.Content>
+        </TabsContent>
       </Tabs>
     </Layout>
   )

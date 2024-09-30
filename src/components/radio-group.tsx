@@ -2,7 +2,8 @@
 
 import * as React from 'react'
 import {RadioGroup as HeadlessRadioGroup} from '@headlessui/react'
-import {ExtractProps, cx, useControllableState} from '@nerdfish/utils'
+import {useControllableState} from '@nerdfish/ui'
+import {cx, ExtractProps} from '@nerdfish/utils'
 import {CheckCircle} from 'lucide-react'
 
 interface OptionProps {
@@ -64,7 +65,7 @@ function Option({
             </div>
           </div>
           {checked ? (
-            <div className="shrink-0 text-inverse">
+            <div className="text-inverse shrink-0">
               <CheckCircle className="h-6 w-6" />
             </div>
           ) : null}

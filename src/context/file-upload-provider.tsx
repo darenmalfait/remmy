@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {Toast} from '@nerdfish/ui'
+import {toast} from '@nerdfish/ui'
 import {ipcRenderer} from 'electron'
 
 interface FileUploadContextProps {
@@ -21,7 +21,6 @@ interface FileUploadProviderProps {
 // use <FileUploadProvider> as a wrapper around the part you need the context for
 function FileUploadProvider({children}: FileUploadProviderProps) {
   const [addingFile, setAddingFile] = React.useState<string | undefined>()
-  const [saved, setSaved] = React.useState(false)
 
   React.useEffect(() => {
     ipcRenderer.on('file-drop', (_, files) => {
@@ -38,7 +37,7 @@ function FileUploadProvider({children}: FileUploadProviderProps) {
 
   const onFileRenamed = React.useCallback(() => {
     setAddingFile(undefined)
-    setSaved(true)
+    toast.success('File has been successfully moved')
   }, [])
 
   const clearAddingFile = React.useCallback(() => {
@@ -50,14 +49,6 @@ function FileUploadProvider({children}: FileUploadProviderProps) {
       value={{addingFile, onFileRenamed, clearAddingFile}}
     >
       {children}
-      <Toast
-        variant={'success' as any}
-        open={saved}
-        onOpenChange={open => setSaved(open)}
-        duration={3000}
-      >
-        File has been successfully moved
-      </Toast>
     </FileUploadContext.Provider>
   )
 }

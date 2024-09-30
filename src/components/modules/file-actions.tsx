@@ -1,5 +1,15 @@
 import * as React from 'react'
-import {Button, Combobox, Datepicker, Input} from '@nerdfish/ui'
+import {
+  Button,
+  DateTimePicker,
+  ErrorDescription,
+  Field,
+  Input,
+  Label,
+  Select,
+  SelectContent,
+  SelectItem,
+} from '@nerdfish/ui'
 
 import {useDestinations} from '../../context/destinations-provider'
 import {useSettings} from '../../context/settings-provider'
@@ -47,6 +57,7 @@ function FileActions({
       detail,
     },
   )
+
   const [destination, setDestination] = React.useState<string>(
     destinations.find(d => d.isDefault)?.id ?? destinations[0].id,
   )
@@ -97,34 +108,66 @@ function FileActions({
     <Section>
       <form noValidate onSubmit={handleSubmit} onChange={onFormChange}>
         <fieldset className="space-y-4">
-          <Datepicker
-            name="date"
-            error={result?.errors?.date}
-            defaultSelected={values.date}
-            label="Date"
-          />
-          <Input
-            name="description"
-            defaultValue={values.description}
-            type="text"
-            label="Description"
-          />
-          <Input
-            name="detail"
-            defaultValue={detail}
-            type="text"
-            label="Detail"
-          />
-          <Combobox
-            name="destination"
-            label="Destination"
-            defaultValue={destination}
-            onChange={value => setDestination(value)}
-            items={destinations.map(d => ({
-              label: `${d.name}`,
-              value: d.id,
-            }))}
-          />
+          <Field>
+            <Label>
+              Date
+              <DateTimePicker
+                defaultValue={values.date}
+                onChange={value => setValues({...values, date: value})}
+              />
+              {result?.errors?.date ? (
+                <ErrorDescription>{result.errors.date}</ErrorDescription>
+              ) : null}
+            </Label>
+            <input
+              type="hidden"
+              name="date"
+              value={values.date?.toISOString()}
+            />
+          </Field>
+
+          <Field>
+            <Label>
+              Description
+              <Input
+                name="description"
+                defaultValue={values.description}
+                type="text"
+                label="Description"
+              />
+            </Label>
+          </Field>
+
+          <Field>
+            <Label>
+              Detail
+              <Input
+                name="detail"
+                defaultValue={values.detail}
+                type="text"
+                label="Detail"
+              />
+            </Label>
+          </Field>
+
+          <Field>
+            <Label>
+              Destination
+              <Select
+                name="destination"
+                defaultValue={destination}
+                onValueChange={value => setDestination(value)}
+              >
+                <SelectContent>
+                  {destinations.map(d => (
+                    <SelectItem key={d.id} value={d.id}>
+                      {d.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </Label>
+          </Field>
 
           <NamePreview
             extension={extension}

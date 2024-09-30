@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import path from 'path'
 
+import path from 'path'
 import React from 'react'
 import {ipcRenderer} from 'electron'
 import {Cog, Folder, LogOut} from 'lucide-react'

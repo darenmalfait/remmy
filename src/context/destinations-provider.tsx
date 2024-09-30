@@ -1,5 +1,4 @@
 import fs from 'fs'
-
 import * as React from 'react'
 import * as uuid from 'uuid'
 

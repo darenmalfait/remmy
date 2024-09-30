@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {ToastViewport} from '@nerdfish/ui'
+import {Toaster} from '@nerdfish/ui'
 import {Route, HashRouter as Router, Routes} from 'react-router-dom'
 
 import {Sidebar} from './components/sidebar'
@@ -12,7 +12,7 @@ export const App = () => {
   return (
     <AppProviders>
       <Router>
-        <div className="flex h-full flex-col pl-14 bg-primary">
+        <div className="bg-primary flex h-full flex-col pl-14">
           <Sidebar />
 
           <div className="relative h-screen overflow-y-auto text-black dark:text-white">
@@ -21,7 +21,7 @@ export const App = () => {
               <Route path="/settings" element={<SettingsRoute />} />
               <Route path="/destinations" element={<DestinationsRoute />} />
             </Routes>
-            <ToastViewport />
+            <Toaster />
           </div>
         </div>
       </Router>

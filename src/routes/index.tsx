@@ -1,5 +1,4 @@
 import * as path from 'path'
-
 import * as React from 'react'
 import {H1} from '@nerdfish/ui'
 
@@ -34,7 +33,7 @@ function IndexRoute() {
                 <p>You can add a file by dragging in into the taskbar icon</p>
                 <img
                   src={img}
-                  className="w-full rounded-md shadow-outline"
+                  className="shadow-outline w-full rounded-md"
                   alt="drag to icon"
                 />
               </>

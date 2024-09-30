@@ -3,6 +3,7 @@ import {createRoot} from 'react-dom/client'
 
 import './styles/main.css'
 import './styles/fonts.css'
+
 import {App} from './app'
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

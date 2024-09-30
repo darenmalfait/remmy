@@ -1,6 +1,5 @@
 import fs from 'fs'
 import path from 'path'
-
 import {ipcRenderer} from 'electron'
 
 import {getAppDataPath} from './storage'

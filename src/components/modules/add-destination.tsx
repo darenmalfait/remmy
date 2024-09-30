@@ -1,7 +1,6 @@
 import * as React from 'react'
 import * as remote from '@electron/remote'
 import {Button, Input, Paragraph} from '@nerdfish/ui'
-import {Folder} from 'lucide-react'
 
 import {
   Destination,
@@ -79,7 +78,6 @@ function AddDestination({
         />
         <div className="flex items-end space-x-2">
           <Input
-            icon={Folder}
             inputSize="sm"
             label="Path"
             error={error?.path}
