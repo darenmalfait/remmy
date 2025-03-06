@@ -1,47 +1,47 @@
+import { cx } from '@nerdfish/utils'
+import { ArrowLeft } from 'lucide-react'
 import * as React from 'react'
-import {cx} from '@nerdfish/utils'
-import {ArrowLeft} from 'lucide-react'
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
-import {useFileUpload} from '../context/file-upload-provider'
+import { useFileUpload } from '../context/file-upload-provider'
 
 function Layout({
-  className,
-  children,
-  title,
-  ...props
-}: JSX.IntrinsicElements['div'] & {
-  title?: string
+	className,
+	children,
+	title,
+	...props
+}: React.ComponentProps<'div'> & {
+	title?: string
 }) {
-  const navigate = useNavigate()
-  const {addingFile} = useFileUpload()
+	const navigate = useNavigate()
+	const { addingFile } = useFileUpload()
 
-  React.useEffect(() => {
-    //if current path is not root
-    if (addingFile && window.location.pathname !== '/') {
-      navigate('/')
-    }
-  }, [addingFile, navigate])
+	React.useEffect(() => {
+		//if current path is not root
+		if (addingFile && window.location.pathname !== '/') {
+			navigate('/')
+		}
+	}, [addingFile, navigate])
 
-  return (
-    <div className={cx('flex flex-col space-y-4 p-8', className)} {...props}>
-      {title ? (
-        <div className="flex items-center justify-between">
-          <button
-            className="focus:outline-none"
-            aria-label="Go Back"
-            onClick={() => navigate('/')}
-          >
-            <ArrowLeft className="h-5 w-5 hover:text-gray-400" />
-          </button>
+	return (
+		<div className={cx('flex flex-col space-y-4 p-8', className)} {...props}>
+			{title ? (
+				<div className="flex items-center justify-between">
+					<button
+						className="focus:outline-none"
+						aria-label="Go Back"
+						onClick={() => navigate('/')}
+					>
+						<ArrowLeft className="h-5 w-5 hover:text-gray-400" />
+					</button>
 
-          <h3 className="text-lg font-semibold">{title}</h3>
-        </div>
-      ) : null}
+					<h3 className="text-lg font-semibold">{title}</h3>
+				</div>
+			) : null}
 
-      <div>{children}</div>
-    </div>
-  )
+			<div>{children}</div>
+		</div>
+	)
 }
 
-export {Layout}
+export { Layout }

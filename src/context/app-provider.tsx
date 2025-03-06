@@ -1,24 +1,24 @@
+import { ThemeProvider as DarenThemeProvider } from '@nerdfish/theme'
 import * as React from 'react'
-import {ThemeProvider as DarenThemeProvider} from '@nerdfish/theme'
 
-import {DestinationsProvider} from './destinations-provider'
-import {FileUploadProvider} from './file-upload-provider'
-import {SettingsProvider} from './settings-provider'
+import { DestinationsProvider } from './destinations-provider'
+import { FileUploadProvider } from './file-upload-provider'
+import { SettingsProvider } from './settings-provider'
 
 interface AppProvidersProps {
-  children: React.ReactNode
+	children: React.ReactNode
 }
 
-function AppProviders({children}: AppProvidersProps) {
-  return (
-    <SettingsProvider>
-      <DestinationsProvider>
-        <FileUploadProvider>
-          <DarenThemeProvider>{children}</DarenThemeProvider>
-        </FileUploadProvider>
-      </DestinationsProvider>
-    </SettingsProvider>
-  )
+function AppProviders({ children }: AppProvidersProps) {
+	return (
+		<SettingsProvider>
+			<DestinationsProvider>
+				<FileUploadProvider>
+					<DarenThemeProvider>{children}</DarenThemeProvider>
+				</FileUploadProvider>
+			</DestinationsProvider>
+		</SettingsProvider>
+	)
 }
 
-export {AppProviders}
+export { AppProviders }

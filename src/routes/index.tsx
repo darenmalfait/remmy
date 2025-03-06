@@ -1,48 +1,48 @@
 import * as path from 'path'
+import { H1 } from '@nerdfish/ui'
 import * as React from 'react'
-import {H1} from '@nerdfish/ui'
 
-import {Layout} from '../components/layout'
-import {AddDestination} from '../components/modules/add-destination'
-import {FileModule} from '../components/modules/file-module'
-import {Section} from '../components/section'
-import {useDestinations} from '../context/destinations-provider'
-import {useFileUpload} from '../context/file-upload-provider'
+import { Layout } from '../components/layout'
+import { AddDestination } from '../components/modules/add-destination'
+import { FileModule } from '../components/modules/file-module'
+import { Section } from '../components/section'
+import { useDestinations } from '../context/destinations-provider'
+import { useFileUpload } from '../context/file-upload-provider'
 
 const img = path.join(__dirname, 'assets/images', 'drag-to-icon.gif')
 
 function IndexRoute() {
-  const {addingFile, onFileRenamed} = useFileUpload()
-  const {destinations} = useDestinations()
+	const { addingFile, onFileRenamed } = useFileUpload()
+	const { destinations } = useDestinations()
 
-  return (
-    <Layout>
-      <Section>
-        {destinations.length === 0 ? (
-          <>
-            <H1>Start by adding a destination</H1>
-            <AddDestination />
-          </>
-        ) : (
-          <>
-            <H1>Add a file</H1>
-            {addingFile ? (
-              <FileModule file={addingFile} onDone={onFileRenamed} />
-            ) : (
-              <>
-                <p>You can add a file by dragging in into the taskbar icon</p>
-                <img
-                  src={img}
-                  className="shadow-outline w-full rounded-md"
-                  alt="drag to icon"
-                />
-              </>
-            )}
-          </>
-        )}
-      </Section>
-    </Layout>
-  )
+	return (
+		<Layout>
+			<Section>
+				{destinations.length === 0 ? (
+					<>
+						<H1>Start by adding a destination</H1>
+						<AddDestination />
+					</>
+				) : (
+					<>
+						<H1>Add a file</H1>
+						{addingFile ? (
+							<FileModule file={addingFile} onDone={onFileRenamed} />
+						) : (
+							<>
+								<p>You can add a file by dragging in into the taskbar icon</p>
+								<img
+									src={img}
+									className="w-full rounded-base shadow-outline"
+									alt="drag to icon"
+								/>
+							</>
+						)}
+					</>
+				)}
+			</Section>
+		</Layout>
+	)
 }
 
-export {IndexRoute}
+export { IndexRoute }

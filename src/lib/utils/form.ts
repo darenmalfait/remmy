@@ -4,68 +4,68 @@ type State = 'idle' | 'loading' | 'submitting'
 type FormMethod = 'get' | 'post' | 'put' | 'patch' | 'delete'
 
 type Options = {
-  method?: FormMethod
-  action: string
-  headers?: HeadersInit
+	method?: FormMethod
+	action: string
+	headers?: HeadersInit
 }
 
 const defaultOptions = {
-  method: 'post' as FormMethod,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  action: '',
+	method: 'post' as FormMethod,
+	headers: {
+		'Content-Type': 'application/json',
+	},
+	action: '',
 }
 
 async function handleFormSubmit(
-  data: Record<string, unknown>,
-  {action, method, ...options}: Options = defaultOptions,
+	data: Record<string, unknown>,
+	{ action, method, ...options }: Options = defaultOptions,
 ) {
-  const response = await fetch(action, {
-    ...defaultOptions,
-    ...options,
-    method: method?.toUpperCase() ?? defaultOptions.method.toUpperCase(),
-    headers: {
-      ...defaultOptions.headers,
-      ...options.headers,
-    },
+	const response = await fetch(action, {
+		...defaultOptions,
+		...options,
+		method: method?.toUpperCase() ?? defaultOptions.method.toUpperCase(),
+		headers: {
+			...defaultOptions.headers,
+			...options.headers,
+		},
 
-    body: JSON.stringify(data),
-  })
+		body: JSON.stringify(data),
+	})
 
-  return response.json()
+	return response.json()
 }
 
 function getFormValues<T>(form: HTMLFormElement) {
-  return Object.values(form).reduce((obj, field) => {
-    if (!field.name) return obj
-    obj[field.name] = field.value
-    return obj as T
-  }, {})
+	return Object.values(form).reduce((obj, field) => {
+		if (!field.name) return obj
+		obj[field.name] = field.value
+		return obj as T
+	}, {})
 }
 
 function useSubmit<T>() {
-  const [state, setState] = React.useState<State>('idle')
-  const [result, setResult] = React.useState<T | null>(null)
+	const [state, setState] = React.useState<State>('idle')
+	const [result, setResult] = React.useState<T | null>(null)
 
-  const submit = React.useCallback(
-    async (
-      data: Record<string, unknown>,
-      options: Options = defaultOptions,
-    ) => {
-      setState('submitting')
+	const submit = React.useCallback(
+		async (
+			data: Record<string, unknown>,
+			options: Options = defaultOptions,
+		) => {
+			setState('submitting')
 
-      const response = await handleFormSubmit(data, options)
+			const response = await handleFormSubmit(data, options)
 
-      setState('idle')
+			setState('idle')
 
-      setResult(response)
-    },
-    [],
-  )
+			setResult(response)
+		},
+		[],
+	)
 
-  return {state, submit, result, getFormValues}
+	return { state, submit, result, getFormValues }
 }
 
-export {handleFormSubmit, useSubmit}
-export type {State}
+export { handleFormSubmit, useSubmit }
+export type { State }

@@ -1,4 +1,4 @@
-import {getVATNumberFromText, getVATNumbers} from '../../lib/utils/ocr'
+import { getVATNumberFromText, getVATNumbers } from '../../lib/utils/ocr'
 
 const mockedText = `
 z U OO A
@@ -31,18 +31,18 @@ Martens VZW- street 9 - 2660 Hoboken - BTW BE-0794.123.756 - RPR Antwerpen - IBA
 `
 
 describe('ocr', () => {
-  it('should return a vat number', async () => {
-    expect(getVATNumberFromText(mockedText)).toEqual({
-      countryCode: 'BE',
-      number: '0794123756',
-    })
-  })
+	it('should return a vat number', async () => {
+		expect(getVATNumberFromText(mockedText)).toEqual({
+			countryCode: 'BE',
+			number: '0794123756',
+		})
+	})
 })
 
 describe('vat', () => {
-  it('should return the VAT', async () => {
-    expect(getVATNumbers('BE-0794.123.756')).toEqual(['BE0794123756'])
-    expect(getVATNumbers('BE0794123756')).toEqual(['BE0794123756'])
-    expect(getVATNumbers('BE 0794.123.756')).toEqual(['BE0794123756'])
-  })
+	it('should return the VAT', async () => {
+		expect(getVATNumbers('BE-0794.123.756')).toEqual(['BE0794123756'])
+		expect(getVATNumbers('BE0794123756')).toEqual(['BE0794123756'])
+		expect(getVATNumbers('BE 0794.123.756')).toEqual(['BE0794123756'])
+	})
 })
