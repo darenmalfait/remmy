@@ -64,6 +64,10 @@ function dropFileListener(_, files) {
 
 ipcMain.on('dropped-file', dropFileListener)
 
+ipcMain.on('app-quit', () => {
+	app.quit()
+})
+
 // PDF Parser functionality from the old file
 ipcMain.on('prefix-convert-pdf', (event, file_base_path) => {
 	const pdfParser = new PDFParser(null, 1)

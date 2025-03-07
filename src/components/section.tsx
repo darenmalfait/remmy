@@ -5,5 +5,7 @@ export const Section = React.forwardRef(function Section(
 	{ className, ...props }: React.ComponentPropsWithoutRef<'section'>,
 	ref: React.Ref<HTMLDivElement>,
 ) {
-	return <section ref={ref} {...props} className={cx('space-y-6', className)} />
+	return (
+		<section ref={ref} {...props} className={cx('space-y-md', className)} />
+	)
 })
