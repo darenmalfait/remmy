@@ -66,7 +66,7 @@ const OptionSelector = React.forwardRef<
 		<Popover open={open} onOpenChange={setOpen}>
 			<PopoverTrigger asChild>
 				<Button
-					variant="subtle"
+					variant="ghost"
 					role="combobox"
 					aria-haspopup="listbox"
 					aria-controls="listbox"

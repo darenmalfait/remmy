@@ -19,7 +19,7 @@ function Layout({
 	React.useEffect(() => {
 		//if current path is not root
 		if (addingFile && window.location.pathname !== '/') {
-			navigate('/')
+			void navigate('/')
 		}
 	}, [addingFile, navigate])
 

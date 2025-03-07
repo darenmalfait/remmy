@@ -15,7 +15,7 @@ export const App = () => {
 				<div className="flex h-full flex-col bg-background pl-14">
 					<Sidebar />
 
-					<div className="relative h-screen overflow-y-auto text-black dark:text-white">
+					<div className="relative h-screen overflow-y-auto text-foreground">
 						<Routes>
 							<Route path="/" element={<IndexRoute />} />
 							<Route path="/settings" element={<SettingsRoute />} />

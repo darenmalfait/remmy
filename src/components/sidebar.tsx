@@ -13,7 +13,7 @@ function Sidebar() {
 	const { clearAddingFile } = useFileUpload()
 
 	const goToHome = React.useCallback(() => {
-		navigate('/')
+		return navigate('/')
 	}, [navigate])
 
 	const quitApp = React.useCallback(() => {
@@ -21,10 +21,10 @@ function Sidebar() {
 	}, [])
 
 	const footerButtonClasses =
-		'flex justify-evenly items-center bg-transparent border-0 w-full text-sm text-gray-900 dark:text-gray-100 my-1 py-2 cursor-pointer hover:text-gray-500 focus:outline-none'
+		'flex justify-evenly items-center bg-transparent border-0 w-full text-sm text-foreground my-1 py-2 cursor-pointer hover:text-gray-500 focus:outline-none'
 
 	return (
-		<div className="fixed left-14 top-0 -ml-14 flex h-full w-14 flex-col overflow-y-auto bg-black/5 dark:bg-white/5">
+		<div className="fixed left-14 top-0 -ml-14 flex h-full w-14 flex-col overflow-y-auto bg-background-muted">
 			<div className="flex flex-1 flex-col items-center py-4">
 				<img
 					src={logo}
@@ -39,7 +39,7 @@ function Sidebar() {
 					className={footerButtonClasses}
 					onClick={() => {
 						clearAddingFile()
-						navigate('/destinations')
+						return navigate('/destinations')
 					}}
 					aria-label="Destination"
 				>
@@ -49,7 +49,7 @@ function Sidebar() {
 					className={footerButtonClasses}
 					onClick={() => {
 						clearAddingFile()
-						navigate('/settings')
+						return navigate('/settings')
 					}}
 					aria-label="Settings"
 				>

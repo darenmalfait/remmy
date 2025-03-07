@@ -133,7 +133,6 @@ function FileActions({
 								name="description"
 								defaultValue={values.description}
 								type="text"
-								label="Description"
 							/>
 						</Label>
 					</Field>
@@ -141,12 +140,7 @@ function FileActions({
 					<Field>
 						<Label>
 							Detail
-							<Input
-								name="detail"
-								defaultValue={values.detail}
-								type="text"
-								label="Detail"
-							/>
+							<Input name="detail" defaultValue={values.detail} type="text" />
 						</Label>
 					</Field>
 

@@ -18,12 +18,8 @@ export const setAppearance = (mode?: Appearance): void => {
 			setDarkMode()
 			break
 
-		case undefined: {
-			throw new Error('Not implemented yet: undefined case')
-		}
-		case Appearance.SYSTEM: {
-			throw new Error('Not implemented yet: Appearance.SYSTEM case')
-		}
+		case undefined:
+		case Appearance.SYSTEM:
 		default:
 			if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
 				setDarkMode()

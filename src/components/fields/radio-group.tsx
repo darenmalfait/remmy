@@ -20,11 +20,11 @@ export const FieldRadioGroup = ({
 	return (
 		<fieldset id={name} className="mb-1">
 			<div>
-				<legend className="mb-1 text-base font-medium dark:text-white">
+				<legend className="mb-1 text-base font-medium text-foreground">
 					{label}
 				</legend>
 				{placeholder ? (
-					<p className="text-sm text-gray-500">{placeholder}</p>
+					<p className="text-sm text-foreground-muted">{placeholder}</p>
 				) : null}
 			</div>
 
@@ -50,7 +50,7 @@ export const FieldRadioGroup = ({
 							/>
 							<label
 								htmlFor={`${name}_${item.value.toLowerCase()}`}
-								className="ml-3 block text-sm font-medium text-gray-700 dark:text-white"
+								className="ml-3 block text-sm font-medium text-foreground"
 							>
 								{item.label}
 							</label>

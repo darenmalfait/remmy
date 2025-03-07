@@ -1,113 +1,83 @@
-const path = require('path')
-
 const remoteMain = require('@electron/remote/main')
-const { ipcMain, app, nativeTheme } = require('electron')
-const { menubar } = require('menubar')
+const { app, BrowserWindow, ipcMain, nativeTheme } = require('electron')
 const PDFParser = require('pdf2json')
-const { onFirstRunMaybe } = require('./first-run')
 
 remoteMain.initialize()
-
-const iconIdle = path.join(
-	__dirname,
-	'assets',
-	'images',
-	'tray-idleTemplate.png',
-)
-const iconActive = path.join(__dirname, 'assets', 'images', 'tray-active.png')
-
-const browserWindowOpts = {
-	width: 625,
-	height: 500,
-	minWidth: 625,
-	minHeight: 500,
-	resizable: false,
-	webPreferences: {
-		enableRemoteModule: true,
-		overlayScrollbars: true,
-		nodeIntegration: true,
-		contextIsolation: false,
-	},
-}
-
-const isDevMode = !app.isPackaged
-
-const delayedHideAppIcon = () => {
-	if (app.dock && app.dock.hide) {
-		// Setting a timeout because the showDockIcon is not currently working
-		// See more at https://github.com/maxogden/menubar/issues/306
-		setTimeout(() => {
-			app.dock.hide()
-		}, 1500)
+// Quit when all windows are closed.
+app.on('window-all-closed', () => {
+	// On OS X it is common for applications and their menu bar
+	// to stay active until the user quits explicitly with Cmd + Q
+	if (process.platform != 'darwin') {
+		app.quit()
 	}
-}
-
-app.on('ready', async () => {
-	await onFirstRunMaybe()
 })
 
-const menubarApp = menubar({
-	icon: iconIdle,
-	index: `file://${__dirname}/index.html`,
-	browserWindow: browserWindowOpts,
-	preloadWindow: true,
-})
+const isDev = !app.isPackaged
 
-menubarApp.on('before-load', () => {
-	remoteMain.enable(menubarApp.window.webContents)
-})
+let mainWindow
 
-menubarApp.on('ready', () => {
-	delayedHideAppIcon()
+const createWindow = () => {
+	// Create the browser window.
+	mainWindow = new BrowserWindow({
+		width: 800,
+		height: 600,
+		webPreferences: {
+			nodeIntegration: true, // Required for `require('electron')` in renderer
+			contextIsolation: false, // Required if `nodeIntegration` is enabled
+			sandbox: false,
+		},
+	})
 
-	menubarApp.tray.setIgnoreDoubleClickEvents(true)
-
-	// autoUpdater.checkForUpdatesAndNotify()
+	// Load the app
+	mainWindow.loadURL(`file://${__dirname}/index.html`)
+	remoteMain.enable(mainWindow.webContents)
 
 	nativeTheme.on('updated', () => {
 		if (nativeTheme.shouldUseDarkColors) {
-			menubarApp.window.webContents.send('update-native-theme', 'DARK')
+			mainWindow.webContents.send('update-native-theme', 'DARK')
 		} else {
-			menubarApp.window.webContents.send('update-native-theme', 'LIGHT')
+			mainWindow.webContents.send('update-native-theme', 'LIGHT')
 		}
 	})
 
-	if (isDevMode) {
-		menubarApp.window.webContents.openDevTools({ mode: 'detach' })
+	// Open the DevTools automatically if in development mode
+	if (isDev) {
+		mainWindow.webContents.openDevTools({ mode: 'detach' })
 	}
+}
 
-	function dropFileListener(_, files) {
-		menubarApp.showWindow()
-		menubarApp.window.webContents.send('file-drop', files)
+// This method will be called when Electron has finished
+// initialization and is ready to create browser windows.
+app.whenReady().then(createWindow)
+
+app.on('activate', () => {
+	// On OS X it's common to re-create a window in the app when the
+	// dock icon is clicked and there are no other windows open.
+	if (BrowserWindow.getAllWindows().length === 0) {
+		createWindow()
 	}
+})
 
-	menubarApp.tray.on('drop-files', dropFileListener)
+function dropFileListener(_, files) {
+	mainWindow.webContents.send('file-drop', files)
+}
 
-	ipcMain.on('reopen-window', () => menubarApp.showWindow())
-	ipcMain.on('app-quit', () => menubarApp.app.quit())
-	ipcMain.on('update-icon', (_, arg) => {
-		if (!menubarApp.tray.isDestroyed()) {
-			if (arg === 'TrayActive') {
-				menubarApp.tray.setImage(iconActive)
-			} else {
-				menubarApp.tray.setImage(iconIdle)
-			}
-		}
+ipcMain.on('dropped-file', dropFileListener)
+
+// PDF Parser functionality from the old file
+ipcMain.on('prefix-convert-pdf', (event, file_base_path) => {
+	const pdfParser = new PDFParser(null, 1)
+
+	pdfParser.on('pdfParser_dataError', (errData) => {
+		event.sender.send('prefix-pdf-converted-error', errData)
 	})
-	ipcMain.on('prefix-convert-pdf', (event, file_base_path) => {
-		const pdfParser = new PDFParser(null, 1)
 
-		pdfParser.on('pdfParser_dataError', (errData) => {
-			event.sender.send('prefix-pdf-converted-error', errData)
-		})
-
-		pdfParser.on('pdfParser_dataReady', (pdfData) => {
-			event.sender.send(
-				'prefix-pdf-converted',
-				pdfParser.getRawTextContent(pdfData),
-			)
-		})
-
-		pdfParser.loadPDF(file_base_path)
+	pdfParser.on('pdfParser_dataReady', (pdfData) => {
+		event.sender.send(
+			'prefix-pdf-converted',
+			pdfParser.getRawTextContent(pdfData),
+		)
 	})
+
+	pdfParser.loadPDF(file_base_path)
 })

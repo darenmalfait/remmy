@@ -28,8 +28,8 @@ function Option({
 					className,
 					'relative block cursor-pointer rounded-base px-6 py-4 shadow-sm focus:outline-none sm:flex sm:justify-between',
 					{
-						'bg-black/10 dark:bg-white/10': !checked,
-						'bg-primary': checked,
+						'bg-background-muted': !checked,
+						'bg-background': checked,
 						'border-muted ring-2 ring-success': active,
 					},
 				)
@@ -43,9 +43,7 @@ function Option({
 								as="p"
 								className={cx(
 									'font-bold',
-									checked
-										? 'text-white dark:text-black'
-										: 'text-black dark:text-white',
+									checked ? 'text-background' : 'text-foreground',
 								)}
 							>
 								{label}

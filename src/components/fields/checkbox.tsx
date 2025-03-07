@@ -22,16 +22,11 @@ export const FieldCheckbox = (props: IFieldCheckbox) => {
 			</div>
 
 			<div className="ml-3 text-sm">
-				<label
-					htmlFor={props.name}
-					className="font-medium text-gray-700 dark:text-gray-200"
-				>
+				<label htmlFor={props.name} className="font-medium text-foreground">
 					{props.label}
 				</label>
 				{props.placeholder ? (
-					<p className="text-gray-500 dark:text-gray-300">
-						{props.placeholder}
-					</p>
+					<p className="text-foreground-muted">{props.placeholder}</p>
 				) : null}
 			</div>
 		</div>

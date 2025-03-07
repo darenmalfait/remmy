@@ -1,5 +1,12 @@
 import * as remote from '@electron/remote'
-import { Button, Input, Paragraph } from '@nerdfish/ui'
+import {
+	Button,
+	ErrorDescription,
+	Field,
+	Input,
+	Label,
+	Paragraph,
+} from '@nerdfish/ui'
 import * as React from 'react'
 
 import {
@@ -68,27 +75,34 @@ function AddDestination({
 				<code className="text-foreground">/Users/daren/Downloads</code>
 			</Paragraph>
 			<div className="space-y-4">
-				<Input
-					inputSize="sm"
-					label="Alias"
-					value={name}
-					error={error?.name}
-					onChange={(e) => setName(e.target.value)}
-					name="new-destination-name"
-				/>
-				<div className="flex items-end space-x-2">
+				<Field>
+					<Label>Alias</Label>
 					<Input
 						inputSize="sm"
-						label="Path"
-						error={error?.path}
-						value={path}
-						onChange={(e) => setPath(e.target.value)}
-						name="new-destination-path"
-					>
-						<Button size="sm" variant="outline" onClick={onFolderSelect}>
-							Browse
-						</Button>
-					</Input>
+						value={name}
+						onChange={(e) => setName(e.target.value)}
+						name="new-destination-name"
+					/>
+					{error?.name ? (
+						<ErrorDescription>{error.name}</ErrorDescription>
+					) : null}
+				</Field>
+				<div className="flex items-end space-x-2">
+					<Field>
+						<Input
+							inputSize="sm"
+							value={path}
+							onChange={(e) => setPath(e.target.value)}
+							name="new-destination-path"
+						>
+							<Button size="sm" variant="outline" onClick={onFolderSelect}>
+								Browse
+							</Button>
+						</Input>
+						{error?.path ? (
+							<ErrorDescription>{error.path}</ErrorDescription>
+						) : null}
+					</Field>
 				</div>
 				<Button size="sm" variant="success" onClick={handleSave}>
 					Save destination
