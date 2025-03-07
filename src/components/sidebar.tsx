@@ -1,6 +1,8 @@
+/* eslint-disable @next/next/no-img-element */
 import path from 'path'
+import { Button } from '@nerdfish/ui'
 import { ipcRenderer } from 'electron'
-import { Cog, Folder, LogOut } from 'lucide-react'
+import { Cog, Folder, LogOutIcon } from 'lucide-react'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -12,17 +14,6 @@ function Sidebar() {
 	const navigate = useNavigate()
 	const { clearAddingFile } = useFileUpload()
 
-	const goToHome = React.useCallback(() => {
-		return navigate('/')
-	}, [navigate])
-
-	const quitApp = React.useCallback(() => {
-		ipcRenderer.send('app-quit')
-	}, [])
-
-	const footerButtonClasses =
-		'flex justify-evenly items-center bg-transparent border-0 w-full text-sm text-foreground hover:text-foreground-muted my-xs py-sm cursor-pointer  focus:outline-none'
-
 	return (
 		<div className="fixed left-14 top-0 -ml-14 flex h-full w-14 flex-col overflow-y-auto bg-background-muted">
 			<div className="flex flex-1 flex-col items-center py-4">
@@ -30,13 +21,13 @@ function Sidebar() {
 					src={logo}
 					alt="logo"
 					className="mx-auto my-3 w-10 cursor-pointer"
-					onClick={goToHome}
+					onClick={() => navigate('/')}
 				/>
 			</div>
 
 			<div className="px-3 py-4">
-				<button
-					className={footerButtonClasses}
+				<Button
+					variant="ghost"
 					onClick={() => {
 						clearAddingFile()
 						return navigate('/destinations')
@@ -44,9 +35,9 @@ function Sidebar() {
 					aria-label="Destination"
 				>
 					<Folder className="h-4 w-4" />
-				</button>
-				<button
-					className={footerButtonClasses}
+				</Button>
+				<Button
+					variant="ghost"
 					onClick={() => {
 						clearAddingFile()
 						return navigate('/settings')
@@ -54,14 +45,14 @@ function Sidebar() {
 					aria-label="Settings"
 				>
 					<Cog className="h-4 w-4" />
-				</button>
-				<button
-					className={footerButtonClasses}
-					onClick={quitApp}
+				</Button>
+				<Button
+					variant="ghost"
+					onClick={() => ipcRenderer.send('app-quit')}
 					aria-label="Quit App"
 				>
-					<LogOut className="h-3.5 w-3.5" />
-				</button>
+					<LogOutIcon className="h-3.5 w-3.5" />
+				</Button>
 			</div>
 		</div>
 	)

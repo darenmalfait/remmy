@@ -1,5 +1,7 @@
+/* eslint-disable @next/next/no-img-element */
 import * as path from 'path'
-import { H1 } from '@nerdfish/ui'
+import { Button, H1 } from '@nerdfish/ui'
+import { XIcon } from 'lucide-react'
 import * as React from 'react'
 
 import { Layout } from '../components/layout'
@@ -12,7 +14,7 @@ import { useFileUpload } from '../context/file-upload-provider'
 const img = path.join(__dirname, 'assets/images', 'drag-to-icon.gif')
 
 function IndexRoute() {
-	const { addingFile, onFileRenamed } = useFileUpload()
+	const { addingFile, onFileRenamed, clearAddingFile } = useFileUpload()
 	const { destinations } = useDestinations()
 
 	return (
@@ -25,7 +27,20 @@ function IndexRoute() {
 					</>
 				) : (
 					<>
-						<H1>Add a file</H1>
+						<div className="flex items-center justify-between">
+							<H1 variant="primary">Archive a file</H1>
+							{addingFile ? (
+								<Button
+									variant="ghost"
+									size="icon"
+									onClick={() => {
+										clearAddingFile()
+									}}
+								>
+									<XIcon className="size-4" />
+								</Button>
+							) : null}
+						</div>
 						{addingFile ? (
 							<FileModule file={addingFile} onDone={onFileRenamed} />
 						) : (

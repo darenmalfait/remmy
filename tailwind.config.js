@@ -9,8 +9,8 @@ module.exports = {
 		extend: {
 			fontFamily: {
 				fallback: [...defaultTheme.fontFamily.sans],
-				title: ['Cal Sans', ...defaultTheme.fontFamily.sans],
-				sans: ['Cal Sans', ...defaultTheme.fontFamily.sans],
+				sans: ['Geist Sans', ...defaultTheme.fontFamily.sans],
+				title: ['Geist Sans', ...defaultTheme.fontFamily.sans],
 			},
 			colors: {
 				twitter: '#1DA1F2',

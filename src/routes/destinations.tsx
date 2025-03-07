@@ -49,17 +49,13 @@ function DestinationItem(destination: Destination) {
 						default
 					</Badge>
 				) : (
-					<Badge
-						variant="secondary"
-						className="cursor-pointer"
-						onClick={setAsDefault}
-					>
+					<Button variant="secondary" size="sm" onClick={setAsDefault}>
 						set default
-					</Badge>
+					</Button>
 				)}
-				<button onClick={onDelete}>
-					<Trash className="h-3 w-3 text-danger" />
-				</button>
+				<Button variant="danger" size="iconSm" onClick={onDelete}>
+					<Trash className="size-4" />
+				</Button>
 			</div>
 		</li>
 	)

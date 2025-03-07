@@ -1,5 +1,6 @@
+import { Button } from '@nerdfish/ui'
 import { cx } from '@nerdfish/utils'
-import { ArrowLeft } from 'lucide-react'
+import { XIcon } from 'lucide-react'
 import * as React from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -27,15 +28,17 @@ function Layout({
 		<div className={cx('flex flex-col space-y-4 p-8', className)} {...props}>
 			{title ? (
 				<div className="flex items-center justify-between">
-					<button
-						className="focus:outline-none"
+					<h3 className="text-lg font-semibold">{title}</h3>
+
+					<Button
+						variant="ghost"
+						size="icon"
+						className="-mr-md"
 						aria-label="Go Back"
 						onClick={() => navigate('/')}
 					>
-						<ArrowLeft className="h-5 w-5 hover:text-foreground-muted" />
-					</button>
-
-					<h3 className="text-lg font-semibold">{title}</h3>
+						<XIcon className="size-4" />
+					</Button>
 				</div>
 			) : null}
 

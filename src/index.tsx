@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 
 import '@nerdfish/theme/dist/nerdfishui.css'
 import './styles/main.css'
+import './styles/fonts.css'
 
 import { App } from './app'
 
