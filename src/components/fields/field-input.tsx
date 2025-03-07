@@ -31,7 +31,7 @@ export const FieldInput: React.FC<IProps> = ({
 
 					<input
 						type={type}
-						className="border-red text-secondary mb-2 block w-full appearance-none rounded border bg-muted px-4 py-1.5 focus:outline-none"
+						className="border-red mb-2 block w-full appearance-none rounded border bg-muted px-4 py-1.5 text-foreground-muted focus:outline-none"
 						id={input.name}
 						placeholder={placeholder}
 						required={required}
@@ -39,7 +39,7 @@ export const FieldInput: React.FC<IProps> = ({
 					/>
 
 					{helpText ? (
-						<div className="mt-3 text-xs text-muted">{helpText}</div>
+						<div className="mt-3 text-xs text-foreground-muted">{helpText}</div>
 					) : null}
 
 					{touched && error ? (

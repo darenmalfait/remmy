@@ -17,9 +17,9 @@ function NamePreview({
 	const { settings } = useSettings()
 
 	return (
-		<div className="rounded-base bg-background-muted p-4">
-			<p>Your file will look like this:</p>
-			<code>
+		<div className="rounded-base border border-info bg-info-muted p-md text-info-foreground">
+			<p className="m-0">Your file will look like this:</p>
+			<code className="bg-info-accent text-background">
 				{rename({
 					extension,
 					date,

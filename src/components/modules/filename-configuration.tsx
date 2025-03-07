@@ -91,7 +91,7 @@ const OptionSelector = React.forwardRef<
 			<PopoverContent className="w-full min-w-[200px] p-0">
 				<Command>
 					<CommandList>
-						<CommandGroup>
+						<CommandGroup className="!p-0">
 							{items.map((item) => (
 								<CommandItem
 									key={item.value}
@@ -107,7 +107,10 @@ const OptionSelector = React.forwardRef<
 								</CommandItem>
 							))}
 							{onRemove ? (
-								<CommandItem onSelect={handleRemove} className="text-red-400">
+								<CommandItem
+									onSelect={handleRemove}
+									className="text-danger-foreground"
+								>
 									<Trash className="mr-2 h-4 w-4" />
 									Remove
 								</CommandItem>
@@ -231,7 +234,7 @@ function AddNewSection({ onSelect }: { onSelect: (value: string) => void }) {
 			<PopoverContent className="w-full min-w-[200px] p-0">
 				<Command>
 					<CommandList>
-						<CommandGroup>
+						<CommandGroup className="!p-0">
 							{Object.keys(ComponentMap).map((key) => (
 								<CommandItem key={key} onSelect={onSelect}>
 									{key}

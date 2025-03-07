@@ -1,4 +1,4 @@
-import { Field, Input, Label } from '@nerdfish/ui'
+import { Description, Field, Input, Label } from '@nerdfish/ui'
 import * as React from 'react'
 
 import { useSettings } from '../../context/settings-provider'
@@ -21,29 +21,39 @@ function FilenameFormat() {
 			/>
 
 			<Field>
-				<Label>
+				<Label htmlFor="textSeparator">
 					Text separator
-					<Input
-						name="textSeparator"
-						onChange={(event) => {
-							updateSetting('textSeparator', event.target.value)
-						}}
-						defaultValue={settings.textSeparator}
-					/>
+					<Description>
+						Use this separator to separate within the same block of text
+					</Description>
 				</Label>
+
+				<Input
+					id="textSeparator"
+					name="textSeparator"
+					onChange={(event) => {
+						updateSetting('textSeparator', event.target.value)
+					}}
+					defaultValue={settings.textSeparator}
+				/>
 			</Field>
 
 			<Field>
-				<Label>
+				<Label htmlFor="defaultSeparator">
 					Default separator
-					<Input
-						name="defaultSeparator"
-						defaultValue={settings.defaultSeparator}
-						onChange={(event) => {
-							updateSetting('defaultSeparator', event.target.value)
-						}}
-					/>
+					<Description>
+						Use this separator to separate blocks of text
+					</Description>
 				</Label>
+
+				<Input
+					id="defaultSeparator"
+					name="defaultSeparator"
+					defaultValue={settings.defaultSeparator}
+					onChange={(event) => {
+						updateSetting('defaultSeparator', event.target.value)
+					}}
+				/>
 			</Field>
 		</Section>
 	)

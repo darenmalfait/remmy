@@ -29,7 +29,7 @@ function Option({
 					'relative block cursor-pointer rounded-base px-6 py-4 shadow-sm focus:outline-none sm:flex sm:justify-between',
 					{
 						'bg-background-muted': !checked,
-						'bg-background': checked,
+						'bg-foreground': checked,
 						'border-muted ring-2 ring-success': active,
 					},
 				)

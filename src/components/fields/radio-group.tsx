@@ -29,19 +29,19 @@ export const FieldRadioGroup = ({
 			</div>
 
 			<div
-				className="flex items-center space-x-4 py-2"
+				className="flex items-center space-x-md py-sm"
 				role="group"
 				aria-labelledby={name}
 			>
 				{options.map((item) => {
 					return (
 						<div
-							className="mt-1 flex items-center"
+							className="mt-xs flex items-center"
 							key={`radio_item_${item.value.toLowerCase()}`}
 						>
 							<input
 								type="radio"
-								className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
+								className="h-4 w-4 border-muted text-foreground focus:ring-success"
 								id={`${name}_${item.value.toLowerCase()}`}
 								name={name}
 								value={item.value}

@@ -21,7 +21,7 @@ function Sidebar() {
 	}, [])
 
 	const footerButtonClasses =
-		'flex justify-evenly items-center bg-transparent border-0 w-full text-sm text-foreground my-1 py-2 cursor-pointer hover:text-gray-500 focus:outline-none'
+		'flex justify-evenly items-center bg-transparent border-0 w-full text-sm text-foreground hover:text-foreground-muted my-xs py-sm cursor-pointer  focus:outline-none'
 
 	return (
 		<div className="fixed left-14 top-0 -ml-14 flex h-full w-14 flex-col overflow-y-auto bg-background-muted">

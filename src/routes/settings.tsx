@@ -1,6 +1,7 @@
 import {
 	Alert,
 	Checkbox,
+	Description,
 	Field,
 	Input,
 	Label,
@@ -38,10 +39,7 @@ function SettingsRoute() {
 					<TabsTrigger value="files">Files</TabsTrigger>
 					<TabsTrigger value="about">About</TabsTrigger>
 				</TabsList>
-				<TabsContent
-					value="appearance"
-					className="bg-transparent shadow-outline"
-				>
+				<TabsContent value="appearance" className="bg-transparent">
 					<Section>
 						<h4 className="font-semibold">Theme</h4>
 						<RadioGroup
@@ -58,7 +56,7 @@ function SettingsRoute() {
 						</RadioGroup>
 					</Section>
 				</TabsContent>
-				<TabsContent value="files" className="bg-transparent shadow-outline">
+				<TabsContent value="files" className="bg-transparent">
 					<Section>
 						<h2>Format</h2>
 						<FilenameFormat />
@@ -72,7 +70,10 @@ function SettingsRoute() {
 									updateSetting('ocrEnabled', event.target.checked)
 								}
 							/>
-							<Label className="flex items-center pl-2" htmlFor="ocrEnabled">
+							<Label
+								className="!mt-0 flex items-center pl-sm"
+								htmlFor="ocrEnabled"
+							>
 								Enable file analysis
 							</Label>
 						</Field>
@@ -88,7 +89,7 @@ function SettingsRoute() {
 										}
 									/>
 									<Label
-										className="flex items-center pl-2"
+										className="!mt-0 flex items-center pl-sm"
 										htmlFor="vatLookupEnabled"
 									>
 										Lookup VAT numbers
@@ -97,16 +98,19 @@ function SettingsRoute() {
 
 								{settings.vatLookupEnabled ? (
 									<Field>
-										<Label>
-											Your VAT Number
-											<Input
-												name="ownVatNumber"
-												value={settings.ownVatNumber}
-												onChange={(event) =>
-													updateSetting('ownVatNumber', event.target.value)
-												}
-											/>
-										</Label>
+										<Label htmlFor="ownVatNumber">Your VAT Number</Label>
+										<Description>
+											Enter your own VAT number to ignore this from invoices
+										</Description>
+
+										<Input
+											id="ownVatNumber"
+											name="ownVatNumber"
+											value={settings.ownVatNumber}
+											onChange={(event) =>
+												updateSetting('ownVatNumber', event.target.value)
+											}
+										/>
 									</Field>
 								) : null}
 
@@ -118,7 +122,7 @@ function SettingsRoute() {
 						) : null}
 					</Section>
 				</TabsContent>
-				<TabsContent value="about" className="bg-transparent shadow-outline">
+				<TabsContent value="about" className="bg-transparent">
 					<About />
 				</TabsContent>
 			</Tabs>

@@ -109,16 +109,17 @@ function FileActions({
 			<form noValidate onSubmit={handleSubmit} onChange={onFormChange}>
 				<fieldset className="space-y-4">
 					<Field>
-						<Label>
-							Date
-							<DateTimePicker
-								defaultValue={values.date}
-								onChange={(value) => setValues({ ...values, date: value })}
-							/>
-							{result?.errors?.date ? (
-								<ErrorDescription>{result.errors.date}</ErrorDescription>
-							) : null}
-						</Label>
+						<Label htmlFor="date">Date</Label>
+
+						<DateTimePicker
+							id="date"
+							name="date"
+							defaultValue={values.date}
+							onChange={(value) => setValues({ ...values, date: value })}
+						/>
+						{result?.errors?.date ? (
+							<ErrorDescription>{result.errors.date}</ErrorDescription>
+						) : null}
 						<input
 							type="hidden"
 							name="date"
@@ -127,40 +128,43 @@ function FileActions({
 					</Field>
 
 					<Field>
-						<Label>
-							Description
-							<Input
-								name="description"
-								defaultValue={values.description}
-								type="text"
-							/>
-						</Label>
+						<Label htmlFor="description">Description</Label>
+
+						<Input
+							id="description"
+							name="description"
+							defaultValue={values.description}
+							type="text"
+						/>
 					</Field>
 
 					<Field>
-						<Label>
-							Detail
-							<Input name="detail" defaultValue={values.detail} type="text" />
-						</Label>
+						<Label htmlFor="detail">Detail</Label>
+
+						<Input
+							id="detail"
+							name="detail"
+							defaultValue={values.detail}
+							type="text"
+						/>
 					</Field>
 
 					<Field>
-						<Label>
-							Destination
-							<Select
-								name="destination"
-								defaultValue={destination}
-								onValueChange={(value) => setDestination(value)}
-							>
-								<SelectContent>
-									{destinations.map((d) => (
-										<SelectItem key={d.id} value={d.id}>
-											{d.name}
-										</SelectItem>
-									))}
-								</SelectContent>
-							</Select>
-						</Label>
+						<Label htmlFor="destination">Destination</Label>
+
+						<Select
+							name="destination"
+							defaultValue={destination}
+							onValueChange={(value) => setDestination(value)}
+						>
+							<SelectContent>
+								{destinations.map((d) => (
+									<SelectItem key={d.id} value={d.id}>
+										{d.name}
+									</SelectItem>
+								))}
+							</SelectContent>
+						</Select>
 					</Field>
 
 					<NamePreview

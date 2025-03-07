@@ -32,7 +32,7 @@ function Layout({
 						aria-label="Go Back"
 						onClick={() => navigate('/')}
 					>
-						<ArrowLeft className="h-5 w-5 hover:text-gray-400" />
+						<ArrowLeft className="h-5 w-5 hover:text-foreground-muted" />
 					</button>
 
 					<h3 className="text-lg font-semibold">{title}</h3>

@@ -10,12 +10,12 @@ interface IFieldCheckbox {
 
 export const FieldCheckbox = (props: IFieldCheckbox) => {
 	return (
-		<div className="mb-3 mt-1 flex items-start">
+		<div className="mb-md mt-xs flex items-start">
 			<div className="flex h-5 items-center">
 				<input
 					type="checkbox"
 					id={props.name}
-					className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+					className="h-4 w-4 rounded border-muted text-foreground focus:ring-success"
 					checked={props.checked}
 					onChange={props.onChange}
 				/>
