@@ -3,17 +3,16 @@ import * as path from 'path'
 import { Button, H1 } from '@nerdfish/ui'
 import { XIcon } from 'lucide-react'
 import * as React from 'react'
-
-import { Layout } from '../components/layout'
-import { AddDestination } from '../components/modules/add-destination'
-import { FileModule } from '../components/modules/file-module'
-import { Section } from '../components/section'
-import { useDestinations } from '../context/destinations-provider'
-import { useFileUpload } from '../context/file-upload-provider'
+import { Layout } from './components/layout'
+import { AddDestination } from './components/modules/add-destination'
+import { FileModule } from './components/modules/file-module'
+import { Section } from './components/section'
+import { useFileUpload } from './context/file-upload-provider'
+import { useDestinations } from './destinations/destinations-provider'
 
 const img = path.join(__dirname, 'assets/images', 'drag-to-icon.gif')
 
-function IndexRoute() {
+function HomePage() {
 	const { addingFile, onFileRenamed, clearAddingFile } = useFileUpload()
 	const { destinations } = useDestinations()
 
@@ -60,4 +59,4 @@ function IndexRoute() {
 	)
 }
 
-export { IndexRoute }
+export { HomePage }

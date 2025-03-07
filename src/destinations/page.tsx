@@ -14,10 +14,7 @@ import * as React from 'react'
 import { Layout } from '../components/layout'
 import { AddDestination } from '../components/modules/add-destination'
 import { Section } from '../components/section'
-import {
-	type Destination,
-	useDestinations,
-} from '../context/destinations-provider'
+import { type Destination, useDestinations } from './destinations-provider'
 
 function DestinationItem(destination: Destination) {
 	const { removeDestination, setDefaultDestination } = useDestinations()
@@ -61,7 +58,7 @@ function DestinationItem(destination: Destination) {
 	)
 }
 
-function DestinationsRoute() {
+function DestinationsPage() {
 	const { destinations } = useDestinations()
 	const [isAdding, setIsAdding] = React.useState<boolean>(false)
 
@@ -109,4 +106,4 @@ function DestinationsRoute() {
 	)
 }
 
-export { DestinationsRoute }
+export { DestinationsPage }

@@ -1,12 +1,11 @@
 import { H2 } from '@nerdfish/ui'
 import { extractDateFromText } from 'extract-date-js'
 import * as React from 'react'
-
 import { useFileUpload } from '../../context/file-upload-provider'
-import { useSettings } from '../../context/settings-provider'
 import { checkVat } from '../../lib/services/vat'
 import { getVATNumberFromText, ocr } from '../../lib/utils/ocr'
 import { transformName } from '../../lib/utils/string'
+import { useSettings } from '../../settings/settings-provider'
 import { FileActions } from './file-actions'
 
 function FileModule({ file, onDone }: { file: string; onDone: () => void }) {

@@ -1,9 +1,8 @@
 import { ThemeProvider as DarenThemeProvider } from '@nerdfish/theme'
 import * as React from 'react'
-
-import { DestinationsProvider } from './destinations-provider'
-import { FileUploadProvider } from './file-upload-provider'
-import { SettingsProvider } from './settings-provider'
+import { FileUploadProvider } from './context/file-upload-provider'
+import { DestinationsProvider } from './destinations/destinations-provider'
+import { SettingsProvider } from './settings/settings-provider'
 
 interface AppProvidersProps {
 	children: React.ReactNode

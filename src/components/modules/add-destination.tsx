@@ -8,12 +8,11 @@ import {
 	Paragraph,
 } from '@nerdfish/ui'
 import * as React from 'react'
-
 import {
 	type Destination,
 	type DestinationActionResult,
 	useDestinations,
-} from '../../context/destinations-provider'
+} from '../../destinations/destinations-provider'
 import { Section } from '../section'
 
 function AddDestination({

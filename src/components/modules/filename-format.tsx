@@ -1,7 +1,7 @@
 import { Description, Field, Input, Label } from '@nerdfish/ui'
 import * as React from 'react'
 
-import { useSettings } from '../../context/settings-provider'
+import { useSettings } from '../../settings/settings-provider'
 import { NamePreview } from '../name-preview'
 import { Section } from '../section'
 import { FilenameConfiguration } from './filename-configuration'

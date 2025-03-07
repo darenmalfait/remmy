@@ -1,7 +1,6 @@
 import path from 'path'
-
-import { type Destination } from '../../context/destinations-provider'
-import { type SettingsState } from '../../context/settings-provider'
+import { type Destination } from '../../destinations/destinations-provider'
+import { type SettingsState } from '../../settings/settings-provider'
 import { Constants } from './constants'
 
 function getAppDataPath() {

@@ -10,13 +10,12 @@ import {
 	SelectItem,
 } from '@nerdfish/ui'
 import * as React from 'react'
-
-import { useDestinations } from '../../context/destinations-provider'
-import { useSettings } from '../../context/settings-provider'
+import { useDestinations } from '../../destinations/destinations-provider'
 import { moveFile } from '../../lib/utils/file'
 import { rename } from '../../lib/utils/filename'
 import { useSubmit } from '../../lib/utils/form'
 import { addTrailingSlash, transformName } from '../../lib/utils/string'
+import { useSettings } from '../../settings/settings-provider'
 import { NamePreview } from '../name-preview'
 import { Section } from '../section'
 

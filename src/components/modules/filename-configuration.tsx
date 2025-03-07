@@ -16,8 +16,7 @@ import { AnimatePresence, Reorder } from 'framer-motion'
 import { Calendar, Check, ChevronsUpDown, Plus, Trash } from 'lucide-react'
 import * as React from 'react'
 import * as uuid from 'uuid'
-
-import { useSettings } from '../../context/settings-provider'
+import { useSettings } from '../../settings/settings-provider'
 
 const OptionSelector = React.forwardRef<
 	HTMLInputElement,

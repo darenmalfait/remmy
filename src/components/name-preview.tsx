@@ -1,7 +1,6 @@
 import * as React from 'react'
-
-import { useSettings } from '../context/settings-provider'
 import { rename } from '../lib/utils/filename'
+import { useSettings } from '../settings/settings-provider'
 
 function NamePreview({
 	extension,

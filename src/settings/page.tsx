@@ -12,17 +12,16 @@ import {
 } from '@nerdfish/ui'
 import { ipcRenderer } from 'electron'
 import * as React from 'react'
-
 import { Layout } from '../components/layout'
 import { About } from '../components/modules/about'
 import { FilenameFormat } from '../components/modules/filename-format'
-import { RadioGroup } from '../components/radio-group'
 import { Section } from '../components/section'
-import { useSettings } from '../context/settings-provider'
 import { setAppearance } from '../lib/utils/appearance'
 import { Appearance } from '../types'
+import { AppearanceForm } from './forms/appearance-form'
+import { useSettings } from './settings-provider'
 
-function SettingsRoute() {
+function SettingsPage() {
 	const { settings, updateSetting } = useSettings()
 
 	ipcRenderer.on('update-native-theme', (_, updatedAppearance: Appearance) => {
@@ -42,18 +41,11 @@ function SettingsRoute() {
 				<TabsContent value="appearance" className="bg-transparent">
 					<Section>
 						<h4 className="font-semibold">Theme</h4>
-						<RadioGroup
-							name="appearance"
-							label="Appearance"
-							value={settings.appearance}
-							onChange={(event) => {
-								updateSetting('appearance', event)
+						<AppearanceForm
+							onUpdate={(values) => {
+								updateSetting('appearance', values.appearance)
 							}}
-						>
-							<RadioGroup.Option value={Appearance.SYSTEM} label="System" />
-							<RadioGroup.Option value={Appearance.LIGHT} label="Light" />
-							<RadioGroup.Option value={Appearance.DARK} label="Dark" />
-						</RadioGroup>
+						/>
 					</Section>
 				</TabsContent>
 				<TabsContent value="files" className="bg-transparent">
@@ -130,4 +122,4 @@ function SettingsRoute() {
 	)
 }
 
-export { SettingsRoute }
+export { SettingsPage }
