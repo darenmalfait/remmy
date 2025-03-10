@@ -1,4 +1,5 @@
 import { ThemeProvider as DarenThemeProvider } from '@nerdfish/theme'
+import { TooltipProvider } from '@nerdfish/ui'
 import * as React from 'react'
 import { FileUploadProvider } from './context/file-upload-provider'
 import { DestinationsProvider } from './destinations/destinations-provider'
@@ -10,13 +11,15 @@ interface AppProvidersProps {
 
 function AppProviders({ children }: AppProvidersProps) {
 	return (
-		<SettingsProvider>
-			<DestinationsProvider>
-				<FileUploadProvider>
-					<DarenThemeProvider>{children}</DarenThemeProvider>
-				</FileUploadProvider>
-			</DestinationsProvider>
-		</SettingsProvider>
+		<TooltipProvider>
+			<SettingsProvider>
+				<DestinationsProvider>
+					<FileUploadProvider>
+						<DarenThemeProvider>{children}</DarenThemeProvider>
+					</FileUploadProvider>
+				</DestinationsProvider>
+			</SettingsProvider>
+		</TooltipProvider>
 	)
 }
 

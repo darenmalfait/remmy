@@ -8,6 +8,9 @@ import {
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
+	Tooltip,
+	TooltipContent,
+	TooltipTrigger,
 } from '@nerdfish/ui'
 import { Trash } from 'lucide-react'
 import * as React from 'react'
@@ -37,9 +40,16 @@ function DestinationItem(destination: Destination) {
 				<p className="text-sm font-medium text-foreground">
 					{destination.name}
 				</p>
-				<p className="max-w-full truncate text-sm text-foreground-secondary">
-					{destination.path}
-				</p>
+				<Tooltip>
+					<TooltipTrigger>
+						<p className="max-w-full truncate text-sm text-foreground-secondary">
+							{destination.path}
+						</p>
+					</TooltipTrigger>
+					<TooltipContent>
+						<p>{destination.path}</p>
+					</TooltipContent>
+				</Tooltip>
 			</div>
 			<div className="flex items-center space-x-2">
 				{destination.isDefault ? (
