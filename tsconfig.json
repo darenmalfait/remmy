@@ -1,18 +1,9 @@
 {
+	"extends": "@nerdfish/config/typescript",
 	"compilerOptions": {
-		"module": "es6",
-		"moduleResolution": "node",
-		"target": "es5",
-		"outDir": "./build/",
-		"sourceMap": true,
-		"noImplicitAny": false,
-		"noUnusedLocals": true,
-		"jsx": "react",
-		"allowJs": true,
-		"allowSyntheticDefaultImports": true,
-		"esModuleInterop": true,
-		"strictNullChecks": true,
-		"skipLibCheck": true
+		"allowImportingTsExtensions": false,
+		"noEmit": false,
+		"outDir": "./build/"
 	},
 	"ts-node": {
 		"esm": true,

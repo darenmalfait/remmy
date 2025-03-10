@@ -1,5 +1,5 @@
 import path from 'path'
-import { type Destination } from '../../destinations/destinations-provider'
+import { type Destination } from '../../destinations/types'
 import { type SettingsState } from '../../settings/settings-provider'
 import { Constants } from './constants'
 

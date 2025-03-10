@@ -283,8 +283,10 @@ function FilenameConfiguration() {
 									}}
 									onChange={(value) => {
 										const newFormat = [...filenameConfiguration]
-										newFormat[index].value = value
-										updateSetting('filenameConfiguration', newFormat)
+										if (newFormat[index]) {
+											newFormat[index].value = value
+											updateSetting('filenameConfiguration', newFormat)
+										}
 									}}
 								/>
 							</Reorder.Item>
@@ -298,7 +300,10 @@ function FilenameConfiguration() {
 						...filenameConfiguration,
 						{
 							type: value,
-							value: defaultFilenameSettings[value],
+							value:
+								defaultFilenameSettings[
+									value as keyof typeof defaultFilenameSettings
+								],
 							id: uuid.v4(),
 						},
 					])

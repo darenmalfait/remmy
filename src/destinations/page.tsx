@@ -4,17 +4,18 @@ import {
 	Button,
 	Dialog,
 	DialogContent,
+	DialogDescription,
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
 } from '@nerdfish/ui'
 import { Trash } from 'lucide-react'
 import * as React from 'react'
-
 import { Layout } from '../components/layout'
-import { AddDestination } from '../components/modules/add-destination'
 import { Section } from '../components/section'
-import { type Destination, useDestinations } from './destinations-provider'
+import { useDestinations } from './destinations-provider'
+import { DestinationForm } from './forms/destination-form'
+import { type Destination } from './types'
 
 function DestinationItem(destination: Destination) {
 	const { removeDestination, setDefaultDestination } = useDestinations()
@@ -81,7 +82,7 @@ function DestinationsPage() {
 					</Section>
 				) : (
 					<Section>
-						<ul className="divide-y divide-gray-200">
+						<ul className="divide-y divide-muted">
 							{destinations.map((destination) => (
 								<DestinationItem key={destination.id} {...destination} />
 							))}
@@ -94,9 +95,13 @@ function DestinationsPage() {
 				<DialogContent className="sm:max-w-[425px]">
 					<DialogHeader>
 						<DialogTitle>Add destination path</DialogTitle>
+						<DialogDescription>
+							Add a destination path to where your documents get moved after
+							renaming.
+						</DialogDescription>
 					</DialogHeader>
-					<AddDestination
-						onSave={() => {
+					<DestinationForm
+						onSubmit={() => {
 							setIsAdding(false)
 						}}
 					/>

@@ -24,7 +24,7 @@ function reOpenWindow(): void {
 	ipcRenderer.send('reopen-window')
 }
 
-function restoreSetting(setting, value): void {
+function restoreSetting(setting: string, value: any): void {
 	ipcRenderer.send(setting, value)
 }
 

@@ -4,11 +4,11 @@ import { Button, H1 } from '@nerdfish/ui'
 import { XIcon } from 'lucide-react'
 import * as React from 'react'
 import { Layout } from './components/layout'
-import { AddDestination } from './components/modules/add-destination'
 import { FileModule } from './components/modules/file-module'
 import { Section } from './components/section'
 import { useFileUpload } from './context/file-upload-provider'
 import { useDestinations } from './destinations/destinations-provider'
+import { DestinationForm } from './destinations/forms/destination-form'
 
 const img = path.join(__dirname, 'assets/images', 'drag-to-icon.gif')
 
@@ -22,7 +22,7 @@ function HomePage() {
 				{destinations.length === 0 ? (
 					<>
 						<H1>Start by adding a destination</H1>
-						<AddDestination />
+						<DestinationForm />
 					</>
 				) : (
 					<>

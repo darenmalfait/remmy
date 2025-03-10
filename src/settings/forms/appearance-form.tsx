@@ -5,6 +5,7 @@ import {
 	FormField,
 	FormItem,
 	FormLabel,
+	FormMessage,
 	Label,
 	RadioGroup,
 	RadioGroupField,
@@ -77,6 +78,7 @@ export function AppearanceForm({
 									</RadioGroupField>
 								</RadioGroup>
 							</FormControl>
+							<FormMessage />
 						</FormItem>
 					)}
 				/>

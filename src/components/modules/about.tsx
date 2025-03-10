@@ -5,7 +5,7 @@ import * as React from 'react'
 import { Section } from '../section'
 
 function About() {
-	const navigateTo = React.useCallback(async (src) => {
+	const navigateTo = React.useCallback(async (src: string) => {
 		await shell.openExternal(src)
 	}, [])
 

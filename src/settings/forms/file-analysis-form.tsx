@@ -6,6 +6,7 @@ import {
 	FormField,
 	FormItem,
 	FormLabel,
+	FormMessage,
 	Input,
 	Switch,
 } from '@nerdfish/ui'
@@ -73,6 +74,7 @@ export function FileAnalysisForm({
 									/>
 								</FormControl>
 							</FormLabel>
+							<FormMessage />
 						</FormItem>
 					)}
 				/>
@@ -94,6 +96,7 @@ export function FileAnalysisForm({
 										/>
 									</FormControl>
 								</FormLabel>
+								<FormMessage />
 							</FormItem>
 						)}
 					/>
@@ -115,6 +118,7 @@ export function FileAnalysisForm({
 								<FormControl>
 									<Input {...field} />
 								</FormControl>
+								<FormMessage />
 							</FormItem>
 						)}
 					/>
