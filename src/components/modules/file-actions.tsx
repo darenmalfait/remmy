@@ -57,7 +57,7 @@ function FileActions({
 		},
 	)
 	const [destination, setDestination] = React.useState<string>(
-		destinations.find((d) => d.isDefault)?.id ?? (destinations[0]?.id || ''),
+		destinations.find((d) => d.isDefault)?.id ?? destinations[0]?.id ?? '',
 	)
 	const { result, getFormValues } = useSubmit<{
 		status: 'success' | 'error'
