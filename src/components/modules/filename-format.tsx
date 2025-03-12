@@ -1,10 +1,10 @@
 import { Description, Field, Input, Label } from '@nerdfish/ui'
 import * as React from 'react'
 
+import { FilenameConfiguration } from '../../file-rename/components/filename-configuration'
+import { FilenamePreview } from '../../file-rename/components/filename-preview'
 import { useSettings } from '../../settings/settings-provider'
-import { NamePreview } from '../name-preview'
 import { Section } from '../section'
-import { FilenameConfiguration } from './filename-configuration'
 
 function FilenameFormat() {
 	const { settings, updateSetting } = useSettings()
@@ -13,7 +13,7 @@ function FilenameFormat() {
 		<Section>
 			<FilenameConfiguration />
 
-			<NamePreview
+			<FilenamePreview
 				date={new Date()}
 				description="example document"
 				extension="pdf"

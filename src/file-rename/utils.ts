@@ -1,6 +1,18 @@
-import { defaultFilenameSettings } from '../../components/modules/filename-configuration'
-import { type FilenameConfiguration } from '../../types'
-import { padZero, transformName } from './string'
+import fs from 'fs'
+import path from 'path'
+import { padZero } from '../lib/utils/string'
+import { type FilenameConfiguration } from '../types'
+import { defaultFilenameSettings } from './components/filename-configuration'
+
+export function transformName(
+	str: string,
+	separator = defaultFilenameSettings.textSeparator,
+) {
+	return str
+		.replace(/[^a-zA-Z0-9]/g, separator)
+		.replace(new RegExp(`${separator}{2,}`, 'g'), separator)
+		.replace(new RegExp(`^${separator}|${separator}$`, 'g'), '')
+}
 
 function formatDate(date?: Date, format?: string) {
 	if (!date || !format) return ''
@@ -35,7 +47,7 @@ function formatDate(date?: Date, format?: string) {
 	return dateStr
 }
 
-function rename({
+export function rename({
 	extension = 'pdf',
 	date,
 	description,
@@ -86,4 +98,27 @@ function rename({
 	return extension ? `${fileName}.${extension}` : fileName
 }
 
-export { rename }
+export function moveFile(from: string, to: string) {
+	const fromPath = path.resolve(from)
+	const toPath = path.resolve(to)
+
+	if (!fs.existsSync(fromPath)) {
+		console.error('File source does not exist')
+		return false
+	}
+
+	const toPathFolder = path.dirname(toPath)
+	if (!fs.existsSync(toPathFolder)) {
+		console.error('File destination does not exist')
+		return false
+	}
+
+	fs.rename(fromPath, toPath, (error) => {
+		if (error) {
+			console.error(error.message)
+			return false
+		}
+	})
+
+	return true
+}

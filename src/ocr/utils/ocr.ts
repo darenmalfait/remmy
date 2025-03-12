@@ -1,8 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import { ipcRenderer } from 'electron'
-
-import { getAppDataPath } from './storage'
+import { getAppDataPath } from '../../storage/utils'
 
 async function ocr(filePath: string): Promise<string | undefined> {
 	return new Promise<string>(async (resolve) => {

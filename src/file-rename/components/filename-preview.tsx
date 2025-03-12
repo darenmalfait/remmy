@@ -1,8 +1,7 @@
-import * as React from 'react'
-import { rename } from '../lib/utils/filename'
-import { useSettings } from '../settings/settings-provider'
+import { useSettings } from '../../settings/settings-provider'
+import { rename } from '../utils'
 
-function NamePreview({
+function FilenamePreview({
 	extension,
 	description,
 	detail,
@@ -32,4 +31,4 @@ function NamePreview({
 	)
 }
 
-export { NamePreview }
+export { FilenamePreview }

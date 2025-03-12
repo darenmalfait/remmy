@@ -1,8 +1,8 @@
 import fs from 'fs'
 import * as React from 'react'
 import * as uuid from 'uuid'
-import { loadDestinations, saveDestinations } from '../lib/utils/storage'
 import { type Destination } from './types'
+import { loadDestinations, saveDestinations } from './utils'
 
 export type DestinationActionResult = {
 	status: 'success' | 'error' | string

@@ -1,4 +1,4 @@
-import { getVATNumberFromText, getVATNumbers } from '../../lib/utils/ocr'
+import { getVATNumberFromText, getVATNumbers } from './ocr'
 
 const mockedText = `
 z U OO A

@@ -2,13 +2,12 @@
 import * as path from 'path'
 import { Button, H1 } from '@nerdfish/ui'
 import { XIcon } from 'lucide-react'
-import * as React from 'react'
 import { Layout } from './components/layout'
-import { FileModule } from './components/modules/file-module'
 import { Section } from './components/section'
 import { useFileUpload } from './context/file-upload-provider'
 import { useDestinations } from './destinations/destinations-provider'
 import { DestinationForm } from './destinations/forms/destination-form'
+import { FileModule } from './file-rename/file-module'
 
 const img = path.join(__dirname, 'assets/images', 'drag-to-icon.gif')
 

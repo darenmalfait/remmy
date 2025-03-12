@@ -1,9 +1,8 @@
 import path from 'path'
-import { type Destination } from '../../destinations/types'
-import { type SettingsState } from '../../settings/settings-provider'
-import { Constants } from './constants'
 
-function getAppDataPath() {
+export const STORAGE_KEY_SETTINGS = 'remmy-settings'
+
+export function getAppDataPath() {
 	switch (process.platform) {
 		case 'darwin': {
 			return path.join(
@@ -50,44 +49,15 @@ function getAppDataPath() {
 	}
 }
 
-function saveLocal(key: string, value: any): void {
+export function saveLocal(key: string, value: any): void {
 	localStorage.setItem(key, JSON.stringify(value))
 }
 
-function loadLocal(key: string) {
+export function loadLocal(key: string) {
 	const existing = localStorage.getItem(key)
 	return existing ? JSON.parse(existing) : {}
 }
 
-function loadSettings(): { settings?: SettingsState } {
-	const { settings } = loadLocal(Constants.STORAGE_KEY_SETTINGS) || {}
-
-	return { settings }
-}
-
-function saveSettings(settings: SettingsState): void {
-	saveLocal(Constants.STORAGE_KEY_SETTINGS, { settings })
-}
-
-function clearStorage(): void {
+export function clearStorage(): void {
 	localStorage.clear()
-}
-
-function loadDestinations(): { destinations?: Destination[] } {
-	const { destinations } = loadLocal(Constants.STORAGE_KEY_DESTINATIONS) || {}
-
-	return { destinations }
-}
-
-function saveDestinations(destinations: Destination[]): void {
-	saveLocal(Constants.STORAGE_KEY_DESTINATIONS, { destinations })
-}
-
-export {
-	loadSettings,
-	saveSettings,
-	clearStorage,
-	loadDestinations,
-	saveDestinations,
-	getAppDataPath,
 }

@@ -1,12 +1,13 @@
 import { H2 } from '@nerdfish/ui'
 import { extractDateFromText } from 'extract-date-js'
 import * as React from 'react'
-import { useFileUpload } from '../../context/file-upload-provider'
-import { checkVat } from '../../lib/services/vat'
-import { getVATNumberFromText, ocr } from '../../lib/utils/ocr'
-import { transformName } from '../../lib/utils/string'
-import { useSettings } from '../../settings/settings-provider'
-import { FileActions } from './file-actions'
+import { Section } from '../components/section'
+import { useFileUpload } from '../context/file-upload-provider'
+import { getVATNumberFromText, ocr } from '../ocr/utils/ocr'
+import { useSettings } from '../settings/settings-provider'
+import { checkVat } from '../vat/utils/vat'
+import { FileRenameForm } from './forms/file-rename-form'
+import { transformName } from './utils'
 
 function FileModule({ file, onDone }: { file: string; onDone: () => void }) {
 	const [loadingStatus, setLoadingStatus] = React.useState<
@@ -75,12 +76,16 @@ function FileModule({ file, onDone }: { file: string; onDone: () => void }) {
 				</div>
 			) : null}
 			{loadingStatus === 'loaded' ? (
-				<FileActions
-					file={file}
-					date={date}
-					description={description}
-					onMove={onDone}
-				/>
+				<Section>
+					<FileRenameForm
+						file={file}
+						initialValues={{
+							date: date ?? new Date(),
+							description: description ?? '',
+						}}
+						onSubmit={onDone}
+					/>
+				</Section>
 			) : null}
 			{loadingStatus === 'error' ? (
 				<div className="flex items-center justify-center">error</div>
