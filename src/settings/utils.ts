@@ -1,3 +1,4 @@
+import { app } from '@electron/remote'
 import { loadLocal, saveLocal, STORAGE_KEY_SETTINGS } from '../storage/utils'
 import { type SettingsState } from './settings-provider'
 import { Appearance } from './types'
@@ -39,4 +40,11 @@ export const setAppearance = (mode?: Appearance): void => {
 				setLightMode()
 			}
 	}
+}
+
+export function setAutoLaunch(value: boolean): void {
+	app.setLoginItemSettings({
+		openAtLogin: value,
+		openAsHidden: value,
+	})
 }

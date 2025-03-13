@@ -1,12 +1,18 @@
-function padZero(str: string | number, length = 2) {
+import { shell } from 'electron'
+
+export async function openExternalLink(url: string): Promise<void> {
+	await shell.openExternal(url)
+}
+
+export function padZero(str: string | number, length = 2) {
 	return str.toString().padStart(length, '0')
 }
 
-function addTrailingSlash(str: string) {
+export function addTrailingSlash(str: string) {
 	return str.endsWith('/') ? str : `${str}/`
 }
 
-function mapMonthToNumber(month: string) {
+export function mapMonthToNumber(month: string) {
 	switch (month) {
 		case 'Jan':
 			return '01'
@@ -36,5 +42,3 @@ function mapMonthToNumber(month: string) {
 			return '01'
 	}
 }
-
-export { addTrailingSlash, padZero, mapMonthToNumber }

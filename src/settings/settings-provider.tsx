@@ -1,10 +1,14 @@
 import * as React from 'react'
 import * as uuid from 'uuid'
 import { defaultFilenameSettings } from '../file-rename/components/filename-configuration'
-import { setAutoLaunch } from '../lib/utils/comms'
 import { type FilenameConfiguration } from '../types'
 import { Appearance } from './types'
-import { loadSettings, saveSettings, setAppearance } from './utils'
+import {
+	setAutoLaunch,
+	loadSettings,
+	saveSettings,
+	setAppearance,
+} from './utils'
 
 interface SettingsState {
 	ownVatNumber: string

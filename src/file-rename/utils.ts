@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
-import { padZero } from '../lib/utils/string'
 import { type FilenameConfiguration } from '../types'
+import { padZero } from '../utils'
 import { defaultFilenameSettings } from './components/filename-configuration'
 
 export function transformName(
