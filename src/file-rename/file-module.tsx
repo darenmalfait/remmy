@@ -1,4 +1,4 @@
-import { H2 } from '@nerdfish/ui'
+import { H2, LoadingAnimation } from '@nerdfish/ui'
 import { extractDateFromText } from 'extract-date-js'
 import * as React from 'react'
 import { Section } from '../components/section'
@@ -70,9 +70,9 @@ function FileModule({ file, onDone }: { file: string; onDone: () => void }) {
 	return (
 		<>
 			{loadingStatus === 'loading' ? (
-				<div className="absolute inset-0 z-50 !mt-0 flex flex-col items-center justify-center space-y-6 bg-muted text-white">
-					<H2>Analysing your file</H2>
-					<div className="h-32 w-32 animate-spin rounded-full border-y-2 border-accent" />
+				<div className="absolute inset-0 z-50 !mt-0 flex flex-col items-center justify-center space-y-lg">
+					<H2 variant="primary">Analysing your file</H2>
+					<LoadingAnimation variant="square" className="size-16" />
 				</div>
 			) : null}
 			{loadingStatus === 'loaded' ? (
