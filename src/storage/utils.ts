@@ -1,4 +1,5 @@
 import path from 'path'
+import { env } from '../env'
 
 export const STORAGE_KEY_SETTINGS = 'remmy-settings'
 
@@ -6,17 +7,17 @@ export function getAppDataPath() {
 	switch (process.platform) {
 		case 'darwin': {
 			return path.join(
-				process.env.HOME ?? '',
+				env.HOME ?? '',
 				'Library',
 				'Application Support',
 				'Remmy',
 			)
 		}
 		case 'win32': {
-			return path.join(process.env.APPDATA ?? '', 'Remmy')
+			return path.join(env.APPDATA ?? '', 'Remmy')
 		}
 		case 'linux': {
-			return path.join(process.env.HOME ?? '', '.Remmy')
+			return path.join(env.HOME ?? '', '.Remmy')
 		}
 		case 'aix': {
 			throw new Error('Not implemented yet: "aix" case')

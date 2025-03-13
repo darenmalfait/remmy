@@ -1,6 +1,9 @@
 const remoteMain = require('@electron/remote/main')
+const dotenv = require('dotenv')
 const { app, BrowserWindow, ipcMain, nativeTheme } = require('electron')
 const PDFParser = require('pdf2json')
+
+dotenv.config()
 
 remoteMain.initialize()
 // Quit when all windows are closed.
@@ -41,7 +44,7 @@ const createWindow = () => {
 	})
 
 	// Open the DevTools automatically if in development mode
-	if (isDev) {
+	if (isDev && !!process.env.CLIENT_DEBUG) {
 		mainWindow.webContents.openDevTools({ mode: 'detach' })
 	}
 }
