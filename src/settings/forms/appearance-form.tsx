@@ -14,8 +14,8 @@ import {
 import * as React from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { Appearance } from '../../types'
 import { useSettings } from '../settings-provider'
+import { Appearance } from '../types'
 
 const appearanceFormSchema = z.object({
 	appearance: z.nativeEnum(Appearance),

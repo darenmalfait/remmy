@@ -11,11 +11,11 @@ import * as React from 'react'
 import { Layout } from '../components/layout'
 import { FilenameFormat } from '../components/modules/filename-format'
 import { Section } from '../components/section'
-import { setAppearance } from '../lib/utils/appearance'
-import { Appearance } from '../types'
 import { AppearanceForm } from './forms/appearance-form'
 import { FileAnalysisForm } from './forms/file-analysis-form'
 import { useSettings } from './settings-provider'
+import { Appearance } from './types'
+import { setAppearance } from './utils'
 
 function About() {
 	const navigateTo = React.useCallback(async (src: string) => {
