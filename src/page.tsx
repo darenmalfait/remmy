@@ -10,10 +10,10 @@ import {
 } from '@nerdfish/ui'
 import { Layout } from './components/layout'
 import { Section } from './components/section'
-import { useFileUpload } from './context/file-upload-provider'
 import { useDestinations } from './destinations/destinations-provider'
 import { DestinationForm } from './destinations/forms/destination-form'
 import { FileModule } from './file-rename/file-module'
+import { useFileUpload } from './file-rename/file-upload-provider'
 
 const img = path.join(__dirname, 'assets/images', 'drag-to-icon.gif')
 

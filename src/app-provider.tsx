@@ -1,8 +1,8 @@
 import { ThemeProvider as DarenThemeProvider } from '@nerdfish/theme'
 import { TooltipProvider } from '@nerdfish/ui'
 import * as React from 'react'
-import { FileUploadProvider } from './context/file-upload-provider'
 import { DestinationsProvider } from './destinations/destinations-provider'
+import { FileUploadProvider } from './file-rename/file-upload-provider'
 import { SettingsProvider } from './settings/settings-provider'
 
 interface AppProvidersProps {
