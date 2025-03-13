@@ -30,7 +30,7 @@ const fileRenameFormSchema = z.object({
 	date: z.date().optional(),
 	description: z.string().optional(),
 	detail: z.string().optional(),
-	destination: z.string(),
+	destination: z.string().min(1),
 })
 
 type FileRenameFormSchema = z.infer<typeof fileRenameFormSchema>
@@ -72,8 +72,7 @@ export function FileRenameForm({
 		defaultValues: defaults(initialValues, {
 			date: new Date(),
 			description: transformName(initialFilename),
-			detail: '',
-			destination: destinations[0]?.path ?? '',
+			destination: destinations[0]?.path,
 		}),
 	})
 

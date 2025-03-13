@@ -1,7 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 import * as path from 'path'
-import { Button, H1 } from '@nerdfish/ui'
-import { XIcon } from 'lucide-react'
+import {
+	H1,
+	Sheet,
+	SheetContent,
+	SheetDescription,
+	SheetHeader,
+	SheetTitle,
+} from '@nerdfish/ui'
 import { Layout } from './components/layout'
 import { Section } from './components/section'
 import { useFileUpload } from './context/file-upload-provider'
@@ -27,30 +33,28 @@ function HomePage() {
 					<>
 						<div className="flex items-center justify-between">
 							<H1 variant="primary">Archive a file</H1>
-							{addingFile ? (
-								<Button
-									variant="ghost"
-									size="icon"
-									onClick={() => {
-										clearAddingFile()
-									}}
-								>
-									<XIcon className="size-4" />
-								</Button>
-							) : null}
 						</div>
-						{addingFile ? (
-							<FileModule file={addingFile} onDone={onFileRenamed} />
-						) : (
-							<>
-								<p>You can add a file by dragging in into the taskbar icon</p>
-								<img
-									src={img}
-									className="w-full rounded-base shadow-outline"
-									alt="drag to icon"
-								/>
-							</>
-						)}
+
+						<p>You can add a file by dragging in into the taskbar icon</p>
+						<img
+							src={img}
+							className="w-full rounded-base shadow-outline"
+							alt="drag to icon"
+						/>
+
+						<Sheet open={!!addingFile} onOpenChange={clearAddingFile}>
+							<SheetContent className="overflow-y-scroll">
+								<SheetHeader className="mb-lg">
+									<SheetTitle>Archive a file</SheetTitle>
+									<SheetDescription>
+										Fill in the form below to archive a file.
+									</SheetDescription>
+								</SheetHeader>
+								{addingFile ? (
+									<FileModule file={addingFile} onDone={onFileRenamed} />
+								) : null}
+							</SheetContent>
+						</Sheet>
 					</>
 				)}
 			</Section>

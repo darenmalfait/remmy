@@ -1,10 +1,20 @@
 const path = require('path')
-
+const nerdfishConfig = require('@nerdfish/tailwind-config')
+const aspectRatio = require('@tailwindcss/aspect-ratio')
+const typography = require('@tailwindcss/typography')
 const defaultTheme = require('tailwindcss/defaultTheme')
+const animate = require('tailwindcss-animate')
 
 const fromRoot = (p) => path.join(__dirname, p)
 
 module.exports = {
+	plugins: [
+		nerdfishConfig,
+		aspectRatio,
+		animate,
+		typography,
+		require('tailwindcss-motion'),
+	],
 	theme: {
 		extend: {
 			fontFamily: {
@@ -42,10 +52,5 @@ module.exports = {
 		// ... paths that use tailwind
 		fromRoot('./node_modules/@nerdfish/**/*.{js,ts,jsx,tsx}'), // path to daren
 		fromRoot('./src/**/*.{js,jsx,ts,tsx}'),
-	],
-	plugins: [
-		require('@tailwindcss/typography'),
-		require('@tailwindcss/aspect-ratio'),
-		require('@nerdfish/tailwind-config'),
 	],
 }

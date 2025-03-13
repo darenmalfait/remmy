@@ -2,12 +2,11 @@ import {
 	Alert,
 	Badge,
 	Button,
-	Dialog,
-	DialogContent,
-	DialogDescription,
-	DialogHeader,
-	DialogTitle,
-	DialogTrigger,
+	SheetContent,
+	SheetDescription,
+	SheetHeader,
+	SheetTitle,
+	Sheet,
 	Tooltip,
 	TooltipContent,
 	TooltipTrigger,
@@ -75,48 +74,47 @@ function DestinationsPage() {
 
 	return (
 		<Layout title="Destinations">
-			<Dialog open={isAdding} onOpenChange={(o) => setIsAdding(o)}>
-				{destinations.length === 0 ? (
-					<Section>
-						<Alert
-							variant="warning"
-							description="No destinations have yet been added. You can add destinations by clicking the button below."
-						/>
-						<p>
-							Destinations are the paths to where your documents get moved after
-							renaming.
-						</p>
-						<DialogTrigger asChild>
-							<Button>Add first destination</Button>
-						</DialogTrigger>
-					</Section>
-				) : (
-					<Section>
-						<ul className="divide-y divide-muted">
-							{destinations.map((destination) => (
-								<DestinationItem key={destination.id} {...destination} />
-							))}
-						</ul>
-						<DialogTrigger asChild>
-							<Button>Add destination</Button>
-						</DialogTrigger>
-					</Section>
-				)}
-				<DialogContent className="sm:max-w-[425px]">
-					<DialogHeader>
-						<DialogTitle>Add destination path</DialogTitle>
-						<DialogDescription>
+			{destinations.length === 0 ? (
+				<Section>
+					<Alert
+						variant="warning"
+						description="No destinations have yet been added. You can add destinations by clicking the button below."
+					/>
+					<p>
+						Destinations are the paths to where your documents get moved after
+						renaming.
+					</p>
+					<Button onClick={() => setIsAdding(true)}>
+						Add first destination
+					</Button>
+				</Section>
+			) : (
+				<Section>
+					<ul className="divide-y divide-muted">
+						{destinations.map((destination) => (
+							<DestinationItem key={destination.id} {...destination} />
+						))}
+					</ul>
+
+					<Button onClick={() => setIsAdding(true)}>Add destination</Button>
+				</Section>
+			)}
+			<Sheet open={isAdding} onOpenChange={(o) => setIsAdding(o)}>
+				<SheetContent className="sm:max-w-[425px]">
+					<SheetHeader>
+						<SheetTitle>Add destination path</SheetTitle>
+						<SheetDescription>
 							Add a destination path to where your documents get moved after
 							renaming.
-						</DialogDescription>
-					</DialogHeader>
+						</SheetDescription>
+					</SheetHeader>
 					<DestinationForm
 						onSubmit={() => {
 							setIsAdding(false)
 						}}
 					/>
-				</DialogContent>
-			</Dialog>
+				</SheetContent>
+			</Sheet>
 		</Layout>
 	)
 }
