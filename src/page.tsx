@@ -43,7 +43,7 @@ function HomePage() {
 						/>
 
 						<Sheet open={!!addingFile} onOpenChange={clearAddingFile}>
-							<SheetContent className="overflow-y-scroll">
+							<SheetContent className="min-w-[500px] overflow-y-scroll">
 								<SheetHeader className="mb-lg">
 									<SheetTitle>Archive a file</SheetTitle>
 									<SheetDescription>
