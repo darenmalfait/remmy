@@ -13,6 +13,7 @@ import {
 import * as React from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { useSettings } from '../settings-provider'
 
 const fileAnalysisFormSchema = z.object({
 	ocrEnabled: z.boolean(),
@@ -22,29 +23,31 @@ const fileAnalysisFormSchema = z.object({
 
 type FileAnalysisFormSchema = z.infer<typeof fileAnalysisFormSchema>
 
-interface FileAnalysisFormProps {
-	initialValues?: FileAnalysisFormSchema
-	onUpdate?: (values: FileAnalysisFormSchema) => void
-}
-
 export function FileAnalysisForm({
-	initialValues,
-	onUpdate,
-}: FileAnalysisFormProps) {
+	onSubmit,
+}: {
+	onSubmit?: (values: FileAnalysisFormSchema) => void
+}) {
+	const { settings, updateSetting } = useSettings()
+
 	const form = useForm<FileAnalysisFormSchema>({
 		resolver: zodResolver(fileAnalysisFormSchema),
-		defaultValues: initialValues ?? {
-			ocrEnabled: false,
-			vatLookupEnabled: false,
-			ownVatNumber: '',
+		defaultValues: {
+			ocrEnabled: settings.ocrEnabled,
+			vatLookupEnabled: settings.vatLookupEnabled,
+			ownVatNumber: settings.ownVatNumber,
 		},
 	})
 
-	const onSubmit = React.useCallback(
+	const handleSubmit = React.useCallback(
 		(values: FileAnalysisFormSchema) => {
-			onUpdate?.(values)
+			updateSetting('ocrEnabled', values.ocrEnabled)
+			updateSetting('vatLookupEnabled', values.vatLookupEnabled)
+			updateSetting('ownVatNumber', values.ownVatNumber)
+
+			onSubmit?.(values)
 		},
-		[onUpdate],
+		[onSubmit, updateSetting],
 	)
 
 	const ocrEnabled = form.watch('ocrEnabled')
@@ -54,8 +57,8 @@ export function FileAnalysisForm({
 		<Form {...form}>
 			<form
 				noValidate
-				onChange={form.handleSubmit(onSubmit)}
-				onSubmit={form.handleSubmit(onSubmit)}
+				onChange={form.handleSubmit(handleSubmit)}
+				onSubmit={form.handleSubmit(handleSubmit)}
 				className="space-y-lg"
 			>
 				<FormField

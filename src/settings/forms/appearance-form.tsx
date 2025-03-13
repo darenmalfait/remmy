@@ -15,6 +15,7 @@ import * as React from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { Appearance } from '../../types'
+import { useSettings } from '../settings-provider'
 
 const appearanceFormSchema = z.object({
 	appearance: z.nativeEnum(Appearance),
@@ -24,13 +25,15 @@ type AppearanceFormSchema = z.infer<typeof appearanceFormSchema>
 
 interface AppearanceFormProps {
 	initialValues?: AppearanceFormSchema
-	onUpdate?: (values: AppearanceFormSchema) => void
+	onSubmit?: (values: AppearanceFormSchema) => void
 }
 
 export function AppearanceForm({
 	initialValues,
-	onUpdate,
+	onSubmit,
 }: AppearanceFormProps) {
+	const { updateSetting } = useSettings()
+
 	const form = useForm<AppearanceFormSchema>({
 		resolver: zodResolver(appearanceFormSchema),
 		defaultValues: initialValues ?? {
@@ -38,19 +41,20 @@ export function AppearanceForm({
 		},
 	})
 
-	const onSubmit = React.useCallback(
+	const handleSubmit = React.useCallback(
 		(values: AppearanceFormSchema) => {
-			onUpdate?.(values)
+			updateSetting('appearance', values.appearance)
+			onSubmit?.(values)
 		},
-		[onUpdate],
+		[onSubmit, updateSetting],
 	)
 
 	return (
 		<Form {...form}>
 			<form
 				noValidate
-				onChange={form.handleSubmit(onSubmit)}
-				onSubmit={form.handleSubmit(onSubmit)}
+				onChange={form.handleSubmit(handleSubmit)}
+				onSubmit={form.handleSubmit(handleSubmit)}
 			>
 				<FormField
 					control={form.control}

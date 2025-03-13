@@ -54,7 +54,7 @@ function About() {
 }
 
 export function SettingsPage() {
-	const { settings, updateSetting } = useSettings()
+	const { settings } = useSettings()
 
 	ipcRenderer.on('update-native-theme', (_, updatedAppearance: Appearance) => {
 		if (settings.appearance === Appearance.SYSTEM) {
@@ -73,11 +73,7 @@ export function SettingsPage() {
 				<TabsContent value="appearance" className="bg-transparent">
 					<Section>
 						<H2 variant="primary">Appearance</H2>
-						<AppearanceForm
-							onUpdate={(values) => {
-								updateSetting('appearance', values.appearance)
-							}}
-						/>
+						<AppearanceForm />
 					</Section>
 				</TabsContent>
 				<TabsContent value="files" className="bg-transparent">
@@ -88,18 +84,7 @@ export function SettingsPage() {
 						</Section>
 						<Section>
 							<H2 variant="primary">Document analysis</H2>
-							<FileAnalysisForm
-								initialValues={{
-									ocrEnabled: settings.ocrEnabled,
-									vatLookupEnabled: settings.vatLookupEnabled,
-									ownVatNumber: settings.ownVatNumber,
-								}}
-								onUpdate={(values) => {
-									updateSetting('ocrEnabled', values.ocrEnabled)
-									updateSetting('vatLookupEnabled', values.vatLookupEnabled)
-									updateSetting('ownVatNumber', values.ownVatNumber)
-								}}
-							/>
+							<FileAnalysisForm />
 						</Section>
 					</div>
 				</TabsContent>

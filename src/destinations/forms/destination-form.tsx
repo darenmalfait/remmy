@@ -24,19 +24,15 @@ const destinationFormSchema = z.object({
 export type DestinationFormData = z.infer<typeof destinationFormSchema>
 
 interface DestinationFormProps {
-	initialValues?: DestinationFormData
 	onSubmit?: (values: DestinationFormData) => void
 }
 
-export function DestinationForm({
-	initialValues,
-	onSubmit,
-}: DestinationFormProps) {
+export function DestinationForm({ onSubmit }: DestinationFormProps) {
 	const { addDestination } = useDestinations()
 
 	const form = useForm<DestinationFormData>({
 		resolver: zodResolver(destinationFormSchema),
-		defaultValues: initialValues ?? {},
+		defaultValues: {},
 	})
 
 	const handleSubmit = React.useCallback(
