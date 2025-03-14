@@ -44,7 +44,9 @@ function FileModule({ file, onDone }: { file: string; onDone: () => void }) {
 							setLoadingStatus('loaded')
 							return
 						}
-						setDescription(transformName(vatData.name))
+
+						const d = transformName(vatData.name)
+						setDescription(d.length ? transformName(vatData.name) : undefined)
 					}
 				}
 
@@ -81,7 +83,7 @@ function FileModule({ file, onDone }: { file: string; onDone: () => void }) {
 						file={file}
 						initialValues={{
 							date: date ?? new Date(),
-							description: description ?? '',
+							description,
 						}}
 						onSubmit={onDone}
 					/>

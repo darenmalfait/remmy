@@ -114,6 +114,36 @@ export function FileRenameForm({
 			>
 				<FormField
 					control={form.control}
+					name="destination"
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel>Destination</FormLabel>
+							<FormControl>
+								<Select
+									onValueChange={field.onChange}
+									defaultValue={field.value}
+								>
+									<FormControl>
+										<SelectTrigger>
+											<SelectValue placeholder="Select a destination" />
+										</SelectTrigger>
+									</FormControl>
+									<SelectContent>
+										{destinations.map((destination) => (
+											<SelectItem key={destination.id} value={destination.path}>
+												{destination.name}
+											</SelectItem>
+										))}
+									</SelectContent>
+								</Select>
+							</FormControl>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+
+				<FormField
+					control={form.control}
 					name="date"
 					render={({ field }) => (
 						<FormItem>
@@ -147,54 +177,27 @@ export function FileRenameForm({
 						</FormItem>
 					)}
 				/>
-				<FormField
-					control={form.control}
-					name="detail"
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>
-								Detail
-								<FormDescription>
-									ie: article title, project name, etc.
-								</FormDescription>
-							</FormLabel>
+				{!!form.watch('description')?.length ? (
+					<FormField
+						control={form.control}
+						name="detail"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>
+									Detail
+									<FormDescription>
+										ie: article title, project name, etc.
+									</FormDescription>
+								</FormLabel>
 
-							<FormControl>
-								<Input {...field} />
-							</FormControl>
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
-				<FormField
-					control={form.control}
-					name="destination"
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>Destination</FormLabel>
-							<FormControl>
-								<Select
-									onValueChange={field.onChange}
-									defaultValue={field.value}
-								>
-									<FormControl>
-										<SelectTrigger>
-											<SelectValue placeholder="Select a destination" />
-										</SelectTrigger>
-									</FormControl>
-									<SelectContent>
-										{destinations.map((destination) => (
-											<SelectItem key={destination.id} value={destination.path}>
-												{destination.name}
-											</SelectItem>
-										))}
-									</SelectContent>
-								</Select>
-							</FormControl>
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
+								<FormControl>
+									<Input {...field} />
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+				) : null}
 
 				<FilenamePreview
 					extension={extension}
