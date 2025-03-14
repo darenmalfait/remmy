@@ -4,7 +4,7 @@ import { type SettingsState } from './settings-provider'
 import { Appearance } from './types'
 
 export function loadSettings(): { settings?: SettingsState } {
-	const { settings } = loadLocal(STORAGE_KEY_SETTINGS) || {}
+	const { settings } = loadLocal(STORAGE_KEY_SETTINGS) ?? {}
 
 	return { settings }
 }
