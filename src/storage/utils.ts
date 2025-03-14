@@ -7,17 +7,17 @@ export function getAppDataPath() {
 	switch (process.platform) {
 		case 'darwin': {
 			return path.join(
-				env.HOME ?? '',
+				env.CLIENT_HOME ?? '',
 				'Library',
 				'Application Support',
 				'Remmy',
 			)
 		}
 		case 'win32': {
-			return path.join(env.APPDATA ?? '', 'Remmy')
+			return path.join(env.CLIENT_APPDATA ?? '', 'Remmy')
 		}
 		case 'linux': {
-			return path.join(env.HOME ?? '', '.Remmy')
+			return path.join(env.CLIENT_HOME ?? '', '.Remmy')
 		}
 		case 'aix': {
 			throw new Error('Not implemented yet: "aix" case')

@@ -10,7 +10,7 @@ async function ocr(filePath: string): Promise<string | undefined> {
 		if (!filePath.toLocaleLowerCase().endsWith('.pdf')) return
 
 		if (!fs.existsSync(path.resolve(__dirname, 'temp'))) {
-			fs.mkdirSync(path.resolve(__dirname, 'temp'))
+			fs.mkdirSync(path.resolve(__dirname, 'temp'), { recursive: true })
 		}
 
 		ipcRenderer.send('prefix-convert-pdf', filePath)
