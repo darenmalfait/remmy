@@ -27,8 +27,8 @@ importers:
         specifier: ^2.5.1
         version: 2.5.1
       '@nerdfish/ui':
-        specifier: ^7.10.0
-        version: 7.10.0(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)
+        specifier: ^7.10.1
+        version: 7.10.1(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)
       '@nerdfish/utils':
         specifier: ^2.0.1
         version: 2.0.1
@@ -946,8 +946,8 @@ packages:
   '@nerdfish/theme@2.5.1':
     resolution: {integrity: sha512-5h3fuCdRf6UP2fydpRjuXKsapsq1Ru4E0zSDbtwlP9CQySmH1xxl27aU+yzRRf2tKFt6kunwWJkqbe4MJWCo3g==}
 
-  '@nerdfish/ui@7.10.0':
-    resolution: {integrity: sha512-9T1Bb8eq6U+pSwsXidWilFbJWyafBJBkwr+STZoTsJ8E10Z2RAQxiQrwNRl9lfjtCaWXBDoE0MvWHFhJrpXkYg==}
+  '@nerdfish/ui@7.10.1':
+    resolution: {integrity: sha512-CbkUiF+NpON7GtAUuJACwASXcI8kVHlm/g4jBCSCTqhIfxw82cOp+dJwJYLS2WR0sMgoSbx6eZcqwO6/YB74jg==}
 
   '@nerdfish/utils@2.0.1':
     resolution: {integrity: sha512-ibKCDPjpDVCh9s22cC4c/Y9ChixMHWeN2xbkVxdQfCdC8eNZ3lwColyIPa+ZajSw3cX8gT/2L/qYoKYH/xFGEQ==}
@@ -4864,13 +4864,13 @@ packages:
     resolution: {integrity: sha512-jumlc0BIUrS3qJGgIkWZsyfAM7NCWiBcCDhnd+3NNM5KbBmLTgHVfWBcg6W+rLUsIpzpERPsvwUP7CckAQSOoA==}
     engines: {node: '>=12'}
 
-  lucide-react@0.477.0:
-    resolution: {integrity: sha512-yCf7aYxerFZAbd8jHJxjwe1j7jEMPptjnaOqdYeirFnEy85cNR3/L+o0I875CYFYya+eEVzZSbNuRk8BZPDpVw==}
+  lucide-react@0.479.0:
+    resolution: {integrity: sha512-aBhNnveRhorBOK7uA4gDjgaf+YlHMdMhQ/3cupk6exM10hWlEU+2QtWYOfhXhjAsmdb6LeKR+NZnow4UxRRiTQ==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
-  lucide-react@0.479.0:
-    resolution: {integrity: sha512-aBhNnveRhorBOK7uA4gDjgaf+YlHMdMhQ/3cupk6exM10hWlEU+2QtWYOfhXhjAsmdb6LeKR+NZnow4UxRRiTQ==}
+  lucide-react@0.483.0:
+    resolution: {integrity: sha512-WldsY17Qb/T3VZdMnVQ9C3DDIP7h1ViDTHVdVGnLZcvHNg30zH/MTQ04RTORjexoGmpsXroiQXZ4QyR0kBy0FA==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
@@ -7776,7 +7776,7 @@ snapshots:
     dependencies:
       '@nerdfish/utils': 2.0.1
 
-  '@nerdfish/ui@7.10.0(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)':
+  '@nerdfish/ui@7.10.1(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)':
     dependencies:
       '@nerdfish/utils': 2.0.1
       '@radix-ui/react-accordion': 1.2.3(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -7805,7 +7805,7 @@ snapshots:
       cmdk: 1.1.1(@types/react-dom@19.0.4(@types/react@19.0.10))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       date-fns: 4.1.0
       input-otp: 1.4.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      lucide-react: 0.477.0(react@19.0.0)
+      lucide-react: 0.483.0(react@19.0.0)
       react: 19.0.0
       react-aria: 3.38.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react-day-picker: 8.10.1(date-fns@4.1.0)(react@19.0.0)
@@ -12732,11 +12732,11 @@ snapshots:
 
   lru-cache@7.18.3: {}
 
-  lucide-react@0.477.0(react@19.0.0):
+  lucide-react@0.479.0(react@19.0.0):
     dependencies:
       react: 19.0.0
 
-  lucide-react@0.479.0(react@19.0.0):
+  lucide-react@0.483.0(react@19.0.0):
     dependencies:
       react: 19.0.0
 
