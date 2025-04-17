@@ -10,7 +10,7 @@ importers:
     dependencies:
       '@electron/remote':
         specifier: ^2.1.2
-        version: 2.1.2(electron@35.0.1)
+        version: 2.1.2(electron@35.1.5)
       '@headlessui/react':
         specifier: ^2.2.0
         version: 2.2.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -88,7 +88,7 @@ importers:
         version: 0.479.0(react@19.0.0)
       menubar:
         specifier: ^9.5.1
-        version: 9.5.1(electron@35.0.1)
+        version: 9.5.1(electron@35.1.5)
       moment:
         specifier: ^2.30.1
         version: 2.30.1
@@ -199,8 +199,8 @@ importers:
         specifier: ^7.1.2
         version: 7.1.2(webpack@5.98.0)
       electron:
-        specifier: ^35.0.1
-        version: 35.0.1
+        specifier: ^35.1.5
+        version: 35.1.5
       electron-builder:
         specifier: ^25.1.8
         version: 25.1.8(electron-builder-squirrel-windows@25.1.8)
@@ -3517,8 +3517,8 @@ packages:
   electron-updater@6.3.9:
     resolution: {integrity: sha512-2PJNONi+iBidkoC5D1nzT9XqsE8Q1X28Fn6xRQhO3YX8qRRyJ3mkV4F1aQsuRnYPqq6Hw+E51y27W75WgDoofw==}
 
-  electron@35.0.1:
-    resolution: {integrity: sha512-iQonj6lnPhqfqha2KXx6LzV1dnu6UPTCWK+b7f9Zvg828umGemi22DKbcJ3/q+Opn7iUVTWyqp9z1JQqkIi6OA==}
+  electron@35.1.5:
+    resolution: {integrity: sha512-LolvbKKQUSCGvEwbEQNt1cxD1t+YYClDNwBIjn4d28KM8FSqUn9zJuf6AbqNA7tVs9OFl/EQpmg/m4lZV1hH8g==}
     engines: {node: '>= 12.20.55'}
     hasBin: true
 
@@ -7217,9 +7217,9 @@ snapshots:
       - bluebird
       - supports-color
 
-  '@electron/remote@2.1.2(electron@35.0.1)':
+  '@electron/remote@2.1.2(electron@35.1.5)':
     dependencies:
-      electron: 35.0.1
+      electron: 35.1.5
 
   '@electron/universal@1.5.1':
     dependencies:
@@ -11053,7 +11053,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  electron@35.0.1:
+  electron@35.1.5:
     dependencies:
       '@electron/get': 2.0.3
       '@types/node': 22.13.10
@@ -12783,9 +12783,9 @@ snapshots:
 
   memorystream@0.3.1: {}
 
-  menubar@9.5.1(electron@35.0.1):
+  menubar@9.5.1(electron@35.1.5):
     dependencies:
-      electron: 35.0.1
+      electron: 35.1.5
       electron-positioner: 4.1.0
 
   meow@12.1.1: {}
