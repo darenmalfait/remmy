@@ -10,7 +10,7 @@ importers:
     dependencies:
       '@electron/remote':
         specifier: ^2.1.2
-        version: 2.1.2(electron@35.2.0)
+        version: 2.1.2(electron@35.2.2)
       '@headlessui/react':
         specifier: ^2.2.2
         version: 2.2.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -21,8 +21,8 @@ importers:
         specifier: ^1.8.0
         version: 1.8.0(@testing-library/dom@10.4.0)(@typescript-eslint/utils@8.26.1(eslint@9.25.1(jiti@2.4.2))(typescript@5.8.3))(eslint@9.25.1(jiti@2.4.2))(prettier@3.5.3)(typescript@5.8.3)
       '@nerdfish/tailwind-config':
-        specifier: ^3.9.0
-        version: 3.9.0(ts-node@10.9.2(@types/node@22.13.10)(typescript@5.8.3))
+        specifier: ^3.9.1
+        version: 3.9.1(ts-node@10.9.2(@types/node@22.13.10)(typescript@5.8.3))
       '@nerdfish/theme':
         specifier: ^2.5.1
         version: 2.5.1
@@ -34,7 +34,7 @@ importers:
         version: 2.0.1
       '@t3-oss/env-core':
         specifier: ^0.12.0
-        version: 0.12.0(typescript@5.8.3)(zod@3.24.3)
+        version: 0.12.0(typescript@5.8.3)(zod@3.24.4)
       '@tailwindcss/aspect-ratio':
         specifier: ^0.4.2
         version: 0.4.2(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@22.13.10)(typescript@5.8.3)))
@@ -88,7 +88,7 @@ importers:
         version: 0.479.0(react@19.0.0)
       menubar:
         specifier: ^9.5.1
-        version: 9.5.1(electron@35.2.0)
+        version: 9.5.1(electron@35.2.2)
       moment:
         specifier: ^2.30.1
         version: 2.30.1
@@ -156,8 +156,8 @@ importers:
         specifier: ^11.1.0
         version: 11.1.0
       zod:
-        specifier: ^3.24.3
-        version: 3.24.3
+        specifier: ^3.24.4
+        version: 3.24.4
     devDependencies:
       '@commitlint/cli':
         specifier: ^19.8.0
@@ -199,8 +199,8 @@ importers:
         specifier: ^7.1.2
         version: 7.1.2(webpack@5.99.7)
       electron:
-        specifier: ^35.2.0
-        version: 35.2.0
+        specifier: ^35.2.2
+        version: 35.2.2
       electron-builder:
         specifier: ^25.1.8
         version: 25.1.8(electron-builder-squirrel-windows@25.1.8)
@@ -226,8 +226,8 @@ importers:
         specifier: ^14.0.4
         version: 14.0.4
       nodemon:
-        specifier: ^3.1.9
-        version: 3.1.9
+        specifier: ^3.1.10
+        version: 3.1.10
       postcss-loader:
         specifier: ^8.1.1
         version: 8.1.1(postcss@8.5.3)(typescript@5.8.3)(webpack@5.99.7)
@@ -971,11 +971,14 @@ packages:
   '@nerdfish/config@1.8.0':
     resolution: {integrity: sha512-/MibSYgyUnc3D+V0VeXWiVzhH0b4U4McH6EC0tatbOn0zZQCNpAGmmy12VQrun4iXU+ZmS5TKZKrk9fdYXdNuA==}
 
-  '@nerdfish/tailwind-config@3.9.0':
-    resolution: {integrity: sha512-YgPp5ScwvkeCadT7HbW7mB8UvaTOq8Zx/ubFjv8aZbbgod1oNpn9lSrdNVvUKGHTKgTzcGXiY4UhvdW0T1EmgA==}
+  '@nerdfish/tailwind-config@3.9.1':
+    resolution: {integrity: sha512-kpOXQkLhflwCScByM+H58k/HfYFiPjWo+6PVqgfceSGRwU4rAgtoJq6JDHVwLWKC5/Q4kChjEQRKP+7vNMIuWQ==}
 
   '@nerdfish/theme@2.5.1':
     resolution: {integrity: sha512-5h3fuCdRf6UP2fydpRjuXKsapsq1Ru4E0zSDbtwlP9CQySmH1xxl27aU+yzRRf2tKFt6kunwWJkqbe4MJWCo3g==}
+
+  '@nerdfish/theme@2.6.1':
+    resolution: {integrity: sha512-giUgH63tWp7P4ES37QTsKzeqoAreZC0ut8e3mCFrvvpPlcit5HoIwDRKkrKtKEMY1dEfaiHFK/7yYdNOCqYstg==}
 
   '@nerdfish/ui@7.10.0':
     resolution: {integrity: sha512-9T1Bb8eq6U+pSwsXidWilFbJWyafBJBkwr+STZoTsJ8E10Z2RAQxiQrwNRl9lfjtCaWXBDoE0MvWHFhJrpXkYg==}
@@ -3556,8 +3559,8 @@ packages:
   electron-updater@6.3.9:
     resolution: {integrity: sha512-2PJNONi+iBidkoC5D1nzT9XqsE8Q1X28Fn6xRQhO3YX8qRRyJ3mkV4F1aQsuRnYPqq6Hw+E51y27W75WgDoofw==}
 
-  electron@35.2.0:
-    resolution: {integrity: sha512-GHda7oCkN0pA23qzah735DEbRa06IPwlzP3uvjAmf9af8gxdj5i93JEHeQVGVmSVpd7sSb1pfecs9nz7B1q5ag==}
+  electron@35.2.2:
+    resolution: {integrity: sha512-jZnCOtIgrt28esWP5z/PKndj/vPQ/Zt+cvNRlb/qOGnK/AjW1mASwPMtQ099NlSodf69RR3JrhnZCYbTWeDR4g==}
     engines: {node: '>= 12.20.55'}
     hasBin: true
 
@@ -5157,8 +5160,8 @@ packages:
   node-releases@2.0.19:
     resolution: {integrity: sha512-xxOWJsBKtzAq7DY0J+DTzuz58K8e7sJbdgwkbMWQe8UYB6ekmsQ45q0M/tJDsGaZmbC+l7n57UV8Hl5tHxO9uw==}
 
-  nodemon@3.1.9:
-    resolution: {integrity: sha512-hdr1oIb2p6ZSxu3PB2JWWYS7ZQ0qvaZsc3hK8DR8f02kRzc8rjYmxAIvdz+aYC+8F2IjNaB7HMcSDg8nQpJxyg==}
+  nodemon@3.1.10:
+    resolution: {integrity: sha512-WDjw3pJ0/0jMFmyNDp3gvY2YizjLmmOUQo6DEBY+JgdvW/yQ9mEeSw6H5ythl5Ny2ytb7f9C2nIbjSxMNzbJXw==}
     engines: {node: '>=10'}
     hasBin: true
 
@@ -6906,8 +6909,8 @@ packages:
     resolution: {integrity: sha512-9qv4rlDiopXg4E69k+vMHjNN63YFMe9sZMrdlvKnCjlCRWeCBswPPMPUfx+ipsAWq1LXHe70RcbaHdJJpS6hyQ==}
     engines: {node: '>= 10'}
 
-  zod@3.24.3:
-    resolution: {integrity: sha512-HhY1oqzWCQWuUqvBFnsyrtZRhyPeR7SUGv+C4+MsisMuVfSPx8HpwWqH8tRahSlt6M3PiFAcoeFhZAqIXTxoSg==}
+  zod@3.24.4:
+    resolution: {integrity: sha512-OdqJE9UDRPwWsrHjLN2F8bPxvwJBK22EHLWtanu0LSYr5YqzsaaW3RMgmjwr8Rypg5k+meEJdSPXJZXE/yqOMg==}
 
 snapshots:
 
@@ -7345,9 +7348,9 @@ snapshots:
       - bluebird
       - supports-color
 
-  '@electron/remote@2.1.2(electron@35.2.0)':
+  '@electron/remote@2.1.2(electron@35.2.2)':
     dependencies:
-      electron: 35.2.0
+      electron: 35.2.2
 
   '@electron/universal@1.5.1':
     dependencies:
@@ -7900,14 +7903,18 @@ snapshots:
       - typescript
       - vitest
 
-  '@nerdfish/tailwind-config@3.9.0(ts-node@10.9.2(@types/node@22.13.10)(typescript@5.8.3))':
+  '@nerdfish/tailwind-config@3.9.1(ts-node@10.9.2(@types/node@22.13.10)(typescript@5.8.3))':
     dependencies:
-      '@nerdfish/theme': 2.5.1
+      '@nerdfish/theme': 2.6.1
       tailwindcss: 3.4.17(ts-node@10.9.2(@types/node@22.13.10)(typescript@5.8.3))
     transitivePeerDependencies:
       - ts-node
 
   '@nerdfish/theme@2.5.1':
+    dependencies:
+      '@nerdfish/utils': 2.0.1
+
+  '@nerdfish/theme@2.6.1':
     dependencies:
       '@nerdfish/utils': 2.0.1
 
@@ -9648,10 +9655,10 @@ snapshots:
     dependencies:
       defer-to-connect: 2.0.1
 
-  '@t3-oss/env-core@0.12.0(typescript@5.8.3)(zod@3.24.3)':
+  '@t3-oss/env-core@0.12.0(typescript@5.8.3)(zod@3.24.4)':
     optionalDependencies:
       typescript: 5.8.3
-      zod: 3.24.3
+      zod: 3.24.4
 
   '@tailwindcss/aspect-ratio@0.4.2(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@22.13.10)(typescript@5.8.3)))':
     dependencies:
@@ -11198,7 +11205,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  electron@35.2.0:
+  electron@35.2.2:
     dependencies:
       '@electron/get': 2.0.3
       '@types/node': 22.13.10
@@ -12959,9 +12966,9 @@ snapshots:
 
   memorystream@0.3.1: {}
 
-  menubar@9.5.1(electron@35.2.0):
+  menubar@9.5.1(electron@35.2.2):
     dependencies:
-      electron: 35.2.0
+      electron: 35.2.2
       electron-positioner: 4.1.0
 
   meow@12.1.1: {}
@@ -13173,7 +13180,7 @@ snapshots:
 
   node-releases@2.0.19: {}
 
-  nodemon@3.1.9:
+  nodemon@3.1.10:
     dependencies:
       chokidar: 3.6.0
       debug: 4.4.0(supports-color@5.5.0)
@@ -15026,4 +15033,4 @@ snapshots:
       compress-commons: 4.1.2
       readable-stream: 3.6.2
 
-  zod@3.24.3: {}
+  zod@3.24.4: {}
