@@ -24,20 +24,16 @@ const appearanceFormSchema = z.object({
 type AppearanceFormSchema = z.infer<typeof appearanceFormSchema>
 
 interface AppearanceFormProps {
-	initialValues?: AppearanceFormSchema
 	onSubmit?: (values: AppearanceFormSchema) => void
 }
 
-export function AppearanceForm({
-	initialValues,
-	onSubmit,
-}: AppearanceFormProps) {
-	const { updateSetting } = useSettings()
+export function AppearanceForm({ onSubmit }: AppearanceFormProps) {
+	const { updateSetting, settings } = useSettings()
 
 	const form = useForm<AppearanceFormSchema>({
 		resolver: zodResolver(appearanceFormSchema),
-		defaultValues: initialValues ?? {
-			appearance: Appearance.SYSTEM,
+		defaultValues: {
+			appearance: settings.appearance,
 		},
 	})
 
