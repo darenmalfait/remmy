@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import path from 'path'
 import { Button, Tooltip, TooltipContent, TooltipTrigger } from '@nerdfish/ui'
 import { ipcRenderer } from 'electron'

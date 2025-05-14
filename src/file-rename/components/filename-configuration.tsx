@@ -13,7 +13,13 @@ import {
 } from '@nerdfish/ui'
 import { cx } from '@nerdfish/utils'
 import { AnimatePresence, Reorder } from 'framer-motion'
-import { Calendar, Check, ChevronsUpDown, Plus, Trash } from 'lucide-react'
+import {
+	CalendarIcon,
+	CheckIcon,
+	ChevronsUpDownIcon,
+	PlusIcon,
+	TrashIcon,
+} from 'lucide-react'
 import * as React from 'react'
 import * as uuid from 'uuid'
 import { useSettings } from '../../settings/settings-provider'
@@ -38,7 +44,7 @@ const OptionSelector = React.forwardRef<
 		placeholder = 'Search...',
 		items = [],
 		defaultValue = '',
-		icon: Icon = ChevronsUpDown,
+		icon: Icon = ChevronsUpDownIcon,
 		inputSize,
 		onChange,
 		onRemove,
@@ -65,15 +71,14 @@ const OptionSelector = React.forwardRef<
 		<Popover open={open} onOpenChange={setOpen}>
 			<PopoverTrigger asChild>
 				<Button
-					variant="ghost"
 					role="combobox"
 					aria-haspopup="listbox"
 					aria-controls="listbox"
+					size="sm"
 					aria-expanded={open}
 					className={cx(
 						className,
-						inputVariants({ inputSize }),
-						'w-auto bg-inverted/5 px-3 py-1 !ring-0 !ring-offset-0',
+						'w-auto px-3 py-1 !ring-0 !ring-offset-0',
 						className,
 					)}
 				>
@@ -87,7 +92,7 @@ const OptionSelector = React.forwardRef<
 					</div>
 				</Button>
 			</PopoverTrigger>
-			<PopoverContent className="w-full min-w-[200px] p-0">
+			<PopoverContent className="bg-popover w-full min-w-[200px] p-0">
 				<Command>
 					<CommandList>
 						<CommandGroup className="!p-0">
@@ -96,7 +101,7 @@ const OptionSelector = React.forwardRef<
 									key={item.value}
 									onSelect={() => handleChange(item.value)}
 								>
-									<Check
+									<CheckIcon
 										className={cx(
 											'mr-2 h-4 w-4',
 											value === item.value ? 'opacity-100' : 'opacity-0',
@@ -110,7 +115,7 @@ const OptionSelector = React.forwardRef<
 									onSelect={handleRemove}
 									className="text-danger-foreground"
 								>
-									<Trash className="mr-2 h-4 w-4" />
+									<TrashIcon className="mr-2 h-4 w-4" />
 									Remove
 								</CommandItem>
 							) : null}
@@ -128,7 +133,7 @@ function DateFormatPicker(props: React.ComponentProps<typeof OptionSelector>) {
 		<OptionSelector
 			{...props}
 			name="dateFormat"
-			icon={Calendar}
+			icon={CalendarIcon}
 			defaultValue="yyyy_mm_dd"
 			items={[
 				{
@@ -226,11 +231,11 @@ function AddNewSection({ onSelect }: { onSelect: (value: string) => void }) {
 	return (
 		<Popover open={open} onOpenChange={setOpen}>
 			<PopoverTrigger asChild>
-				<Button type="button" variant="ghost" size="icon">
-					<Plus className="size-4" />
+				<Button type="button" size="iconSm" variant="secondary">
+					<PlusIcon className="size-4" />
 				</Button>
 			</PopoverTrigger>
-			<PopoverContent className="w-full min-w-[200px] p-0">
+			<PopoverContent className="bg-popover w-full min-w-[200px] p-0">
 				<Command>
 					<CommandList>
 						<CommandGroup className="!p-0">
@@ -255,12 +260,12 @@ function FilenameConfiguration() {
 		<div
 			className={cx(
 				inputVariants(),
-				'flex w-full flex-row space-x-2 overflow-x-scroll pr-2',
+				'flex w-full flex-row space-x-sm overflow-x-scroll pr-sm',
 			)}
 		>
 			<Reorder.Group
 				as="div"
-				className="flex flex-row space-x-2"
+				className="flex flex-row space-x-sm"
 				axis="x"
 				values={filenameConfiguration}
 				onReorder={(newOrder) => {
