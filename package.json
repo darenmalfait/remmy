@@ -70,7 +70,7 @@
     "node-fetch": "^3.3.2",
     "npm-run-all2": "^8.0.3",
     "nprogress": "=0.2.0",
-    "pdf2json": "^3.1.5",
+    "pdf2json": "^3.1.6",
     "postcss": "^8.5.3",
     "postcss-import": "^16.1.0",
     "postcss-nesting": "^13.0.1",
