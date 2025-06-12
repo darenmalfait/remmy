@@ -56,7 +56,7 @@ function DestinationItem(destination: Destination) {
 						default
 					</Badge>
 				) : (
-					<Button variant="secondary" size="sm" onClick={setAsDefault}>
+					<Button variant="secondary" size="xs" onClick={setAsDefault}>
 						set default
 					</Button>
 				)}

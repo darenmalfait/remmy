@@ -74,7 +74,7 @@ const OptionSelector = React.forwardRef<
 					role="combobox"
 					aria-haspopup="listbox"
 					aria-controls="listbox"
-					size="sm"
+					size="xs"
 					aria-expanded={open}
 					className={cx(
 						className,
