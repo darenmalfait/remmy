@@ -260,12 +260,12 @@ function FilenameConfiguration() {
 		<div
 			className={cx(
 				inputVariants(),
-				'flex w-full flex-row space-x-sm overflow-x-scroll pr-sm',
+				'space-x-sm pr-sm flex w-full flex-row overflow-x-scroll',
 			)}
 		>
 			<Reorder.Group
 				as="div"
-				className="flex flex-row space-x-sm"
+				className="space-x-sm flex flex-row"
 				axis="x"
 				values={filenameConfiguration}
 				onReorder={(newOrder) => {

@@ -12,7 +12,7 @@ function Sidebar() {
 	const { clearAddingFile } = useFileUpload()
 
 	return (
-		<div className="fixed left-16 top-0 z-50 -ml-16 flex h-full w-16 flex-col overflow-y-auto bg-inverted">
+		<div className="bg-inverted fixed left-16 top-0 z-50 -ml-16 flex h-full w-16 flex-col overflow-y-auto">
 			<div className="flex flex-1 flex-col items-center py-4">
 				<img
 					src={logo}

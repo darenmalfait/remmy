@@ -37,7 +37,7 @@ function HomePage() {
 						<p>You can add a file by dragging in into the taskbar icon</p>
 						<img
 							src={img}
-							className="w-full rounded-base shadow-outline"
+							className="rounded-base shadow-outline w-full"
 							alt="drag to icon"
 						/>
 
