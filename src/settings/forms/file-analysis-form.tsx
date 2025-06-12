@@ -66,7 +66,7 @@ export function FileAnalysisForm({
 					name="ocrEnabled"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel className="flex w-full cursor-pointer items-center justify-between gap-md rounded-base py-md transition-all hover:bg-background-muted hover:px-md">
+							<FormLabel className="gap-md rounded-base py-md hover:bg-background-muted hover:px-md flex w-full cursor-pointer items-center justify-between transition-all">
 								OCR
 								<FormControl>
 									<Switch
@@ -88,7 +88,7 @@ export function FileAnalysisForm({
 						name="vatLookupEnabled"
 						render={({ field }) => (
 							<FormItem>
-								<FormLabel className="flex w-full cursor-pointer items-center justify-between gap-md rounded-base py-md transition-all hover:bg-background-muted hover:px-md">
+								<FormLabel className="gap-md rounded-base py-md hover:bg-background-muted hover:px-md flex w-full cursor-pointer items-center justify-between transition-all">
 									Lookup VAT numbers
 									<FormControl>
 										<Switch

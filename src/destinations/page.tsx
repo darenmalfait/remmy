@@ -36,12 +36,12 @@ function DestinationItem(destination: Destination) {
 			className="flex max-w-full justify-between space-x-4 py-4"
 		>
 			<div className="flex max-w-[300px] flex-col">
-				<p className="text-sm font-medium text-foreground">
+				<p className="text-foreground text-sm font-medium">
 					{destination.name}
 				</p>
 				<Tooltip>
 					<TooltipTrigger>
-						<p className="max-w-full truncate text-sm text-foreground-secondary">
+						<p className="text-foreground-secondary max-w-full truncate text-sm">
 							{destination.path}
 						</p>
 					</TooltipTrigger>
@@ -56,7 +56,7 @@ function DestinationItem(destination: Destination) {
 						default
 					</Badge>
 				) : (
-					<Button variant="secondary" size="sm" onClick={setAsDefault}>
+					<Button variant="secondary" size="xs" onClick={setAsDefault}>
 						set default
 					</Button>
 				)}
@@ -90,7 +90,7 @@ function DestinationsPage() {
 				</Section>
 			) : (
 				<Section>
-					<ul className="divide-y divide-muted">
+					<ul className="divide-muted divide-y">
 						{destinations.map((destination) => (
 							<DestinationItem key={destination.id} {...destination} />
 						))}

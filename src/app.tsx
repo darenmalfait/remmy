@@ -12,10 +12,10 @@ export const App = () => {
 	return (
 		<AppProviders>
 			<Router>
-				<div className={cx('flex h-full flex-col bg-background pl-14')}>
+				<div className={cx('bg-background flex h-full flex-col pl-14')}>
 					<Sidebar />
 
-					<div className="relative h-screen overflow-y-auto text-foreground">
+					<div className="text-foreground relative h-screen overflow-y-auto">
 						<Routes>
 							<Route path="/" element={<HomePage />} />
 							<Route path="/settings" element={<SettingsPage />} />
