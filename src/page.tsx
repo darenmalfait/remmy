@@ -1,4 +1,3 @@
-import * as path from 'path'
 import {
 	H1,
 	Sheet,
@@ -14,8 +13,6 @@ import { DestinationForm } from './destinations/forms/destination-form'
 import { FilePreview } from './file-rename/file-preview'
 import { FileRenamer } from './file-rename/file-renamer'
 import { useFileUpload } from './file-rename/file-upload-provider'
-
-const img = path.join(__dirname, 'assets/images', 'drag-to-icon.gif')
 
 function HomePage() {
 	const { selectedFile, onFileRenamed, clearSelectedFile } = useFileUpload()
@@ -35,12 +32,13 @@ function HomePage() {
 							<H1 variant="primary">Archive a file</H1>
 						</div>
 
-						<p>You can add a file by dragging in into the taskbar icon</p>
-						<img
-							src={img}
-							className="w-full rounded-base shadow-outline"
-							alt="drag to icon"
-						/>
+						<p className="pb-lg">
+							You can add a file by dragging in into the taskbar icon
+						</p>
+
+						<div className="flex h-[75vh] w-full items-center justify-center rounded-base border-2 border-dashed border-foreground-muted bg-background">
+							<p className="text-foreground">Drop your file here</p>
+						</div>
 
 						<Sheet open={!!selectedFile} onOpenChange={clearSelectedFile}>
 							<SheetContent className="min-w-[1000px] overflow-y-scroll">
