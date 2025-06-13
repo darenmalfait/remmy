@@ -14,6 +14,7 @@ import {
 import { TrashIcon } from 'lucide-react'
 import * as React from 'react'
 import { Layout } from '../components/layout'
+
 import { Section } from '../components/section'
 import { useDestinations } from './destinations-provider'
 import { DestinationForm } from './forms/destination-form'
@@ -84,13 +85,15 @@ function DestinationsPage() {
 				<Section>
 					<Alert
 						variant="warning"
+						title="No destinations"
 						description="No destinations have yet been added. You can add destinations by clicking the button below."
+						className="mb-lg"
 					/>
 					<p>
 						Destinations are the paths to where your documents get moved after
 						renaming.
 					</p>
-					<Button onClick={() => setIsAdding(true)}>
+					<Button className="mt-lg" onClick={() => setIsAdding(true)}>
 						Add first destination
 					</Button>
 				</Section>

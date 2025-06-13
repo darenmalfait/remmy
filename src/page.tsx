@@ -1,5 +1,4 @@
 import {
-	H1,
 	Sheet,
 	SheetContent,
 	SheetDescription,
@@ -7,7 +6,12 @@ import {
 	SheetTitle,
 } from '@nerdfish/ui'
 import { Layout } from './components/layout'
-import { Section } from './components/section'
+import {
+	Section,
+	SectionHeader,
+	SectionHeaderSubtitle,
+	SectionHeaderTitle,
+} from './components/section'
 import { useDestinations } from './destinations/destinations-provider'
 import { DestinationForm } from './destinations/forms/destination-form'
 import { FilePreview } from './file-rename/file-preview'
@@ -22,21 +26,25 @@ function HomePage() {
 		<Layout>
 			<Section>
 				{destinations.length === 0 ? (
-					<>
-						<H1>Start by adding a destination</H1>
+					<SectionHeader>
+						<SectionHeaderTitle>
+							Start with adding a destination
+						</SectionHeaderTitle>
+						<SectionHeaderSubtitle className="mb-xl">
+							Destinations can be selected when archiving files
+						</SectionHeaderSubtitle>
 						<DestinationForm />
-					</>
+					</SectionHeader>
 				) : (
 					<>
-						<div className="flex items-center justify-between">
-							<H1 variant="primary">Archive a file</H1>
-						</div>
+						<SectionHeader>
+							<SectionHeaderTitle>Archive a file</SectionHeaderTitle>
+							<SectionHeaderSubtitle className="mb-xl">
+								You can add a file by dragging in into the taskbar icon
+							</SectionHeaderSubtitle>
+						</SectionHeader>
 
-						<p className="pb-lg">
-							You can add a file by dragging in into the taskbar icon
-						</p>
-
-						<div className="flex h-[75vh] w-full items-center justify-center rounded-base border-2 border-dashed border-foreground-muted bg-background">
+						<div className="flex h-[70vh] w-full items-center justify-center rounded-base border-2 border-dashed border-foreground-muted bg-background">
 							<p className="text-foreground">Drop your file here</p>
 						</div>
 

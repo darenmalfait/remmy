@@ -10,7 +10,7 @@ function FilenameFormat() {
 	const { settings, updateSetting } = useSettings()
 
 	return (
-		<Section>
+		<Section className="flex flex-col gap-lg">
 			<FilenameConfiguration />
 
 			<FilenamePreview

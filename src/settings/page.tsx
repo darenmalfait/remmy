@@ -1,16 +1,14 @@
-import {
-	Button,
-	H2,
-	Tabs,
-	TabsContent,
-	TabsList,
-	TabsTrigger,
-} from '@nerdfish/ui'
+import { Button, Tabs, TabsContent, TabsList, TabsTrigger } from '@nerdfish/ui'
 import { ipcRenderer, shell } from 'electron'
 import * as React from 'react'
 import { Layout } from '../components/layout'
 import { FilenameFormat } from '../components/modules/filename-format'
-import { Section } from '../components/section'
+import {
+	Section,
+	SectionHeader,
+	SectionHeaderTitle,
+	SectionHeaderSubtitle,
+} from '../components/section'
 import { AppearanceForm } from './forms/appearance-form'
 import { FileAnalysisForm } from './forms/file-analysis-form'
 import { useSettings } from './settings-provider'
@@ -24,11 +22,14 @@ function About() {
 
 	return (
 		<Section>
-			<H2>About Remmy</H2>
-			<p>
-				Remmy is a simple file manager that allows you to move files from one
-				location to another, renaming them in the process.
-			</p>
+			<SectionHeader>
+				<SectionHeaderTitle>About Remmy</SectionHeaderTitle>
+				<SectionHeaderSubtitle>
+					Remmy is a simple file manager that allows you to move files from one
+					location to another, renaming them in the process.
+				</SectionHeaderSubtitle>
+			</SectionHeader>
+
 			<ul>
 				<li>
 					Created by
@@ -72,18 +73,37 @@ export function SettingsPage() {
 				</TabsList>
 				<TabsContent value="appearance" className="bg-transparent">
 					<Section>
-						<H2 variant="primary">Appearance</H2>
+						<SectionHeader>
+							<SectionHeaderTitle>Appearance</SectionHeaderTitle>
+							<SectionHeaderSubtitle>
+								Change the way the app looks
+							</SectionHeaderSubtitle>
+						</SectionHeader>
+
 						<AppearanceForm />
 					</Section>
 				</TabsContent>
 				<TabsContent value="files" className="bg-transparent">
 					<div className="space-y-xl">
 						<Section>
-							<H2 variant="primary">Filename format</H2>
+							<SectionHeader>
+								<SectionHeaderTitle>Filename format</SectionHeaderTitle>
+								<SectionHeaderSubtitle>
+									Customize how your files are named when they are moved.
+								</SectionHeaderSubtitle>
+							</SectionHeader>
+
 							<FilenameFormat />
 						</Section>
 						<Section>
-							<H2 variant="primary">Document analysis</H2>
+							<SectionHeader>
+								<SectionHeaderTitle>Document analysis</SectionHeaderTitle>
+								<SectionHeaderSubtitle>
+									Configure how Remmy analyzes your documents for better
+									organization.
+								</SectionHeaderSubtitle>
+							</SectionHeader>
+
 							<FileAnalysisForm />
 						</Section>
 					</div>
