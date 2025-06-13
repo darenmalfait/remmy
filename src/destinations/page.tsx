@@ -11,7 +11,7 @@ import {
 	TooltipContent,
 	TooltipTrigger,
 } from '@nerdfish/ui'
-import { Trash } from 'lucide-react'
+import { TrashIcon } from 'lucide-react'
 import * as React from 'react'
 import { Layout } from '../components/layout'
 import { Section } from '../components/section'
@@ -36,12 +36,12 @@ function DestinationItem(destination: Destination) {
 			className="flex max-w-full justify-between space-x-4 py-4"
 		>
 			<div className="flex max-w-[300px] flex-col">
-				<p className="text-foreground text-sm font-medium">
+				<p className="text-sm font-medium text-foreground">
 					{destination.name}
 				</p>
 				<Tooltip>
 					<TooltipTrigger>
-						<p className="text-foreground-secondary max-w-full truncate text-sm">
+						<p className="max-w-full truncate text-sm text-foreground-secondary">
 							{destination.path}
 						</p>
 					</TooltipTrigger>
@@ -52,16 +52,22 @@ function DestinationItem(destination: Destination) {
 			</div>
 			<div className="flex items-center space-x-2">
 				{destination.isDefault ? (
-					<Badge variant="success" className="cursor-pointer">
+					<Badge variant="default" className="cursor-pointer">
 						default
 					</Badge>
 				) : (
-					<Button variant="secondary" size="xs" onClick={setAsDefault}>
+					<Button variant="secondary" size="sm" onClick={setAsDefault}>
 						set default
 					</Button>
 				)}
-				<Button variant="danger" size="iconSm" onClick={onDelete}>
-					<Trash className="size-4" />
+				<Button
+					variant="ghost"
+					className="text-danger-foreground"
+					size="sm"
+					icon
+					onClick={onDelete}
+				>
+					<TrashIcon />
 				</Button>
 			</div>
 		</li>
@@ -90,7 +96,7 @@ function DestinationsPage() {
 				</Section>
 			) : (
 				<Section>
-					<ul className="divide-muted divide-y">
+					<ul className="divide-y divide-muted">
 						{destinations.map((destination) => (
 							<DestinationItem key={destination.id} {...destination} />
 						))}
@@ -101,7 +107,7 @@ function DestinationsPage() {
 			)}
 			<Sheet open={isAdding} onOpenChange={(o) => setIsAdding(o)}>
 				<SheetContent className="sm:max-w-[425px]">
-					<SheetHeader>
+					<SheetHeader className="mb-lg">
 						<SheetTitle>Add destination path</SheetTitle>
 						<SheetDescription>
 							Add a destination path to where your documents get moved after

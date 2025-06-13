@@ -15,7 +15,7 @@ function FilenamePreview({
 	const { settings } = useSettings()
 
 	return (
-		<div className="rounded-base border-info bg-info-muted p-md text-info-foreground border">
+		<div className="rounded-base border border-info bg-info-muted p-md text-info-foreground">
 			<p className="m-0">Your file will look like this:</p>
 			<code className="bg-info-accent text-background">
 				{rename({

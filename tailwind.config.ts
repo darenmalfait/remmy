@@ -1,13 +1,11 @@
-const path = require('path')
-const nerdfishConfig = require('@nerdfish/tailwind-config')
-const aspectRatio = require('@tailwindcss/aspect-ratio')
-const typography = require('@tailwindcss/typography')
-const defaultTheme = require('tailwindcss/defaultTheme')
-const animate = require('tailwindcss-animate')
+import nerdfishConfig from '@nerdfish/tailwind-config'
+import aspectRatio from '@tailwindcss/aspect-ratio'
+import typography from '@tailwindcss/typography'
+import defaultTheme from 'tailwindcss/defaultTheme'
+import { type Config } from 'tailwindcss/types/config'
+import animate from 'tailwindcss-animate'
 
-const fromRoot = (p) => path.join(__dirname, p)
-
-module.exports = {
+const config: Config = {
 	plugins: [
 		nerdfishConfig,
 		aspectRatio,
@@ -49,8 +47,9 @@ module.exports = {
 	},
 	darkMode: 'class', // or 'media' or 'class'
 	content: [
-		// ... paths that use tailwind
-		fromRoot('./node_modules/@nerdfish/**/*.{js,ts,jsx,tsx}'), // path to daren
-		fromRoot('./src/**/*.{js,jsx,ts,tsx}'),
+		'./node_modules/@nerdfish/**/*.{js,ts,jsx,tsx}',
+		'./src/**/*.{js,jsx,ts,tsx}',
 	],
 }
+
+export default config

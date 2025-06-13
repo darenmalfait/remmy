@@ -72,7 +72,7 @@ function FileModule({ file, onDone }: { file: string; onDone: () => void }) {
 	return (
 		<>
 			{loadingStatus === 'loading' ? (
-				<div className="space-y-lg absolute inset-0 z-50 !mt-0 flex flex-col items-center justify-center">
+				<div className="absolute inset-0 z-50 !mt-0 flex flex-col items-center justify-center space-y-lg">
 					<H2 variant="primary">Analysing your file</H2>
 					<LoadingAnimation variant="square" className="size-16" />
 				</div>

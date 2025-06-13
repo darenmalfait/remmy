@@ -2,6 +2,7 @@ import * as remote from '@electron/remote'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
 	Button,
+	ButtonGroup,
 	Form,
 	FormControl,
 	FormField,
@@ -98,14 +99,12 @@ export function DestinationForm({ onSubmit }: DestinationFormProps) {
 					render={({ field }) => (
 						<FormItem>
 							<FormLabel>Path</FormLabel>
-							<FormControl>
-								<div className="flex items-center gap-2">
+							<ButtonGroup>
+								<FormControl>
 									<Input {...field} />
-									<Button variant="secondary" onClick={onFolderSelect}>
-										Browse
-									</Button>
-								</div>
-							</FormControl>
+								</FormControl>
+								<Button onClick={onFolderSelect}>Browse</Button>
+							</ButtonGroup>
 							<FormMessage />
 						</FormItem>
 					)}

@@ -45,7 +45,7 @@
     "@nerdfish/config": "^1.9.3",
     "@nerdfish/tailwind-config": "^3.10.0",
     "@nerdfish/theme": "^2.8.0",
-    "@nerdfish/ui": "^7.13.1",
+    "@nerdfish/ui": "^7.15.0",
     "@nerdfish/utils": "^2.0.1",
     "@t3-oss/env-core": "^0.13.8",
     "@tailwindcss/aspect-ratio": "^0.4.2",
@@ -60,13 +60,13 @@
     "electron-updater": "^6.6.5",
     "extract-date-js": "^1.0.2",
     "final-form": "^4.20.10",
-    "framer-motion": "^12.17.0",
     "fs-extra": "^11.3.0",
     "geist": "^1.4.2",
     "lodash": "^4.17.21",
-    "lucide-react": "^0.514.0",
+    "lucide-react": "^0.515.0",
     "menubar": "^9.5.1",
     "moment": "^2.30.1",
+    "motion": "^12.17.3",
     "node-fetch": "^3.3.2",
     "npm-run-all2": "^8.0.4",
     "nprogress": "=0.2.0",
@@ -88,7 +88,7 @@
     "ts-loader": "^9.5.2",
     "typescript": "^5.8.3",
     "uuid": "^11.1.0",
-    "zod": "^3.25.63"
+    "zod": "^3.25.64"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",

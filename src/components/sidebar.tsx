@@ -12,8 +12,8 @@ function Sidebar() {
 	const { clearAddingFile } = useFileUpload()
 
 	return (
-		<div className="bg-inverted fixed left-16 top-0 z-50 -ml-16 flex h-full w-16 flex-col overflow-y-auto">
-			<div className="flex flex-1 flex-col items-center py-4">
+		<div className="fixed left-16 top-0 z-50 -ml-16 flex h-full w-16 flex-col overflow-y-auto bg-inverted">
+			<div className="flex flex-1 flex-col items-center gap-md py-4">
 				<img
 					src={logo}
 					alt="logo"
@@ -22,7 +22,7 @@ function Sidebar() {
 				/>
 			</div>
 
-			<div className="px-3 py-4">
+			<div className="flex flex-col gap-sm px-3 py-4">
 				<Tooltip delayDuration={0}>
 					<TooltipTrigger asChild>
 						<Button
@@ -32,10 +32,11 @@ function Sidebar() {
 								return navigate('/destinations')
 							}}
 							className="text-inverted hover:text-foreground"
-							size="iconSm"
+							size="sm"
+							icon
 							aria-label="Destination"
 						>
-							<Folder className="h-4 w-4" />
+							<Folder />
 						</Button>
 					</TooltipTrigger>
 					<TooltipContent side="right">
@@ -51,10 +52,11 @@ function Sidebar() {
 								return navigate('/settings')
 							}}
 							className="text-inverted hover:text-foreground"
-							size="iconSm"
+							size="sm"
+							icon
 							aria-label="Settings"
 						>
-							<Cog className="h-4 w-4" />
+							<Cog />
 						</Button>
 					</TooltipTrigger>
 					<TooltipContent side="right">
@@ -65,12 +67,13 @@ function Sidebar() {
 					<TooltipTrigger asChild>
 						<Button
 							variant="ghost"
-							size="iconSm"
+							icon
+							size="sm"
 							onClick={() => ipcRenderer.send('app-quit')}
 							className="text-inverted hover:text-foreground"
 							aria-label="Quit App"
 						>
-							<LogOutIcon className="h-4 w-4" />
+							<LogOutIcon />
 						</Button>
 					</TooltipTrigger>
 					<TooltipContent side="right">

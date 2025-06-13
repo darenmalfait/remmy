@@ -31,12 +31,12 @@ function Layout({
 
 					<Button
 						variant="ghost"
-						size="icon"
+						icon
 						className="-mr-md"
 						aria-label="Go Back"
 						onClick={() => navigate('/')}
 					>
-						<XIcon className="size-4" />
+						<XIcon />
 					</Button>
 				</div>
 			) : null}

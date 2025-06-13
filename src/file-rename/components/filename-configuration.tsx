@@ -12,7 +12,6 @@ import {
 	PopoverTrigger,
 } from '@nerdfish/ui'
 import { cx } from '@nerdfish/utils'
-import { AnimatePresence, Reorder } from 'framer-motion'
 import {
 	CalendarIcon,
 	CheckIcon,
@@ -20,6 +19,7 @@ import {
 	PlusIcon,
 	TrashIcon,
 } from 'lucide-react'
+import { AnimatePresence, Reorder } from 'motion/react'
 import * as React from 'react'
 import * as uuid from 'uuid'
 import { useSettings } from '../../settings/settings-provider'
@@ -74,13 +74,9 @@ const OptionSelector = React.forwardRef<
 					role="combobox"
 					aria-haspopup="listbox"
 					aria-controls="listbox"
-					size="xs"
 					aria-expanded={open}
-					className={cx(
-						className,
-						'w-auto px-3 py-1 !ring-0 !ring-offset-0',
-						className,
-					)}
+					size="sm"
+					className={cx('w-auto', className)}
 				>
 					<div className="flex w-full flex-nowrap items-center justify-between space-x-2 whitespace-nowrap">
 						<input ref={ref} type="hidden" value={value} {...props} />
@@ -92,7 +88,7 @@ const OptionSelector = React.forwardRef<
 					</div>
 				</Button>
 			</PopoverTrigger>
-			<PopoverContent className="bg-popover w-full min-w-[200px] p-0">
+			<PopoverContent className="bg-popover w-full min-w-[200px] !p-sm">
 				<Command>
 					<CommandList>
 						<CommandGroup className="!p-0">
@@ -100,6 +96,7 @@ const OptionSelector = React.forwardRef<
 								<CommandItem
 									key={item.value}
 									onSelect={() => handleChange(item.value)}
+									className="rounded-[calc(theme(borderRadius.base)-theme(padding.sm))]"
 								>
 									<CheckIcon
 										className={cx(
@@ -231,16 +228,20 @@ function AddNewSection({ onSelect }: { onSelect: (value: string) => void }) {
 	return (
 		<Popover open={open} onOpenChange={setOpen}>
 			<PopoverTrigger asChild>
-				<Button type="button" size="iconSm" variant="secondary">
-					<PlusIcon className="size-4" />
+				<Button type="button" icon size="sm" variant="secondary">
+					<PlusIcon />
 				</Button>
 			</PopoverTrigger>
-			<PopoverContent className="bg-popover w-full min-w-[200px] p-0">
+			<PopoverContent className="bg-popover w-full min-w-[200px] !p-sm">
 				<Command>
 					<CommandList>
 						<CommandGroup className="!p-0">
 							{Object.keys(ComponentMap).map((key) => (
-								<CommandItem key={key} onSelect={onSelect}>
+								<CommandItem
+									key={key}
+									onSelect={onSelect}
+									className="rounded-[calc(theme(borderRadius.base)-theme(padding.sm))]"
+								>
 									{key}
 								</CommandItem>
 							))}
@@ -260,12 +261,12 @@ function FilenameConfiguration() {
 		<div
 			className={cx(
 				inputVariants(),
-				'space-x-sm pr-sm flex w-full flex-row overflow-x-scroll',
+				'flex w-full flex-row space-x-sm overflow-x-scroll pr-sm',
 			)}
 		>
 			<Reorder.Group
 				as="div"
-				className="space-x-sm flex flex-row"
+				className="flex flex-row items-center space-x-sm"
 				axis="x"
 				values={filenameConfiguration}
 				onReorder={(newOrder) => {

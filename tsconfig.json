@@ -11,6 +11,7 @@
 	},
 	"exclude": ["node_modules", "build"],
 	"include": [
+		"tailwind.config.ts",
 		"src/**/*.js",
 		"src/**/*.ts",
 		"src/**/*.tsx",
