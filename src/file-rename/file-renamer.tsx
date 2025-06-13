@@ -9,11 +9,11 @@ import { useFileUpload } from './file-upload-provider'
 import { FileRenameForm } from './forms/file-rename-form'
 import { transformName } from './utils'
 
-function FileModule({ file, onDone }: { file: string; onDone: () => void }) {
+function FileRenamer({ file, onDone }: { file: string; onDone: () => void }) {
 	const [loadingStatus, setLoadingStatus] = React.useState<
 		'loading' | 'loaded' | 'error'
 	>('loading')
-	const { clearAddingFile } = useFileUpload()
+	const { clearSelectedFile } = useFileUpload()
 	const { settings } = useSettings()
 	const [date, setDate] = React.useState<Date | undefined>()
 	const [description, setDescription] = React.useState<string | undefined>()
@@ -58,11 +58,11 @@ function FileModule({ file, onDone }: { file: string; onDone: () => void }) {
 		}
 
 		handleFile().catch((e: any) => {
-			clearAddingFile()
+			clearSelectedFile()
 			console.error(e.message)
 		})
 	}, [
-		clearAddingFile,
+		clearSelectedFile,
 		file,
 		settings.ocrEnabled,
 		settings.ownVatNumber,
@@ -96,4 +96,4 @@ function FileModule({ file, onDone }: { file: string; onDone: () => void }) {
 	)
 }
 
-export { FileModule }
+export { FileRenamer }

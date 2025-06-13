@@ -3,9 +3,9 @@ import { ipcRenderer } from 'electron'
 import * as React from 'react'
 
 interface FileUploadContextProps {
-	addingFile?: string
+	selectedFile?: string
 	onFileRenamed: () => void
-	clearAddingFile: () => void
+	clearSelectedFile: () => void
 }
 
 const FileUploadContext = React.createContext<FileUploadContextProps | null>(
@@ -20,33 +20,33 @@ interface FileUploadProviderProps {
 // import { FileUploadProvider } from "path-to-context/FileUploadContext"
 // use <FileUploadProvider> as a wrapper around the part you need the context for
 function FileUploadProvider({ children }: FileUploadProviderProps) {
-	const [addingFile, setAddingFile] = React.useState<string | undefined>()
+	const [selectedFile, setSelectedFile] = React.useState<string | undefined>()
 
 	React.useEffect(() => {
 		ipcRenderer.on('file-drop', (_, files) => {
 			const file = files[0]
 			if (!file) return
 
-			setAddingFile(file)
+			setSelectedFile(file)
 		})
 
 		return () => {
 			ipcRenderer.removeAllListeners('file-drop')
 		}
-	}, [addingFile])
+	}, [selectedFile])
 
 	const onFileRenamed = React.useCallback(() => {
-		setAddingFile(undefined)
+		setSelectedFile(undefined)
 		toast.success('File has been successfully moved')
 	}, [])
 
-	const clearAddingFile = React.useCallback(() => {
-		setAddingFile(undefined)
+	const clearSelectedFile = React.useCallback(() => {
+		setSelectedFile(undefined)
 	}, [])
 
 	return (
 		<FileUploadContext.Provider
-			value={{ addingFile, onFileRenamed, clearAddingFile }}
+			value={{ selectedFile, onFileRenamed, clearSelectedFile }}
 		>
 			{children}
 		</FileUploadContext.Provider>

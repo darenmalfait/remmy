@@ -11,13 +11,14 @@ import { Layout } from './components/layout'
 import { Section } from './components/section'
 import { useDestinations } from './destinations/destinations-provider'
 import { DestinationForm } from './destinations/forms/destination-form'
-import { FileModule } from './file-rename/file-module'
+import { FilePreview } from './file-rename/file-preview'
+import { FileRenamer } from './file-rename/file-renamer'
 import { useFileUpload } from './file-rename/file-upload-provider'
 
 const img = path.join(__dirname, 'assets/images', 'drag-to-icon.gif')
 
 function HomePage() {
-	const { addingFile, onFileRenamed, clearAddingFile } = useFileUpload()
+	const { selectedFile, onFileRenamed, clearSelectedFile } = useFileUpload()
 	const { destinations } = useDestinations()
 
 	return (
@@ -41,17 +42,29 @@ function HomePage() {
 							alt="drag to icon"
 						/>
 
-						<Sheet open={!!addingFile} onOpenChange={clearAddingFile}>
-							<SheetContent className="min-w-[500px] overflow-y-scroll">
+						<Sheet open={!!selectedFile} onOpenChange={clearSelectedFile}>
+							<SheetContent className="min-w-[1000px] overflow-y-scroll">
 								<SheetHeader className="mb-lg">
 									<SheetTitle>Archive a file</SheetTitle>
 									<SheetDescription>
 										Fill in the form below to archive a file.
 									</SheetDescription>
 								</SheetHeader>
-								{addingFile ? (
-									<FileModule file={addingFile} onDone={onFileRenamed} />
-								) : null}
+								<div className="flex gap-lg">
+									{selectedFile ? (
+										<>
+											<div className="w-full max-w-[600px]">
+												<FilePreview file={selectedFile} />
+											</div>
+											<div className="w-full">
+												<FileRenamer
+													file={selectedFile}
+													onDone={onFileRenamed}
+												/>
+											</div>
+										</>
+									) : null}
+								</div>
 							</SheetContent>
 						</Sheet>
 					</>

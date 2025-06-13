@@ -9,7 +9,7 @@ const logo = path.join(__dirname, 'assets/images', 'logo.png')
 
 function Sidebar() {
 	const navigate = useNavigate()
-	const { clearAddingFile } = useFileUpload()
+	const { clearSelectedFile } = useFileUpload()
 
 	return (
 		<div className="fixed left-16 top-0 z-50 -ml-16 flex h-full w-16 flex-col overflow-y-auto bg-inverted/10">
@@ -28,7 +28,7 @@ function Sidebar() {
 						<Button
 							variant="ghost"
 							onClick={() => {
-								clearAddingFile()
+								clearSelectedFile()
 								return navigate('/destinations')
 							}}
 							size="sm"
@@ -47,7 +47,7 @@ function Sidebar() {
 						<Button
 							variant="ghost"
 							onClick={() => {
-								clearAddingFile()
+								clearSelectedFile()
 								return navigate('/settings')
 							}}
 							size="sm"

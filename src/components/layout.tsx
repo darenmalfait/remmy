@@ -14,14 +14,14 @@ function Layout({
 	title?: string
 }) {
 	const navigate = useNavigate()
-	const { addingFile } = useFileUpload()
+	const { selectedFile } = useFileUpload()
 
 	React.useEffect(() => {
 		//if current path is not root
-		if (addingFile && window.location.pathname !== '/') {
+		if (selectedFile && window.location.pathname !== '/') {
 			void navigate('/')
 		}
-	}, [addingFile, navigate])
+	}, [selectedFile, navigate])
 
 	return (
 		<div className={cx('flex flex-col space-y-4 p-8', className)} {...props}>
