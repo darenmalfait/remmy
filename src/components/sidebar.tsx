@@ -12,7 +12,7 @@ function Sidebar() {
 	const { clearAddingFile } = useFileUpload()
 
 	return (
-		<div className="fixed left-16 top-0 z-50 -ml-16 flex h-full w-16 flex-col overflow-y-auto bg-inverted">
+		<div className="fixed left-16 top-0 z-50 -ml-16 flex h-full w-16 flex-col overflow-y-auto bg-inverted/10">
 			<div className="flex flex-1 flex-col items-center gap-md py-4">
 				<img
 					src={logo}
@@ -31,7 +31,6 @@ function Sidebar() {
 								clearAddingFile()
 								return navigate('/destinations')
 							}}
-							className="text-inverted hover:text-foreground"
 							size="sm"
 							icon
 							aria-label="Destination"
@@ -51,7 +50,6 @@ function Sidebar() {
 								clearAddingFile()
 								return navigate('/settings')
 							}}
-							className="text-inverted hover:text-foreground"
 							size="sm"
 							icon
 							aria-label="Settings"
@@ -70,7 +68,6 @@ function Sidebar() {
 							icon
 							size="sm"
 							onClick={() => ipcRenderer.send('app-quit')}
-							className="text-inverted hover:text-foreground"
 							aria-label="Quit App"
 						>
 							<LogOutIcon />
