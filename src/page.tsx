@@ -62,7 +62,7 @@ function HomePage() {
 											<div className="w-full max-w-[600px]">
 												<FilePreview file={selectedFile} />
 											</div>
-											<div className="w-full">
+											<div className="relative w-full">
 												<FileRenamer
 													file={selectedFile}
 													onDone={onFileRenamed}

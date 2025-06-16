@@ -1,4 +1,4 @@
-import { H2, LoadingAnimation } from '@nerdfish/ui'
+import { H3, LoadingAnimation, Skeleton } from '@nerdfish/ui'
 import { extractDateFromText } from 'extract-date-js'
 import * as React from 'react'
 import { Section } from '../components/section'
@@ -72,9 +72,12 @@ function FileRenamer({ file, onDone }: { file: string; onDone: () => void }) {
 	return (
 		<>
 			{loadingStatus === 'loading' ? (
-				<div className="absolute inset-0 z-50 !mt-0 flex flex-col items-center justify-center space-y-lg">
-					<H2 variant="primary">Analysing your file</H2>
-					<LoadingAnimation variant="square" className="size-16" />
+				<div className="absolute inset-0 z-50 !mt-0 flex flex-col items-center justify-center space-y-lg text-center">
+					<Skeleton className="absolute inset-0 -z-1 size-full" />
+					<H3 as="h2" variant="primary">
+						Analysing your file
+					</H3>
+					<LoadingAnimation variant="square" className="size-12" />
 				</div>
 			) : null}
 			{loadingStatus === 'loaded' ? (
