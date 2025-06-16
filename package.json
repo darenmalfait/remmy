@@ -31,7 +31,7 @@
     "lint:fix": "eslint . --fix --cache --cache-location \"node_modules/.cache/.eslintcache\" --max-warnings 0",
     "make:macos": "electron-builder --mac --universal",
     "make:win": "electron-builder --win",
-    "prepare": "husky install",
+    "prepare": "husky",
     "start": "electron . -–enable-logging",
     "start:dev": "nodemon --watch src --watch ./build --exec electron . -–enable-logging",
     "test": "NODE_OPTIONS=--experimental-vm-modules yarn exec jest",
