@@ -22,8 +22,8 @@ let mainWindow
 const createWindow = () => {
 	// Create the browser window.
 	mainWindow = new BrowserWindow({
-		width: 1200,
-		height: 1000,
+		width: 1100,
+		height: 900,
 		webPreferences: {
 			nodeIntegration: true, // Required for `require('electron')` in renderer
 			contextIsolation: false, // Required if `nodeIntegration` is enabled
