@@ -108,10 +108,10 @@ importers:
         specifier: ^3.1.6
         version: 3.1.6
       postcss:
-        specifier: ^8.5.5
+        specifier: ^8.5.6
         version: 8.5.6
       postcss-import:
-        specifier: ^16.1.0
+        specifier: ^16.1.1
         version: 16.1.1(postcss@8.5.6)
       postcss-nesting:
         specifier: ^13.0.2
@@ -129,7 +129,7 @@ importers:
         specifier: ^6.5.9
         version: 6.5.9(final-form@4.20.10)(react@19.1.0)
       react-hook-form:
-        specifier: ^7.58.0
+        specifier: ^7.58.1
         version: 7.58.1(react@19.1.0)
       react-pdf:
         specifier: ^9.2.1
@@ -162,7 +162,7 @@ importers:
         specifier: ^11.1.0
         version: 11.1.0
       zod:
-        specifier: ^3.25.64
+        specifier: ^3.25.67
         version: 3.25.67
     devDependencies:
       '@commitlint/cli':
@@ -181,10 +181,10 @@ importers:
         specifier: ^29.5.14
         version: 29.5.14
       '@types/lodash':
-        specifier: ^4.17.17
+        specifier: ^4.17.18
         version: 4.17.18
       '@types/node':
-        specifier: ^22.15.31
+        specifier: ^22.15.32
         version: 22.15.32
       '@types/react':
         specifier: ^19.1.8
@@ -223,7 +223,7 @@ importers:
         specifier: ^29.7.0
         version: 29.7.0
       mocha:
-        specifier: ^11.6.0
+        specifier: ^11.7.0
         version: 11.7.0
       nock:
         specifier: ^14.0.5
@@ -5626,7 +5626,6 @@ packages:
     resolution: {integrity: sha512-Nkwo9qeCvqVH0ZgYRUfPyj6o4o7StvNIxMFECeiz4y0uMOVyqc5Y9hjsdFVxdYCeiUjjXLQXA8KIz0iJL3HM0w==}
     engines: {node: '>=20.18.0'}
     hasBin: true
-    bundledDependencies: []
 
   pdfjs-dist@4.8.69:
     resolution: {integrity: sha512-IHZsA4T7YElCKNNXtiLgqScw4zPd3pG9do8UrznC757gMd7UPeHSL2qwNNMJo4r79fl8oj1Xx+1nh2YkzdMpLQ==}
