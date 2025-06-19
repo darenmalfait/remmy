@@ -13,7 +13,7 @@ export const Oops = () => {
 	)
 
 	return (
-		<div className="flex flex-1 flex-col items-center justify-center bg-muted">
+		<div className="flex flex-1 flex-col items-center justify-center bg-background-muted">
 			<h1 className="mb-5 text-5xl">{emojify(emoji, { output: 'unicode' })}</h1>
 
 			<h2 className="text-semibold mb-2 text-xl font-semibold">

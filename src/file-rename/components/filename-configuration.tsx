@@ -110,7 +110,7 @@ const OptionSelector = React.forwardRef<
 							{onRemove ? (
 								<CommandItem
 									onSelect={handleRemove}
-									className="text-danger-foreground"
+									className="text-foreground-danger"
 								>
 									<TrashIcon className="mr-2 h-4 w-4" />
 									Remove

@@ -63,7 +63,7 @@ function DestinationItem(destination: Destination) {
 				)}
 				<Button
 					variant="ghost"
-					className="text-danger-foreground"
+					className="text-foreground-danger"
 					size="sm"
 					icon
 					onClick={onDelete}
@@ -99,7 +99,7 @@ function DestinationsPage() {
 				</Section>
 			) : (
 				<Section>
-					<ul className="divide-y divide-muted">
+					<ul className="divide-y divide-foreground-muted">
 						{destinations.map((destination) => (
 							<DestinationItem key={destination.id} {...destination} />
 						))}
