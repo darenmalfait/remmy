@@ -1,19 +1,21 @@
-import { useSettings } from '../../settings/settings-provider'
+import { type SettingsState } from '../../settings/settings-provider'
 import { rename } from '../utils'
 
-function FilenamePreview({
-	extension,
-	description,
-	detail,
-	date,
-}: {
+export interface FilenamePreviewProps {
 	extension: string
 	description?: string
 	detail?: string
 	date?: Date
-}) {
-	const { settings } = useSettings()
+	config: Pick<SettingsState, 'filenameConfiguration' | 'textSeparator'>
+}
 
+export function FilenamePreview({
+	extension,
+	description,
+	detail,
+	date,
+	config,
+}: FilenamePreviewProps) {
 	return (
 		<div className="rounded-base border border-muted bg-background-muted p-md">
 			<p className="m-0">Your file will look like this:</p>
@@ -23,12 +25,10 @@ function FilenamePreview({
 					date,
 					description,
 					detail,
-					filenameConfiguration: settings.filenameConfiguration,
-					textSeparator: settings.textSeparator,
+					filenameConfiguration: config.filenameConfiguration,
+					textSeparator: config.textSeparator,
 				})}
 			</code>
 		</div>
 	)
 }
-
-export { FilenamePreview }

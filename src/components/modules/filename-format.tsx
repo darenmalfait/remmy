@@ -1,5 +1,5 @@
 import { Description, Field, Input, Label } from '@nerdfish/ui'
-import * as React from 'react'
+import { pick } from '@nerdfish/utils'
 
 import { FilenameConfiguration } from '../../file-rename/components/filename-configuration'
 import { FilenamePreview } from '../../file-rename/components/filename-preview'
@@ -17,6 +17,7 @@ function FilenameFormat() {
 				date={new Date()}
 				description="example document"
 				extension="pdf"
+				config={pick(settings, ['filenameConfiguration', 'textSeparator'])}
 				detail="example detail"
 			/>
 

@@ -16,6 +16,7 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from '@nerdfish/ui'
+import { pick } from '@nerdfish/utils'
 import { defaults } from 'lodash'
 import * as React from 'react'
 import { useForm } from 'react-hook-form'
@@ -204,6 +205,7 @@ export function FileRenameForm({
 					description={form.watch('description')}
 					detail={form.watch('detail')}
 					date={form.watch('date')}
+					config={pick(settings, ['filenameConfiguration', 'textSeparator'])}
 				/>
 
 				<Button type="submit">Rename</Button>
