@@ -23,35 +23,35 @@ import { AnimatePresence, Reorder } from 'motion/react'
 import * as React from 'react'
 import * as uuid from 'uuid'
 import { useSettings } from '../../settings/settings-provider'
+import { defaultFilenameSettings } from '../settings'
+import { type FilenameConfiguration } from '../types'
 
-const OptionSelector = React.forwardRef<
-	HTMLInputElement,
-	Omit<React.ComponentPropsWithoutRef<'input'>, 'onChange'> & {
-		value?: string
-		className?: string
-		placeholder?: string
-		items?: { label: string; value: string }[]
-		defaultValue?: string
-		icon?: React.ComponentType<{ className?: string }>
-		inputSize?: 'sm' | 'md' | 'lg'
-		onRemove?: () => void
-		onChange?: (value: string) => void
-	}
->(function OptionSelector(
-	{
-		value: valueProp,
-		className,
-		placeholder = 'Search...',
-		items = [],
-		defaultValue = '',
-		icon: Icon = ChevronsUpDownIcon,
-		inputSize,
-		onChange,
-		onRemove,
-		...props
-	},
+interface OptionSelectorProps
+	extends Omit<React.ComponentProps<'input'>, 'onChange'> {
+	value?: string
+	className?: string
+	placeholder?: string
+	items?: { label: string; value: string }[]
+	defaultValue?: string
+	icon?: React.ComponentType<{ className?: string }>
+	inputSize?: 'sm' | 'md' | 'lg'
+	onRemove?: () => void
+	onChange?: (value: string) => void
+}
+
+function OptionSelector({
+	value: valueProp,
+	className,
+	placeholder = 'Search...',
+	items = [],
 	ref,
-) {
+	defaultValue = '',
+	icon: Icon = ChevronsUpDownIcon,
+	inputSize,
+	onChange,
+	onRemove,
+	...props
+}: OptionSelectorProps) {
 	const [open, setOpen] = React.useState(false)
 	const [value, setValue] = React.useState(valueProp ?? defaultValue)
 
@@ -122,7 +122,8 @@ const OptionSelector = React.forwardRef<
 			</PopoverContent>
 		</Popover>
 	)
-})
+}
+
 OptionSelector.displayName = 'OptionSelector'
 
 function DateFormatPicker(props: React.ComponentProps<typeof OptionSelector>) {
@@ -148,6 +149,18 @@ function DateFormatPicker(props: React.ComponentProps<typeof OptionSelector>) {
 				{
 					label: `DD_MM_YYYY`,
 					value: 'dd_mm_yyyy',
+				},
+				{
+					label: `YYYY`,
+					value: 'yyyy',
+				},
+				{
+					label: `YYYY-MM`,
+					value: 'yyyy-mm',
+				},
+				{
+					label: `YYYY_MM`,
+					value: 'yyyy_mm',
 				},
 			]}
 		/>
@@ -214,15 +227,11 @@ const ComponentMap = {
 	detail: DetailPicker,
 }
 
-const defaultFilenameSettings = {
-	date: 'yyyy_mm_dd',
-	separator: '-',
-	description: 'lowercase',
-	detail: 'lowercase',
-	textSeparator: '_',
-}
-
-function AddNewSection({ onSelect }: { onSelect: (value: string) => void }) {
+function AddNewSection({
+	onSelect,
+}: {
+	onSelect: (value: FilenameConfiguration['type']) => void
+}) {
 	const [open, setOpen] = React.useState<boolean>(false)
 
 	return (
@@ -239,7 +248,7 @@ function AddNewSection({ onSelect }: { onSelect: (value: string) => void }) {
 							{Object.keys(ComponentMap).map((key) => (
 								<CommandItem
 									key={key}
-									onSelect={onSelect}
+									onSelect={onSelect as any}
 									className="rounded-[calc(theme(borderRadius.base)-theme(padding.sm))]"
 								>
 									{key}
@@ -253,70 +262,69 @@ function AddNewSection({ onSelect }: { onSelect: (value: string) => void }) {
 	)
 }
 
-function FilenameConfiguration() {
-	const { settings, updateSetting } = useSettings()
-	const { filenameConfiguration } = settings
-
+export interface FilenameFormatInputProps {
+	value: FilenameConfiguration[]
+	onChange: (format: FilenameConfiguration[]) => void
+}
+export function FilenameFormatInput({
+	onChange,
+	value = [],
+}: FilenameFormatInputProps) {
 	return (
-		<div
-			className={cx(
-				inputVariants(),
-				'flex w-full flex-row space-x-sm overflow-x-scroll pr-sm',
-			)}
-		>
-			<Reorder.Group
-				as="div"
-				className="flex flex-row items-center space-x-sm"
-				axis="x"
-				values={filenameConfiguration}
-				onReorder={(newOrder) => {
-					updateSetting('filenameConfiguration', newOrder)
-				}}
-			>
-				<AnimatePresence initial={false}>
-					{filenameConfiguration.map((item, index) => {
-						const Component = ComponentMap[item.type]
+		<div className={inputVariants()}>
+			<div className="w-full overflow-x-auto">
+				<div className="flex flex-nowrap gap-x-sm pr-sm">
+					<Reorder.Group
+						as="div"
+						className="flex flex-row items-center space-x-sm"
+						axis="x"
+						values={value}
+						onReorder={onChange}
+					>
+						<AnimatePresence initial={false}>
+							{value.map((item, index) => {
+								const Component = ComponentMap[item.type]
 
-						return (
-							<Reorder.Item as="div" key={item.id} value={item}>
-								<Component
-									name={item.type}
-									defaultValue={item.value}
-									onRemove={() => {
-										const newFormat = [...filenameConfiguration]
-										newFormat.splice(index, 1)
-										updateSetting('filenameConfiguration', newFormat)
-									}}
-									onChange={(value) => {
-										const newFormat = [...filenameConfiguration]
-										if (newFormat[index]) {
-											newFormat[index].value = value
-											updateSetting('filenameConfiguration', newFormat)
-										}
-									}}
-								/>
-							</Reorder.Item>
-						)
-					})}
-				</AnimatePresence>
-			</Reorder.Group>
-			<AddNewSection
-				onSelect={(value) => {
-					updateSetting('filenameConfiguration', [
-						...filenameConfiguration,
-						{
-							type: value,
-							value:
-								defaultFilenameSettings[
-									value as keyof typeof defaultFilenameSettings
-								],
-							id: uuid.v4(),
-						},
-					])
-				}}
-			/>
+								return (
+									<Reorder.Item as="div" key={item.id} value={item}>
+										<Component
+											name={item.type}
+											defaultValue={item.value}
+											onRemove={() => {
+												const newFormat = [...value]
+												newFormat.splice(index, 1)
+												onChange(newFormat)
+											}}
+											onChange={(newValue) => {
+												const newFormat = [...value]
+												if (newFormat[index]) {
+													newFormat[index].value = newValue
+													onChange(newFormat)
+												}
+											}}
+										/>
+									</Reorder.Item>
+								)
+							})}
+						</AnimatePresence>
+					</Reorder.Group>
+					<AddNewSection
+						onSelect={(newValue) => {
+							onChange([
+								...value,
+								{
+									type: newValue,
+									value:
+										defaultFilenameSettings[
+											newValue as keyof typeof defaultFilenameSettings
+										],
+									id: uuid.v4(),
+								},
+							])
+						}}
+					/>
+				</div>
+			</div>
 		</div>
 	)
 }
-
-export { FilenameConfiguration, defaultFilenameSettings }

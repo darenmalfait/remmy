@@ -3,7 +3,7 @@ import { Button, Tooltip, TooltipContent, TooltipTrigger } from '@nerdfish/ui'
 import { ipcRenderer } from 'electron'
 import { Cog, Folder, LogOutIcon } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
-import { useFileUpload } from '../file-rename/file-upload-provider'
+import { useFileUpload } from '../file/file-upload-provider'
 
 const logo = path.join(__dirname, 'assets/images', 'logo.png')
 

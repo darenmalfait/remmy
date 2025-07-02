@@ -2,12 +2,12 @@ import { H3, LoadingAnimation, Skeleton } from '@nerdfish/ui'
 import { extractDateFromText } from 'extract-date-js'
 import * as React from 'react'
 import { Section } from '../components/section'
+import { transformName } from '../filename/utils'
 import { getVATNumberFromText, ocr } from '../ocr/utils/ocr'
 import { useSettings } from '../settings/settings-provider'
 import { checkVat } from '../vat/utils/vat'
 import { useFileUpload } from './file-upload-provider'
 import { FileRenameForm } from './forms/file-rename-form'
-import { transformName } from './utils'
 
 function FileRenamer({ file, onDone }: { file: string; onDone: () => void }) {
 	const [loadingStatus, setLoadingStatus] = React.useState<

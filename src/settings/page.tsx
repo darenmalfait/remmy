@@ -2,13 +2,13 @@ import { Button, Tabs, TabsContent, TabsList, TabsTrigger } from '@nerdfish/ui'
 import { ipcRenderer, shell } from 'electron'
 import * as React from 'react'
 import { Layout } from '../components/layout'
-import { FilenameFormat } from '../components/modules/filename-format'
 import {
 	Section,
 	SectionHeader,
 	SectionHeaderTitle,
 	SectionHeaderSubtitle,
 } from '../components/section'
+import { FilenameFormats } from '../filename/components/filename-formats'
 import { AppearanceForm } from './forms/appearance-form'
 import { FileAnalysisForm } from './forms/file-analysis-form'
 import { useSettings } from './settings-provider'
@@ -93,7 +93,7 @@ export function SettingsPage() {
 								</SectionHeaderSubtitle>
 							</SectionHeader>
 
-							<FilenameFormat />
+							<FilenameFormats />
 						</Section>
 						<Section>
 							<SectionHeader>

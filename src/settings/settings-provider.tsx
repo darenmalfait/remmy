@@ -1,7 +1,8 @@
 import * as React from 'react'
 import * as uuid from 'uuid'
-import { defaultFilenameSettings } from '../file-rename/components/filename-configuration'
-import { type FilenameConfiguration } from '../types'
+
+import { defaultFilenameSettings } from '../filename/settings'
+import { type FilenameConfiguration } from '../filename/types'
 import { Appearance } from './types'
 import {
 	setAutoLaunch,
@@ -31,7 +32,7 @@ const defaultSettings: SettingsState = {
 	playSound: true,
 	openAtStartup: false,
 	appearance: Appearance.SYSTEM,
-	textSeparator: defaultFilenameSettings.textSeparator,
+	textSeparator: defaultFilenameSettings.inTextSeparator,
 	defaultSeparator: defaultFilenameSettings.separator,
 	filenameConfiguration: [
 		{

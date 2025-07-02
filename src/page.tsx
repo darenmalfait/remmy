@@ -14,9 +14,9 @@ import {
 } from './components/section'
 import { useDestinations } from './destinations/destinations-provider'
 import { DestinationForm } from './destinations/forms/destination-form'
-import { FilePreview } from './file-rename/file-preview'
-import { FileRenamer } from './file-rename/file-renamer'
-import { useFileUpload } from './file-rename/file-upload-provider'
+import { FilePreview } from './file/file-preview'
+import { FileRenamer } from './file/file-renamer'
+import { useFileUpload } from './file/file-upload-provider'
 
 function HomePage() {
 	const { selectedFile, onFileRenamed, clearSelectedFile } = useFileUpload()

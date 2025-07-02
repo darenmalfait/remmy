@@ -1,12 +1,23 @@
-import fs from 'fs'
-import path from 'path'
-import { type FilenameConfiguration } from '../types'
+import { saveLocal, loadLocal } from '../storage/utils'
 import { padZero } from '../utils'
-import { defaultFilenameSettings } from './components/filename-configuration'
+import { defaultFilenameSettings } from './settings'
+import { type FilenameFormat } from './types'
+
+export const STORAGE_KEY_FILENAME_FORMATS = 'remmy-filenameFormats'
+
+export function loadFilenameFormats(): { filenameFormats?: FilenameFormat[] } {
+	const { filenameFormats } = loadLocal(STORAGE_KEY_FILENAME_FORMATS) ?? {}
+
+	return { filenameFormats }
+}
+
+export function saveFilenameFormats(filenameFormats: FilenameFormat[]): void {
+	saveLocal(STORAGE_KEY_FILENAME_FORMATS, { filenameFormats })
+}
 
 export function transformName(
 	str: string,
-	separator = defaultFilenameSettings.textSeparator,
+	separator = defaultFilenameSettings.inTextSeparator,
 ) {
 	return str
 		.replace(/[^a-zA-Z0-9]/g, separator)
@@ -38,6 +49,18 @@ function formatDate(date?: Date, format?: string) {
 			dateStr = `${day}_${month}_${year}`
 			break
 		}
+		case 'yyyy': {
+			dateStr = `${year}`
+			break
+		}
+		case 'yyyy_mm': {
+			dateStr = `${year}_${month}`
+			break
+		}
+		case 'yyyy-mm': {
+			dateStr = `${year}-${month}`
+			break
+		}
 		default: {
 			dateStr = `${year}-${month}-${day}`
 			break
@@ -47,21 +70,22 @@ function formatDate(date?: Date, format?: string) {
 	return dateStr
 }
 
+export interface RenameProps
+	extends Omit<FilenameFormat, 'id' | 'name' | 'isDefault'> {
+	extension?: string
+	date?: Date
+	description?: string
+	detail?: string
+}
+
 export function rename({
 	extension = 'pdf',
 	date,
 	description,
 	detail,
 	filenameConfiguration = [],
-	textSeparator = defaultFilenameSettings.textSeparator,
-}: {
-	extension?: string
-	date?: Date
-	description?: string
-	detail?: string
-	filenameConfiguration?: FilenameConfiguration[]
-	textSeparator?: string
-}) {
+	inTextSeparator = defaultFilenameSettings.inTextSeparator,
+}: RenameProps) {
 	let fileName = ''
 
 	filenameConfiguration.forEach((config) => {
@@ -74,13 +98,13 @@ export function rename({
 			if (!description) return
 			fileName = `${fileName}${transformName(
 				description,
-				textSeparator,
+				inTextSeparator,
 			).toLowerCase()}`
 		} else if (type === 'detail') {
 			if (!detail) return
 			fileName = `${fileName}${transformName(
 				detail,
-				textSeparator,
+				inTextSeparator,
 			).toLowerCase()}`
 		} else {
 			fileName = `${fileName}${value}`
@@ -96,29 +120,4 @@ export function rename({
 	}
 
 	return extension ? `${fileName}.${extension}` : fileName
-}
-
-export function moveFile(from: string, to: string) {
-	const fromPath = path.resolve(from)
-	const toPath = path.resolve(to)
-
-	if (!fs.existsSync(fromPath)) {
-		console.error('File source does not exist')
-		return false
-	}
-
-	const toPathFolder = path.dirname(toPath)
-	if (!fs.existsSync(toPathFolder)) {
-		console.error('File destination does not exist')
-		return false
-	}
-
-	fs.rename(fromPath, toPath, (error) => {
-		if (error) {
-			console.error(error.message)
-			return false
-		}
-	})
-
-	return true
 }

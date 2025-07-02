@@ -3,7 +3,7 @@ import { cx } from '@nerdfish/utils'
 import { XIcon } from 'lucide-react'
 import * as React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useFileUpload } from '../file-rename/file-upload-provider'
+import { useFileUpload } from '../file/file-upload-provider'
 
 function Layout({
 	className,
