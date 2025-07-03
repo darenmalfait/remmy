@@ -10,6 +10,11 @@ import {
 	Tooltip,
 	TooltipContent,
 	TooltipTrigger,
+	Card,
+	CardContent,
+	CardHeader,
+	CardTitle,
+	CardDescription,
 } from '@nerdfish/ui'
 import { TrashIcon } from 'lucide-react'
 import * as React from 'react'
@@ -81,33 +86,49 @@ function DestinationsPage() {
 
 	return (
 		<Layout title="Destinations">
-			{destinations.length === 0 ? (
-				<Section>
-					<Alert
-						variant="warning"
-						title="No destinations"
-						description="No destinations have yet been added. You can add destinations by clicking the button below."
-						className="mb-lg"
-					/>
-					<p>
-						Destinations are the paths to where your documents get moved after
-						renaming.
-					</p>
-					<Button className="mt-lg" onClick={() => setIsAdding(true)}>
-						Add first destination
-					</Button>
-				</Section>
-			) : (
-				<Section>
-					<ul className="divide-y divide-foreground-muted">
-						{destinations.map((destination) => (
-							<DestinationItem key={destination.id} {...destination} />
-						))}
-					</ul>
+			<Section>
+				<Card>
+					<CardHeader>
+						<CardTitle>Configured destinations</CardTitle>
+						<CardDescription>
+							These destinations can be picked to move your document after
+							renaming
+						</CardDescription>
+					</CardHeader>
+					<CardContent>
+						{destinations.length === 0 ? (
+							<>
+								<Alert
+									variant="warning"
+									title="No destinations"
+									description="No destinations have yet been added. You can add destinations by clicking the button below."
+									className="mb-lg"
+								/>
+								<p>
+									Destinations are the paths to where your documents get moved
+									after renaming.
+								</p>
+								<Button className="mt-lg" onClick={() => setIsAdding(true)}>
+									Add first destination
+								</Button>
+							</>
+						) : (
+							<>
+								<ul className="mb-lg divide-y divide-foreground-muted">
+									{destinations.map((destination) => (
+										<DestinationItem key={destination.id} {...destination} />
+									))}
+								</ul>
 
-					<Button onClick={() => setIsAdding(true)}>Add destination</Button>
-				</Section>
-			)}
+								<Button onClick={() => setIsAdding(true)}>
+									Add destination
+								</Button>
+							</>
+						)}
+					</CardContent>
+				</Card>
+			</Section>
+
 			<Sheet open={isAdding} onOpenChange={(o) => setIsAdding(o)}>
 				<SheetContent className="sm:max-w-[425px]">
 					<SheetHeader className="mb-lg">

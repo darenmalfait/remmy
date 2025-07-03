@@ -1,13 +1,19 @@
-import { Button, Tabs, TabsContent, TabsList, TabsTrigger } from '@nerdfish/ui'
+import {
+	Button,
+	Card,
+	CardContent,
+	CardDescription,
+	CardHeader,
+	CardTitle,
+	Tabs,
+	TabsContent,
+	TabsList,
+	TabsTrigger,
+} from '@nerdfish/ui'
 import { ipcRenderer, shell } from 'electron'
 import * as React from 'react'
 import { Layout } from '../components/layout'
-import {
-	Section,
-	SectionHeader,
-	SectionHeaderTitle,
-	SectionHeaderSubtitle,
-} from '../components/section'
+import { Section } from '../components/section'
 import { FilenameFormats } from '../filename/components/filename-formats'
 import { AppearanceForm } from './forms/appearance-form'
 import { FileAnalysisForm } from './forms/file-analysis-form'
@@ -22,34 +28,37 @@ function About() {
 
 	return (
 		<Section>
-			<SectionHeader>
-				<SectionHeaderTitle>About Remmy</SectionHeaderTitle>
-				<SectionHeaderSubtitle>
-					Remmy is a simple file manager that allows you to move files from one
-					location to another, renaming them in the process.
-				</SectionHeaderSubtitle>
-			</SectionHeader>
-
-			<ul>
-				<li>
-					Created by
-					<Button
-						variant="link"
-						onClick={() => navigateTo('https://nerdfish.be')}
-					>
-						Nerdfish
-					</Button>
-				</li>
-				<li>
-					Follow me on{' '}
-					<Button
-						variant="link"
-						onClick={() => navigateTo('https://twitter.com/darenmalfait')}
-					>
-						Twitter
-					</Button>
-				</li>
-			</ul>
+			<Card>
+				<CardHeader>
+					<CardTitle>About Remmy</CardTitle>
+					<CardDescription>
+						Remmy is a simple file manager that allows you to move files from
+						one location to another, renaming them in the process.
+					</CardDescription>
+				</CardHeader>
+				<CardContent>
+					<ul>
+						<li>
+							Created by
+							<Button
+								variant="link"
+								onClick={() => navigateTo('https://nerdfish.be')}
+							>
+								Nerdfish
+							</Button>
+						</li>
+						<li>
+							Follow me on{' '}
+							<Button
+								variant="link"
+								onClick={() => navigateTo('https://twitter.com/darenmalfait')}
+							>
+								Twitter
+							</Button>
+						</li>
+					</ul>
+				</CardContent>
+			</Card>
 		</Section>
 	)
 }
@@ -66,45 +75,52 @@ export function SettingsPage() {
 	return (
 		<Layout title="Settings">
 			<Tabs defaultValue="appearance">
-				<TabsList>
+				<TabsList className="mb-lg">
 					<TabsTrigger value="appearance">Appearance</TabsTrigger>
 					<TabsTrigger value="files">Files</TabsTrigger>
 					<TabsTrigger value="about">About</TabsTrigger>
 				</TabsList>
 				<TabsContent value="appearance" className="bg-transparent">
 					<Section>
-						<SectionHeader>
-							<SectionHeaderTitle>Appearance</SectionHeaderTitle>
-							<SectionHeaderSubtitle>
-								Change the way the app looks
-							</SectionHeaderSubtitle>
-						</SectionHeader>
-
-						<AppearanceForm />
+						<Card>
+							<CardHeader>
+								<CardTitle>Appearance</CardTitle>
+								<CardDescription>Change the way the app looks</CardDescription>
+							</CardHeader>
+							<CardContent>
+								<AppearanceForm />
+							</CardContent>
+						</Card>
 					</Section>
 				</TabsContent>
 				<TabsContent value="files" className="bg-transparent">
 					<div className="space-y-xl">
 						<Section>
-							<SectionHeader>
-								<SectionHeaderTitle>Filename format</SectionHeaderTitle>
-								<SectionHeaderSubtitle>
-									Customize how your files are named when they are moved.
-								</SectionHeaderSubtitle>
-							</SectionHeader>
-
-							<FilenameFormats />
+							<Card>
+								<CardHeader>
+									<CardTitle>Filename format</CardTitle>
+									<CardDescription>
+										Customize how your files are named when they are moved.
+									</CardDescription>
+								</CardHeader>
+								<CardContent>
+									<FilenameFormats />
+								</CardContent>
+							</Card>
 						</Section>
 						<Section>
-							<SectionHeader>
-								<SectionHeaderTitle>Document analysis</SectionHeaderTitle>
-								<SectionHeaderSubtitle>
-									Configure how Remmy analyzes your documents for better
-									organization.
-								</SectionHeaderSubtitle>
-							</SectionHeader>
-
-							<FileAnalysisForm />
+							<Card>
+								<CardHeader>
+									<CardTitle>Document analysis</CardTitle>
+									<CardDescription>
+										Configure how Remmy analyzes your documents for better
+										organization.
+									</CardDescription>
+								</CardHeader>
+								<CardContent>
+									<FileAnalysisForm />
+								</CardContent>
+							</Card>
 						</Section>
 					</div>
 				</TabsContent>

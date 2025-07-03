@@ -10,7 +10,6 @@ import {
 } from '@nerdfish/ui'
 import { TrashIcon } from 'lucide-react'
 import * as React from 'react'
-import { Section } from '../../components/section'
 import { useFilenameFormat } from '../filename-format-provider'
 import { FilenameFormatForm } from '../forms/filename-format-form'
 import { type FilenameFormat } from '../types'
@@ -76,7 +75,7 @@ export function FilenameFormats() {
 	return (
 		<>
 			{filenameFormats.length === 0 ? (
-				<Section>
+				<>
 					<Alert
 						variant="warning"
 						title="No filename formats"
@@ -90,9 +89,9 @@ export function FilenameFormats() {
 					<Button className="mt-lg" onClick={() => setIsAdding(true)}>
 						Add first format
 					</Button>
-				</Section>
+				</>
 			) : (
-				<Section>
+				<>
 					<ul className="mb-lg divide-y divide-background-muted">
 						{filenameFormats.map((filenameFormat) => (
 							<FilenameFormatItem key={filenameFormat.id} {...filenameFormat} />
@@ -100,7 +99,7 @@ export function FilenameFormats() {
 					</ul>
 
 					<Button onClick={() => setIsAdding(true)}>Add format</Button>
-				</Section>
+				</>
 			)}
 			<Sheet open={isAdding} onOpenChange={(o) => setIsAdding(o)}>
 				<SheetContent className="sm:max-w-[425px]">

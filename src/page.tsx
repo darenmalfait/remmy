@@ -23,7 +23,7 @@ function HomePage() {
 	const { destinations } = useDestinations()
 
 	return (
-		<Layout>
+		<Layout title="Archive a file">
 			<Section>
 				{destinations.length === 0 ? (
 					<SectionHeader>
@@ -37,14 +37,7 @@ function HomePage() {
 					</SectionHeader>
 				) : (
 					<>
-						<SectionHeader>
-							<SectionHeaderTitle>Archive a file</SectionHeaderTitle>
-							<SectionHeaderSubtitle className="mb-xl">
-								You can add a file by dragging in into the taskbar icon
-							</SectionHeaderSubtitle>
-						</SectionHeader>
-
-						<div className="flex h-[70vh] w-full items-center justify-center rounded-base border-2 border-dashed border-foreground-muted bg-background">
+						<div className="flex h-[80vh] w-full items-center justify-center rounded-base border-2 border-dashed border-foreground-muted bg-background">
 							<p className="text-foreground">Drop your file here</p>
 						</div>
 

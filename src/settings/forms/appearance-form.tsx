@@ -57,7 +57,7 @@ export function AppearanceForm({ onSubmit }: AppearanceFormProps) {
 					name="appearance"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Appearance</FormLabel>
+							<FormLabel>Theme</FormLabel>
 							<FormControl>
 								<RadioGroup
 									{...field}

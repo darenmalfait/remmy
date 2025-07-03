@@ -59,7 +59,7 @@ export function FileAnalysisForm({
 				noValidate
 				onChange={form.handleSubmit(handleSubmit)}
 				onSubmit={form.handleSubmit(handleSubmit)}
-				className="space-y-lg"
+				className="space-y-md"
 			>
 				<FormField
 					control={form.control}
@@ -67,7 +67,7 @@ export function FileAnalysisForm({
 					render={({ field }) => (
 						<FormItem>
 							<FormLabel className="flex w-full cursor-pointer items-center justify-between gap-md rounded-base py-md transition-all hover:bg-background-muted hover:px-md">
-								OCR
+								Enable OCR
 								<FormControl>
 									<Switch
 										variant="success"
@@ -89,7 +89,7 @@ export function FileAnalysisForm({
 						render={({ field }) => (
 							<FormItem>
 								<FormLabel className="flex w-full cursor-pointer items-center justify-between gap-md rounded-base py-md transition-all hover:bg-background-muted hover:px-md">
-									Lookup VAT numbers
+									Enable VAT lookup
 									<FormControl>
 										<Switch
 											variant="success"

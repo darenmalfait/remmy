@@ -1,4 +1,4 @@
-import { Button } from '@nerdfish/ui'
+import { Button, H2 } from '@nerdfish/ui'
 import { cx } from '@nerdfish/utils'
 import { XIcon } from 'lucide-react'
 import * as React from 'react'
@@ -27,7 +27,7 @@ function Layout({
 		<div className={cx('flex flex-col space-y-4 p-8', className)} {...props}>
 			{title ? (
 				<div className="flex items-center justify-between">
-					<h3 className="text-lg font-semibold">{title}</h3>
+					<H2 variant="primary">{title}</H2>
 
 					<Button
 						variant="ghost"
