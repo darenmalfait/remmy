@@ -13,14 +13,14 @@ async function ocr(filePath: string): Promise<string | undefined> {
 			fs.mkdirSync(path.resolve(__dirname, 'temp'), { recursive: true })
 		}
 
-		ipcRenderer.send('prefix-convert-pdf', filePath)
+		ipcRenderer.send('convert-pdf', filePath)
 
 		ipcRenderer
-			.on('prefix-pdf-converted-error', (_event, errData) => {
+			.on('pdf-converted-error', (_event, errData) => {
 				console.error(errData)
 				resolve('')
 			})
-			.on('prefix-pdf-converted', (_event, pdfData) => {
+			.on('pdf-converted', (_event, pdfData) => {
 				resolve(pdfData)
 			})
 	})

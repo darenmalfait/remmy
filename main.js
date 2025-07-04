@@ -72,18 +72,15 @@ ipcMain.on('app-quit', () => {
 })
 
 // PDF Parser functionality from the old file
-ipcMain.on('prefix-convert-pdf', (event, file_base_path) => {
+ipcMain.on('convert-pdf', (event, file_base_path) => {
 	const pdfParser = new PDFParser(null, 1)
 
 	pdfParser.on('pdfParser_dataError', (errData) => {
-		event.sender.send('prefix-pdf-converted-error', errData)
+		event.sender.send('pdf-converted-error', errData)
 	})
 
 	pdfParser.on('pdfParser_dataReady', (pdfData) => {
-		event.sender.send(
-			'prefix-pdf-converted',
-			pdfParser.getRawTextContent(pdfData),
-		)
+		event.sender.send('pdf-converted', pdfParser.getRawTextContent(pdfData))
 	})
 
 	pdfParser.loadPDF(file_base_path)
