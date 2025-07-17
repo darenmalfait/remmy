@@ -13,7 +13,7 @@ export function Section({ className, asChild, ...props }: SectionProps) {
 	return (
 		<Component
 			className={cx(
-				'not-first-of-type:pt-lg container rounded-container pb-lg',
+				'not-first-of-type:pt-lg container flex flex-1 flex-col rounded-container pb-lg',
 				className,
 			)}
 			{...props}

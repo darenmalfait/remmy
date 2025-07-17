@@ -24,7 +24,10 @@ function Layout({
 	}, [selectedFile, navigate])
 
 	return (
-		<div className={cx('flex flex-col space-y-4 p-8', className)} {...props}>
+		<div
+			className={cx('flex min-h-screen flex-col space-y-4 p-8', className)}
+			{...props}
+		>
 			{title ? (
 				<div className="flex items-center justify-between">
 					<H2 variant="primary">{title}</H2>
@@ -41,7 +44,7 @@ function Layout({
 				</div>
 			) : null}
 
-			<div>{children}</div>
+			<div className="flex flex-1 flex-col">{children}</div>
 		</div>
 	)
 }

@@ -24,7 +24,7 @@ To run Remmy locally, please follow the steps below:
 
 If electron is not installing properly:
 
-- `npx cross-env ELECTRON_SKIP_BINARY_DOWNLOAD='' node ./node_modules/electron/install.js`
+- `node ./node_modules/electron/install.js`
 
 ## Features
 

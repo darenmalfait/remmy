@@ -1,10 +1,14 @@
+import * as remote from '@electron/remote'
 import {
+	Button,
 	Sheet,
 	SheetContent,
 	SheetDescription,
 	SheetHeader,
 	SheetTitle,
 } from '@nerdfish/ui'
+import { ipcRenderer } from 'electron'
+import { FileUpIcon } from 'lucide-react'
 import { Layout } from './components/layout'
 import {
 	Section,
@@ -22,6 +26,27 @@ function HomePage() {
 	const { selectedFile, onFileRenamed, clearSelectedFile } = useFileUpload()
 	const { destinations } = useDestinations()
 
+	const handleSelectFile = async () => {
+		await remote.dialog
+			.showOpenDialog({
+				filters: [],
+				properties: ['openFile'],
+			})
+			.then((result) => {
+				if (result.canceled) return
+
+				if (result.filePaths.length > 0) {
+					// send file-drop event to main process
+					ipcRenderer.send('dropped-file', result.filePaths)
+				}
+			})
+			.catch((err: any) => {
+				console.error(err)
+			})
+
+		remote.app.focus()
+	}
+
 	return (
 		<Layout title="Archive a file">
 			<Section>
@@ -37,8 +62,14 @@ function HomePage() {
 					</SectionHeader>
 				) : (
 					<>
-						<div className="flex h-[80vh] w-full items-center justify-center rounded-base border-2 border-dashed border-foreground-muted bg-background">
-							<p className="text-foreground">Drop your file here</p>
+						<div className="flex w-full flex-1 flex-col items-center justify-center gap-md rounded-base text-center">
+							<FileUpIcon className="size-8" />
+							<p className="font-semibold text-foreground">
+								Drag your file here
+							</p>
+							<Button size="sm" onClick={handleSelectFile}>
+								Select a file
+							</Button>
 						</div>
 
 						<Sheet open={!!selectedFile} onOpenChange={clearSelectedFile}>
