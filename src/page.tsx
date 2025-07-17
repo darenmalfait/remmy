@@ -48,7 +48,7 @@ function HomePage() {
 	}
 
 	return (
-		<Layout title="Archive a file">
+		<Layout title="Archive a file" isRoot>
 			<Section>
 				{destinations.length === 0 ? (
 					<SectionHeader>

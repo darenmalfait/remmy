@@ -9,9 +9,11 @@ function Layout({
 	className,
 	children,
 	title,
+	isRoot = false,
 	...props
 }: React.ComponentProps<'div'> & {
 	title?: string
+	isRoot?: boolean
 }) {
 	const navigate = useNavigate()
 	const { selectedFile } = useFileUpload()
@@ -23,6 +25,8 @@ function Layout({
 		}
 	}, [selectedFile, navigate])
 
+	const shouldShowBackButton = !isRoot
+
 	return (
 		<div
 			className={cx('flex min-h-screen flex-col space-y-4 p-8', className)}
@@ -32,15 +36,17 @@ function Layout({
 				<div className="flex items-center justify-between">
 					<H2 variant="primary">{title}</H2>
 
-					<Button
-						variant="ghost"
-						icon
-						className="-mr-md"
-						aria-label="Go Back"
-						onClick={() => navigate('/')}
-					>
-						<XIcon />
-					</Button>
+					{shouldShowBackButton ? (
+						<Button
+							variant="ghost"
+							icon
+							className="-mr-md"
+							aria-label="Go Back"
+							onClick={() => navigate('/')}
+						>
+							<XIcon />
+						</Button>
+					) : null}
 				</div>
 			) : null}
 
