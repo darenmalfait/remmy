@@ -41,13 +41,11 @@ function DestinationItem(destination: Destination) {
 			key={destination.id}
 			className="flex max-w-full justify-between space-x-4 py-4"
 		>
-			<div className="flex max-w-[300px] flex-col">
-				<p className="text-sm font-medium text-foreground">
-					{destination.name}
-				</p>
+			<div className="flex flex-grow flex-col">
+				<p className="line-clamp-1 text-sm font-medium">{destination.name}</p>
 				<Tooltip>
-					<TooltipTrigger>
-						<p className="max-w-full truncate text-sm text-foreground-secondary">
+					<TooltipTrigger className="cursor-default">
+						<p className="line-clamp-1 max-w-full text-left text-sm text-foreground-muted">
 							{destination.path}
 						</p>
 					</TooltipTrigger>

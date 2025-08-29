@@ -105,6 +105,21 @@ export function DestinationForm({ onSubmit }: DestinationFormProps) {
 								</FormControl>
 								<Button onClick={onFolderSelect}>Browse</Button>
 							</ButtonGroup>
+							{field.value ? (
+								<div className="flex items-center justify-between gap-sm pt-xs">
+									<span className="line-clamp-1 text-xs text-foreground-muted">
+										{field.value}
+									</span>
+									<Button
+										variant="link"
+										value=""
+										className="p-0 text-foreground-danger"
+										onClick={field.onChange}
+									>
+										Remove
+									</Button>
+								</div>
+							) : null}
 							<FormMessage />
 						</FormItem>
 					)}
