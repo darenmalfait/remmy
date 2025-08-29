@@ -123,71 +123,64 @@ export function FileRenameForm({
 				onSubmit={form.handleSubmit(handleSubmit)}
 				className="space-y-lg"
 			>
-				<div className="w-full">
-					<FormField
-						control={form.control}
-						name="filenameFormatId"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel className="sr-only">Format</FormLabel>
-								<FormControl>
-									<Select
-										onValueChange={field.onChange}
-										defaultValue={field.value}
-									>
-										<FormControl>
-											<SelectTrigger inputSize="sm">
-												<SelectValue placeholder="Select a format" />
-											</SelectTrigger>
-										</FormControl>
-										<SelectContent>
-											{filenameFormats.map((format) => (
-												<SelectItem key={format.id} value={format.id}>
-													{format.name}
-												</SelectItem>
-											))}
-										</SelectContent>
-									</Select>
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
-					<div className="w-full">
-						<FormField
-							control={form.control}
-							name="destination"
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel className="sr-only">Destination</FormLabel>
+				<FormField
+					control={form.control}
+					name="filenameFormatId"
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel>Format</FormLabel>
+							<FormControl>
+								<Select
+									onValueChange={field.onChange}
+									defaultValue={field.value}
+								>
 									<FormControl>
-										<Select
-											onValueChange={field.onChange}
-											defaultValue={field.value}
-										>
-											<FormControl>
-												<SelectTrigger inputSize="sm">
-													<SelectValue placeholder="Select a destination" />
-												</SelectTrigger>
-											</FormControl>
-											<SelectContent>
-												{destinations.map((destination) => (
-													<SelectItem
-														key={destination.id}
-														value={destination.path}
-													>
-														{destination.name}
-													</SelectItem>
-												))}
-											</SelectContent>
-										</Select>
+										<SelectTrigger>
+											<SelectValue placeholder="Select a format" />
+										</SelectTrigger>
 									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-					</div>
-				</div>
+									<SelectContent>
+										{filenameFormats.map((format) => (
+											<SelectItem key={format.id} value={format.id}>
+												{format.name}
+											</SelectItem>
+										))}
+									</SelectContent>
+								</Select>
+							</FormControl>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+				<FormField
+					control={form.control}
+					name="destination"
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel>Destination</FormLabel>
+							<FormControl>
+								<Select
+									onValueChange={field.onChange}
+									defaultValue={field.value}
+								>
+									<FormControl>
+										<SelectTrigger>
+											<SelectValue placeholder="Select a destination" />
+										</SelectTrigger>
+									</FormControl>
+									<SelectContent>
+										{destinations.map((destination) => (
+											<SelectItem key={destination.id} value={destination.path}>
+												{destination.name}
+											</SelectItem>
+										))}
+									</SelectContent>
+								</Select>
+							</FormControl>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
 				<FormField
 					control={form.control}
 					name="date"
