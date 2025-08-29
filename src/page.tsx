@@ -73,27 +73,29 @@ function HomePage() {
 						</div>
 
 						<Sheet open={!!selectedFile} onOpenChange={clearSelectedFile}>
-							<SheetContent className="min-w-[1000px] overflow-y-scroll">
-								<SheetHeader className="mb-lg">
+							<SheetContent className="flex min-w-[1000px] flex-col">
+								<SheetHeader>
 									<SheetTitle>Archive a file</SheetTitle>
 									<SheetDescription>
 										Fill in the form below to archive a file.
 									</SheetDescription>
 								</SheetHeader>
-								<div className="flex gap-lg">
-									{selectedFile ? (
-										<>
-											<div className="w-full max-w-[600px]">
-												<FilePreview file={selectedFile} />
-											</div>
-											<div className="relative w-full">
-												<FileRenamer
-													file={selectedFile}
-													onDone={onFileRenamed}
-												/>
-											</div>
-										</>
-									) : null}
+								<div className="-mx-md flex-grow overflow-y-auto pb-sm pt-md">
+									<div className="relative flex gap-md px-md">
+										{selectedFile ? (
+											<>
+												<div className="sticky top-0 h-[85vh] w-full max-w-[600px]">
+													<FilePreview file={selectedFile} />
+												</div>
+												<div className="relative mb-lg w-full pb-md">
+													<FileRenamer
+														file={selectedFile}
+														onDone={onFileRenamed}
+													/>
+												</div>
+											</>
+										) : null}
+									</div>
 								</div>
 							</SheetContent>
 						</Sheet>

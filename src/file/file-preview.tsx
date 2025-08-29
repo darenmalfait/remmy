@@ -20,7 +20,7 @@ export function FilePreview({ file }: { file?: string }) {
 	if (!file) return null
 
 	return (
-		<div className="flex h-full max-h-[85vh] w-full flex-col overflow-y-scroll rounded-base">
+		<div className="flex h-full w-full flex-col overflow-y-scroll rounded-base">
 			<Document file={file} onLoadSuccess={onDocumentLoadSuccess}>
 				{Array.from(new Array(numPages), (_el, index) => (
 					<Page key={`page_${index + 1}`} pageNumber={index + 1} />

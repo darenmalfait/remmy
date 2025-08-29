@@ -123,38 +123,36 @@ export function FileRenameForm({
 				onSubmit={form.handleSubmit(handleSubmit)}
 				className="space-y-lg"
 			>
-				<div className="flex w-full gap-md">
-					<div className="w-full">
-						<FormField
-							control={form.control}
-							name="filenameFormatId"
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel className="sr-only">Format</FormLabel>
-									<FormControl>
-										<Select
-											onValueChange={field.onChange}
-											defaultValue={field.value}
-										>
-											<FormControl>
-												<SelectTrigger inputSize="sm">
-													<SelectValue placeholder="Select a format" />
-												</SelectTrigger>
-											</FormControl>
-											<SelectContent>
-												{filenameFormats.map((format) => (
-													<SelectItem key={format.id} value={format.id}>
-														{format.name}
-													</SelectItem>
-												))}
-											</SelectContent>
-										</Select>
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-					</div>
+				<div className="w-full">
+					<FormField
+						control={form.control}
+						name="filenameFormatId"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel className="sr-only">Format</FormLabel>
+								<FormControl>
+									<Select
+										onValueChange={field.onChange}
+										defaultValue={field.value}
+									>
+										<FormControl>
+											<SelectTrigger inputSize="sm">
+												<SelectValue placeholder="Select a format" />
+											</SelectTrigger>
+										</FormControl>
+										<SelectContent>
+											{filenameFormats.map((format) => (
+												<SelectItem key={format.id} value={format.id}>
+													{format.name}
+												</SelectItem>
+											))}
+										</SelectContent>
+									</Select>
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
 					<div className="w-full">
 						<FormField
 							control={form.control}
