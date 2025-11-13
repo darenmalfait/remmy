@@ -1,6 +1,7 @@
-import { H3, LoadingAnimation, Skeleton } from '@nerdfish/ui'
+import { Skeleton } from '@nerdfish/react/skeleton'
+import { Spinner } from '@nerdfish/react/spinner'
 import { extractDateFromText } from 'extract-date-js'
-import * as React from 'react'
+import { useEffect, useState } from 'react'
 import { Section } from '../components/section'
 import { transformName } from '../filename/utils'
 import { getVATNumberFromText, ocr } from '../ocr/utils/ocr'
@@ -9,16 +10,22 @@ import { checkVat } from '../vat/utils/vat'
 import { useFileUpload } from './file-upload-provider'
 import { FileRenameForm } from './forms/file-rename-form'
 
-function FileRenamer({ file, onDone }: { file: string; onDone: () => void }) {
-	const [loadingStatus, setLoadingStatus] = React.useState<
+export function FileRenamer({
+	file,
+	onDone,
+}: {
+	file: string
+	onDone: () => void
+}) {
+	const [loadingStatus, setLoadingStatus] = useState<
 		'loading' | 'loaded' | 'error'
 	>('loading')
 	const { clearSelectedFile } = useFileUpload()
 	const { settings } = useSettings()
-	const [date, setDate] = React.useState<Date | undefined>()
-	const [description, setDescription] = React.useState<string | undefined>()
+	const [date, setDate] = useState<Date | undefined>()
+	const [description, setDescription] = useState<string | undefined>()
 
-	React.useEffect(() => {
+	useEffect(() => {
 		async function handleFile() {
 			if (!settings.ocrEnabled) return
 
@@ -72,12 +79,10 @@ function FileRenamer({ file, onDone }: { file: string; onDone: () => void }) {
 	return (
 		<>
 			{loadingStatus === 'loading' ? (
-				<div className="absolute inset-0 z-50 !mt-0 flex flex-col items-center justify-center space-y-lg text-center">
+				<div className="space-y-casual absolute inset-0 z-50 mt-0! flex flex-col items-center justify-center text-center">
 					<Skeleton className="absolute inset-0 -z-1 size-full" />
-					<H3 as="h2" variant="primary">
-						Analysing your file
-					</H3>
-					<LoadingAnimation variant="square" className="size-12" />
+					<h2 className="typography-heading-sm">Analysing your file</h2>
+					<Spinner className="size-12" />
 				</div>
 			) : null}
 			{loadingStatus === 'loaded' ? (
@@ -98,5 +103,3 @@ function FileRenamer({ file, onDone }: { file: string; onDone: () => void }) {
 		</>
 	)
 }
-
-export { FileRenamer }

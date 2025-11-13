@@ -1,19 +1,22 @@
 import * as remote from '@electron/remote'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Button } from '@nerdfish/react/button'
 import {
-	Button,
-	ButtonGroup,
-	Form,
-	FormControl,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-	Input,
-	toast,
-} from '@nerdfish/ui'
-import * as React from 'react'
-import { useForm } from 'react-hook-form'
+	Field,
+	FieldError,
+	FieldGroup,
+	FieldLabel,
+} from '@nerdfish/react/field'
+import { Input } from '@nerdfish/react/input'
+import {
+	InputGroup,
+	InputGroupAddon,
+	InputGroupButton,
+	InputGroupInput,
+} from '@nerdfish/react/input-group'
+import { toast } from '@nerdfish/react/toast'
+import { useCallback } from 'react'
+import { useForm, Controller } from 'react-hook-form'
 import { z } from 'zod'
 import { useDestinations } from '../destinations-provider'
 
@@ -36,7 +39,7 @@ export function DestinationForm({ onSubmit }: DestinationFormProps) {
 		defaultValues: {},
 	})
 
-	const handleSubmit = React.useCallback(
+	const handleSubmit = useCallback(
 		(values: DestinationFormData) => {
 			const result = addDestination(values)
 
@@ -49,7 +52,7 @@ export function DestinationForm({ onSubmit }: DestinationFormProps) {
 		[addDestination, onSubmit],
 	)
 
-	const onFolderSelect = React.useCallback(async () => {
+	const onFolderSelect = useCallback(async () => {
 		remote.app.focus()
 
 		await remote.dialog
@@ -74,58 +77,66 @@ export function DestinationForm({ onSubmit }: DestinationFormProps) {
 	}, [form])
 
 	return (
-		<Form {...form}>
-			<form
-				noValidate
-				onSubmit={form.handleSubmit(handleSubmit)}
-				className="space-y-lg"
-			>
-				<FormField
+		<form noValidate onSubmit={form.handleSubmit(handleSubmit)}>
+			<FieldGroup>
+				<Controller
 					control={form.control}
 					name="name"
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>Name</FormLabel>
-							<FormControl>
-								<Input {...field} />
-							</FormControl>
-							<FormMessage />
-						</FormItem>
+					render={({ field, fieldState }) => (
+						<Field>
+							<FieldLabel>Name</FieldLabel>
+							<Input aria-invalid={fieldState.invalid} {...field} />
+							{fieldState.invalid ? (
+								<FieldError errors={[fieldState.error]} />
+							) : null}
+						</Field>
 					)}
 				/>
-				<FormField
+				<Controller
 					control={form.control}
 					name="path"
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>Path</FormLabel>
-							<ButtonGroup>
-								<FormControl>
-									<Input {...field} />
-								</FormControl>
-								<Button onClick={onFolderSelect}>Browse</Button>
-							</ButtonGroup>
+					render={({ field, fieldState }) => (
+						<Field>
+							<FieldLabel>Path</FieldLabel>
+							<InputGroup>
+								<InputGroupInput
+									aria-invalid={fieldState.invalid}
+									className="rounded-r-none"
+									{...field}
+								/>
+								<InputGroupAddon align="inline-end">
+									<InputGroupButton size="xs" onClick={onFolderSelect}>
+										Browse
+									</InputGroupButton>
+								</InputGroupAddon>
+							</InputGroup>
+
 							{field.value ? (
-								<div className="flex items-center justify-between gap-sm pt-xs">
-									<span className="line-clamp-1 text-xs text-foreground-muted">
+								<div className="gap-best-friends pt-bff flex items-center justify-between">
+									<span className="text-foreground-muted line-clamp-1 text-xs">
 										{field.value}
 									</span>
 									<Button
 										variant="link"
 										value=""
-										className="p-0 text-foreground-danger"
+										className="text-foreground-danger p-0"
 										onClick={field.onChange}
 									>
 										Remove
 									</Button>
 								</div>
 							) : null}
-							<FormMessage />
-						</FormItem>
+							{fieldState.invalid ? (
+								<FieldError errors={[fieldState.error]} />
+							) : null}
+						</Field>
 					)}
 				/>
-				<Button type="submit">Save destination</Button>
-			</form>
-		</Form>
+			</FieldGroup>
+
+			<Button className="mt-casual" type="submit">
+				Save destination
+			</Button>
+		</form>
 	)
 }

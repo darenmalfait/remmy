@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { useState } from 'react'
 import { Document, Page, pdfjs } from 'react-pdf'
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
@@ -7,21 +7,16 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 ).toString()
 
 export function FilePreview({ file }: { file?: string }) {
-	const [numPages, setNumPages] = React.useState<number>()
-
-	function onDocumentLoadSuccess({
-		numPages: _numPages,
-	}: {
-		numPages: number
-	}): void {
-		setNumPages(_numPages)
-	}
+	const [numPages, setNumPages] = useState<number>()
 
 	if (!file) return null
 
 	return (
-		<div className="flex h-full w-full flex-col overflow-y-scroll rounded-base">
-			<Document file={file} onLoadSuccess={onDocumentLoadSuccess}>
+		<div className="rounded-base flex h-full w-full flex-col overflow-y-scroll">
+			<Document
+				file={file}
+				onLoadSuccess={({ numPages: _numPages }) => setNumPages(_numPages)}
+			>
 				{Array.from(new Array(numPages), (_el, index) => (
 					<Page key={`page_${index + 1}`} pageNumber={index + 1} />
 				))}

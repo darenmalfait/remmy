@@ -1,4 +1,12 @@
-import * as React from 'react'
+import {
+	createContext,
+	useCallback,
+	useEffect,
+	useContext,
+	useState,
+	type ReactNode,
+	useMemo,
+} from 'react'
 import * as uuid from 'uuid'
 
 import { defaultFilenameSettings } from '../filename/settings'
@@ -68,19 +76,19 @@ interface SettingsContextProps {
 	updateSetting: (key: keyof SettingsState, value: any) => void
 }
 
-const SettingsContext = React.createContext<SettingsContextProps | null>(null)
+const SettingsContext = createContext<SettingsContextProps | null>(null)
 SettingsContext.displayName = 'SettingsContext'
 
 interface SettingsProviderProps {
-	children: React.ReactNode
+	children: ReactNode
 }
 
 // import { SettingsProvider } from "path-to-context/SettingsContext"
 // use <SettingsProvider> as a wrapper around the part you need the context for
 function SettingsProvider({ children }: SettingsProviderProps) {
-	const [settings, setSettings] = React.useState<SettingsState>(defaultSettings)
+	const [settings, setSettings] = useState<SettingsState>(defaultSettings)
 
-	const restoreSettings = React.useCallback(() => {
+	const restoreSettings = useCallback(() => {
 		const existing = loadSettings()
 
 		if (existing.settings) {
@@ -88,15 +96,15 @@ function SettingsProvider({ children }: SettingsProviderProps) {
 		}
 	}, [])
 
-	React.useEffect(() => {
+	useEffect(() => {
 		restoreSettings()
 	}, [restoreSettings])
 
-	React.useEffect(() => {
+	useEffect(() => {
 		setAppearance(settings.appearance)
 	}, [settings.appearance])
 
-	const updateSetting = React.useCallback(
+	const updateSetting = useCallback(
 		(name: keyof SettingsState, value: boolean | Appearance) => {
 			if (name === 'openAtStartup') {
 				setAutoLaunch(value as boolean)
@@ -110,14 +118,17 @@ function SettingsProvider({ children }: SettingsProviderProps) {
 	)
 
 	return (
-		<SettingsContext.Provider
-			value={{
-				settings,
-				updateSetting,
-			}}
+		<SettingsContext
+			value={useMemo(
+				() => ({
+					settings,
+					updateSetting,
+				}),
+				[settings, updateSetting],
+			)}
 		>
 			{children}
-		</SettingsContext.Provider>
+		</SettingsContext>
 	)
 }
 
@@ -125,7 +136,7 @@ function SettingsProvider({ children }: SettingsProviderProps) {
 // within functional component
 // const { sessionToken, ...SettingsContext } = useSettings()
 function useSettings(): SettingsContextProps {
-	const context = React.useContext(SettingsContext)
+	const context = useContext(SettingsContext)
 
 	if (!context) {
 		throw new Error('You should use useSettings within an SettingsContext')

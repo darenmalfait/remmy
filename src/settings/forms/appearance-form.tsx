@@ -1,18 +1,13 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
-	Form,
-	FormControl,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-	Label,
-	RadioGroup,
-	RadioGroupField,
-	RadioGroupItem,
-} from '@nerdfish/ui'
-import * as React from 'react'
-import { useForm } from 'react-hook-form'
+	Field,
+	FieldError,
+	FieldGroup,
+	FieldLabel,
+} from '@nerdfish/react/field'
+import { RadioGroup, RadioGroupItem } from '@nerdfish/react/radio-group'
+import { useCallback } from 'react'
+import { Controller, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { useSettings } from '../settings-provider'
 import { Appearance } from '../types'
@@ -37,7 +32,7 @@ export function AppearanceForm({ onSubmit }: AppearanceFormProps) {
 		},
 	})
 
-	const handleSubmit = React.useCallback(
+	const handleSubmit = useCallback(
 		(values: AppearanceFormSchema) => {
 			updateSetting('appearance', values.appearance)
 			onSubmit?.(values)
@@ -46,43 +41,45 @@ export function AppearanceForm({ onSubmit }: AppearanceFormProps) {
 	)
 
 	return (
-		<Form {...form}>
-			<form
-				noValidate
-				onChange={form.handleSubmit(handleSubmit)}
-				onSubmit={form.handleSubmit(handleSubmit)}
-			>
-				<FormField
+		<form
+			noValidate
+			onChange={form.handleSubmit(handleSubmit)}
+			onSubmit={form.handleSubmit(handleSubmit)}
+		>
+			<FieldGroup>
+				<Controller
 					control={form.control}
 					name="appearance"
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>Theme</FormLabel>
-							<FormControl>
-								<RadioGroup
-									{...field}
-									onValueChange={field.onChange}
-									defaultValue={field.value}
-								>
-									<RadioGroupField>
-										<RadioGroupItem value={Appearance.SYSTEM} id="system" />
-										<Label htmlFor="system">System</Label>
-									</RadioGroupField>
-									<RadioGroupField>
-										<RadioGroupItem value={Appearance.LIGHT} id="light" />
-										<Label htmlFor="light">Light</Label>
-									</RadioGroupField>
-									<RadioGroupField>
-										<RadioGroupItem value={Appearance.DARK} id="dark" />
-										<Label htmlFor="dark">Dark</Label>
-									</RadioGroupField>
-								</RadioGroup>
-							</FormControl>
-							<FormMessage />
-						</FormItem>
+					render={({ field, fieldState }) => (
+						<Field>
+							<FieldLabel>Theme</FieldLabel>
+							<RadioGroup
+								aria-invalid={fieldState.invalid}
+								onValueChange={field.onChange}
+								value={field.value}
+								defaultValue={field.value}
+							>
+								<div className="gap-friends flex items-center">
+									<RadioGroupItem value={Appearance.SYSTEM} id="system" />
+									<FieldLabel htmlFor="system">Default</FieldLabel>
+								</div>
+								<div className="gap-friends flex items-center">
+									<RadioGroupItem value={Appearance.LIGHT} id="light" />
+									<FieldLabel htmlFor="light">Light</FieldLabel>
+								</div>
+								<div className="gap-friends flex items-center">
+									<RadioGroupItem value={Appearance.DARK} id="dark" />
+									<FieldLabel htmlFor="dark">Dark</FieldLabel>
+								</div>
+							</RadioGroup>
+
+							{fieldState.invalid ? (
+								<FieldError errors={[fieldState.error]} />
+							) : null}
+						</Field>
 					)}
 				/>
-			</form>
-		</Form>
+			</FieldGroup>
+		</form>
 	)
 }

@@ -1,18 +1,16 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Button } from '@nerdfish/react/button'
 import {
-	Button,
-	Form,
-	FormControl,
-	FormDescription,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-	Input,
-	toast,
-} from '@nerdfish/ui'
-import * as React from 'react'
-import { useForm } from 'react-hook-form'
+	Field,
+	FieldDescription,
+	FieldError,
+	FieldGroup,
+	FieldLabel,
+} from '@nerdfish/react/field'
+import { Input } from '@nerdfish/react/input'
+import { toast } from '@nerdfish/react/toast'
+import { useCallback } from 'react'
+import { useForm, Controller } from 'react-hook-form'
 import { type z } from 'zod'
 import { useFilenameFormat } from '../filename-format-provider'
 import { defaultFilenameSettings } from '../settings'
@@ -41,7 +39,7 @@ export function FilenameFormatForm({ onSubmit }: FilenameFormatFormProps) {
 		},
 	})
 
-	const handleSubmit = React.useCallback(
+	const handleSubmit = useCallback(
 		(values: FilenameFormatFormData) => {
 			const result = addFilenameFormat(values)
 
@@ -55,54 +53,59 @@ export function FilenameFormatForm({ onSubmit }: FilenameFormatFormProps) {
 	)
 
 	return (
-		<Form {...form}>
-			<form
-				noValidate
-				onSubmit={form.handleSubmit(handleSubmit)}
-				className="space-y-lg"
-			>
-				<FormField
+		<form
+			noValidate
+			onSubmit={form.handleSubmit(handleSubmit)}
+			className="space-y-casual"
+		>
+			<FieldGroup>
+				<Controller
 					control={form.control}
 					name="name"
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>Name</FormLabel>
-							<FormControl>
-								<Input {...field} />
-							</FormControl>
-							<FormMessage />
-						</FormItem>
+					render={({ field, fieldState }) => (
+						<Field>
+							<FieldLabel>Name</FieldLabel>
+							<Input aria-invalid={fieldState.invalid} {...field} />
+							{fieldState.invalid ? (
+								<FieldError errors={[fieldState.error]} />
+							) : null}
+						</Field>
 					)}
 				/>
-				<FormField
+				<Controller
 					control={form.control}
 					name="filenameConfiguration"
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>Config</FormLabel>
+					render={({ field, fieldState }) => (
+						<Field>
+							<FieldLabel>Config</FieldLabel>
 							<FilenameFormatInput {...field} />
-							<FormMessage />
-						</FormItem>
+							{fieldState.invalid ? (
+								<FieldError errors={[fieldState.error]} />
+							) : null}
+						</Field>
 					)}
 				/>
-				<FormField
+				<Controller
 					control={form.control}
 					name="inTextSeparator"
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>Text separator</FormLabel>
-							<FormDescription>
+					render={({ field, fieldState }) => (
+						<Field>
+							<FieldLabel>Text separator</FieldLabel>
+							<FieldDescription>
 								Use this separator to separate within the same block of text
-							</FormDescription>
-
-							<Input {...field} />
-
-							<FormMessage />
-						</FormItem>
+							</FieldDescription>
+							<Input aria-invalid={fieldState.invalid} {...field} />
+							{fieldState.invalid ? (
+								<FieldError errors={[fieldState.error]} />
+							) : null}
+						</Field>
 					)}
 				/>
-				<Button type="submit">Save format</Button>
-			</form>
-		</Form>
+			</FieldGroup>
+
+			<Button className="mt-casual" type="submit">
+				Save format
+			</Button>
+		</form>
 	)
 }

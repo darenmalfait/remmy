@@ -1,4 +1,12 @@
-import * as React from 'react'
+import {
+	createContext,
+	useCallback,
+	useContext,
+	useEffect,
+	useMemo,
+	useState,
+	type ReactNode,
+} from 'react'
 import * as uuid from 'uuid'
 import { type FilenameFormat } from './types'
 import { loadFilenameFormats, saveFilenameFormats } from './utils'
@@ -22,22 +30,23 @@ interface FilenameFormatContextProps {
 	setDefaultFilenameFormat: (id: string) => FilenameActionResult
 }
 
-const FilenameFormatContext =
-	React.createContext<FilenameFormatContextProps | null>(null)
+const FilenameFormatContext = createContext<FilenameFormatContextProps | null>(
+	null,
+)
 FilenameFormatContext.displayName = 'FilenameFormatContext'
 
 interface FilenameFormatProviderProps {
-	children: React.ReactNode
+	children: ReactNode
 }
 
 // import { FilenameFormatProvider } from "config-to-context/FilenameFormatContext"
 // use <FilenameFormatProvider> as a wrapper around the part you need the context for
 function FilenameFormatProvider({ children }: FilenameFormatProviderProps) {
-	const [filenameFormats, setFilenameFormats] = React.useState<
-		FilenameFormat[]
-	>(defaultFilenameFormats)
+	const [filenameFormats, setFilenameFormats] = useState<FilenameFormat[]>(
+		defaultFilenameFormats,
+	)
 
-	React.useEffect(() => {
+	useEffect(() => {
 		function restoreFilenameFormat() {
 			const existing = loadFilenameFormats()
 
@@ -52,7 +61,7 @@ function FilenameFormatProvider({ children }: FilenameFormatProviderProps) {
 		restoreFilenameFormat()
 	}, [])
 
-	const updateFilenameFormat = React.useCallback(
+	const updateFilenameFormat = useCallback(
 		(updatedFilename: FilenameFormat) => {
 			let error = {}
 
@@ -104,7 +113,7 @@ function FilenameFormatProvider({ children }: FilenameFormatProviderProps) {
 		[filenameFormats],
 	)
 
-	const removeFilenameFormat = React.useCallback(
+	const removeFilenameFormat = useCallback(
 		(id: string) => {
 			const newFilenameFormat = filenameFormats.filter(
 				(format) => format.id !== id,
@@ -119,7 +128,7 @@ function FilenameFormatProvider({ children }: FilenameFormatProviderProps) {
 		[filenameFormats],
 	)
 
-	const setDefaultFilenameFormat = React.useCallback(
+	const setDefaultFilenameFormat = useCallback(
 		(defaultId: string) => {
 			const newFilenameFormat = filenameFormats.map((format) => ({
 				...format,
@@ -135,7 +144,7 @@ function FilenameFormatProvider({ children }: FilenameFormatProviderProps) {
 		[filenameFormats],
 	)
 
-	const addFilenameFormat = React.useCallback(
+	const addFilenameFormat = useCallback(
 		(values: Omit<FilenameFormat, 'id'>) => {
 			let error = {}
 			if (filenameFormats.find((format) => format.name === values.name)) {
@@ -180,17 +189,26 @@ function FilenameFormatProvider({ children }: FilenameFormatProviderProps) {
 	)
 
 	return (
-		<FilenameFormatContext.Provider
-			value={{
-				filenameFormats,
-				updateFilenameFormat,
-				removeFilenameFormat,
-				addFilenameFormat,
-				setDefaultFilenameFormat,
-			}}
+		<FilenameFormatContext
+			value={useMemo(
+				() => ({
+					filenameFormats,
+					updateFilenameFormat,
+					removeFilenameFormat,
+					addFilenameFormat,
+					setDefaultFilenameFormat,
+				}),
+				[
+					filenameFormats,
+					updateFilenameFormat,
+					removeFilenameFormat,
+					addFilenameFormat,
+					setDefaultFilenameFormat,
+				],
+			)}
 		>
 			{children}
-		</FilenameFormatContext.Provider>
+		</FilenameFormatContext>
 	)
 }
 
@@ -198,7 +216,7 @@ function FilenameFormatProvider({ children }: FilenameFormatProviderProps) {
 // within functional component
 // const { sessionToken, ...FilenameFormatContext } = useFilenameFormat()
 function useFilenameFormat(): FilenameFormatContextProps {
-	const context = React.useContext(FilenameFormatContext)
+	const context = useContext(FilenameFormatContext)
 
 	if (!context) {
 		throw new Error(

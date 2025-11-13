@@ -1,17 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import '@nerdfish/react/styles/global.css';
+@source "../../node_modules/@nerdfish/react";
+@source "../**/*.{ts,tsx}";
 
-@layer base {
-	html {
-		@apply max-w-full overflow-x-hidden overscroll-none bg-background font-sans;
-	}
-
-	body {
-		@apply bg-background;
-	}
-
-	code {
-		@apply rounded-base bg-transparent px-2 py-1 !text-xs text-foreground shadow-outline;
-	}
-}
+@import './fonts.css';

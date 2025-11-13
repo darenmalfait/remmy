@@ -1,5 +1,13 @@
 import fs from 'fs'
-import * as React from 'react'
+import {
+	createContext,
+	useCallback,
+	useEffect,
+	useContext,
+	useState,
+	type ReactNode,
+	useMemo,
+} from 'react'
 import * as uuid from 'uuid'
 import { type Destination } from './types'
 import { loadDestinations, saveDestinations } from './utils'
@@ -23,21 +31,20 @@ interface DestinationsContextProps {
 	setDefaultDestination: (id: string) => DestinationActionResult
 }
 
-const DestinationsContext =
-	React.createContext<DestinationsContextProps | null>(null)
+const DestinationsContext = createContext<DestinationsContextProps | null>(null)
 DestinationsContext.displayName = 'DestinationsContext'
 
 interface DestinationsProviderProps {
-	children: React.ReactNode
+	children: ReactNode
 }
 
 // import { DestinationsProvider } from "path-to-context/DestinationsContext"
 // use <DestinationsProvider> as a wrapper around the part you need the context for
 function DestinationsProvider({ children }: DestinationsProviderProps) {
 	const [destinations, setDestinations] =
-		React.useState<Destination[]>(defaultDestinations)
+		useState<Destination[]>(defaultDestinations)
 
-	React.useEffect(() => {
+	useEffect(() => {
 		function restoreDestinations() {
 			const existing = loadDestinations()
 
@@ -49,7 +56,7 @@ function DestinationsProvider({ children }: DestinationsProviderProps) {
 		restoreDestinations()
 	}, [])
 
-	const updateDestination = React.useCallback(
+	const updateDestination = useCallback(
 		(updatedDestination: Destination) => {
 			let error = {}
 
@@ -110,7 +117,7 @@ function DestinationsProvider({ children }: DestinationsProviderProps) {
 		[destinations],
 	)
 
-	const removeDestination = React.useCallback(
+	const removeDestination = useCallback(
 		(id: string) => {
 			const newDestinations = destinations.filter(
 				(destination) => destination.id !== id,
@@ -125,7 +132,7 @@ function DestinationsProvider({ children }: DestinationsProviderProps) {
 		[destinations],
 	)
 
-	const setDefaultDestination = React.useCallback(
+	const setDefaultDestination = useCallback(
 		(defaultId: string) => {
 			const newDestinations = destinations.map((destination) => ({
 				...destination,
@@ -141,7 +148,7 @@ function DestinationsProvider({ children }: DestinationsProviderProps) {
 		[destinations],
 	)
 
-	const addDestination = React.useCallback(
+	const addDestination = useCallback(
 		(values: Omit<Destination, 'id'>) => {
 			let error = {}
 			if (
@@ -203,17 +210,26 @@ function DestinationsProvider({ children }: DestinationsProviderProps) {
 	)
 
 	return (
-		<DestinationsContext.Provider
-			value={{
-				destinations,
-				updateDestination,
-				removeDestination,
-				addDestination,
-				setDefaultDestination,
-			}}
+		<DestinationsContext
+			value={useMemo(
+				() => ({
+					destinations,
+					updateDestination,
+					removeDestination,
+					addDestination,
+					setDefaultDestination,
+				}),
+				[
+					destinations,
+					updateDestination,
+					removeDestination,
+					addDestination,
+					setDefaultDestination,
+				],
+			)}
 		>
 			{children}
-		</DestinationsContext.Provider>
+		</DestinationsContext>
 	)
 }
 
@@ -221,7 +237,7 @@ function DestinationsProvider({ children }: DestinationsProviderProps) {
 // within functional component
 // const { sessionToken, ...DestinationsContext } = useDestinations()
 function useDestinations(): DestinationsContextProps {
-	const context = React.useContext(DestinationsContext)
+	const context = useContext(DestinationsContext)
 
 	if (!context) {
 		throw new Error(

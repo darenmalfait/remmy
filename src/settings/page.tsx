@@ -1,17 +1,14 @@
+import { Button } from '@nerdfish/react/button'
 import {
-	Button,
 	Card,
 	CardContent,
 	CardDescription,
 	CardHeader,
 	CardTitle,
-	Tabs,
-	TabsContent,
-	TabsList,
-	TabsTrigger,
-} from '@nerdfish/ui'
+} from '@nerdfish/react/card'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@nerdfish/react/tabs'
 import { ipcRenderer, shell } from 'electron'
-import * as React from 'react'
+import { useCallback } from 'react'
 import { Layout } from '../components/layout'
 import { Section } from '../components/section'
 import { FilenameFormats } from '../filename/components/filename-formats'
@@ -22,7 +19,7 @@ import { Appearance } from './types'
 import { setAppearance } from './utils'
 
 function About() {
-	const navigateTo = React.useCallback(async (src: string) => {
+	const navigateTo = useCallback(async (src: string) => {
 		await shell.openExternal(src)
 	}, [])
 
@@ -75,7 +72,7 @@ export function SettingsPage() {
 	return (
 		<Layout title="Settings">
 			<Tabs defaultValue="appearance">
-				<TabsList className="mb-lg">
+				<TabsList className="mb-casual">
 					<TabsTrigger value="appearance">Appearance</TabsTrigger>
 					<TabsTrigger value="files">Files</TabsTrigger>
 					<TabsTrigger value="about">About</TabsTrigger>
@@ -94,35 +91,33 @@ export function SettingsPage() {
 					</Section>
 				</TabsContent>
 				<TabsContent value="files" className="bg-transparent">
-					<div className="space-y-xl">
-						<Section>
-							<Card>
-								<CardHeader>
-									<CardTitle>Filename format</CardTitle>
-									<CardDescription>
-										Customize how your files are named when they are moved.
-									</CardDescription>
-								</CardHeader>
-								<CardContent>
-									<FilenameFormats />
-								</CardContent>
-							</Card>
-						</Section>
-						<Section>
-							<Card>
-								<CardHeader>
-									<CardTitle>Document analysis</CardTitle>
-									<CardDescription>
-										Configure how Remmy analyzes your documents for better
-										organization.
-									</CardDescription>
-								</CardHeader>
-								<CardContent>
-									<FileAnalysisForm />
-								</CardContent>
-							</Card>
-						</Section>
-					</div>
+					<Section>
+						<Card>
+							<CardHeader>
+								<CardTitle>Filename format</CardTitle>
+								<CardDescription>
+									Customize how your files are named when they are moved.
+								</CardDescription>
+							</CardHeader>
+							<CardContent>
+								<FilenameFormats />
+							</CardContent>
+						</Card>
+					</Section>
+					<Section>
+						<Card>
+							<CardHeader>
+								<CardTitle>Document analysis</CardTitle>
+								<CardDescription>
+									Configure how Remmy analyzes your documents for better
+									organization.
+								</CardDescription>
+							</CardHeader>
+							<CardContent>
+								<FileAnalysisForm />
+							</CardContent>
+						</Card>
+					</Section>
 				</TabsContent>
 				<TabsContent value="about" className="bg-transparent">
 					<About />

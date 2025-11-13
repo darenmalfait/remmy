@@ -1,12 +1,20 @@
 import * as remote from '@electron/remote'
+import { Button } from '@nerdfish/react/button'
 import {
-	Button,
+	Empty,
+	EmptyContent,
+	EmptyDescription,
+	EmptyHeader,
+	EmptyMedia,
+	EmptyTitle,
+} from '@nerdfish/react/empty'
+import {
 	Sheet,
 	SheetContent,
 	SheetDescription,
 	SheetHeader,
 	SheetTitle,
-} from '@nerdfish/ui'
+} from '@nerdfish/react/sheet'
 import { ipcRenderer } from 'electron'
 import { FileUpIcon } from 'lucide-react'
 import { Layout } from './components/layout'
@@ -22,7 +30,7 @@ import { FilePreview } from './file/file-preview'
 import { FileRenamer } from './file/file-renamer'
 import { useFileUpload } from './file/file-upload-provider'
 
-function HomePage() {
+export function HomePage() {
 	const { selectedFile, onFileRenamed, clearSelectedFile } = useFileUpload()
 	const { destinations } = useDestinations()
 
@@ -55,39 +63,48 @@ function HomePage() {
 						<SectionHeaderTitle>
 							Start with adding a destination
 						</SectionHeaderTitle>
-						<SectionHeaderSubtitle className="mb-xl">
+						<SectionHeaderSubtitle className="mb-acquaintances">
 							Destinations can be selected when archiving files
 						</SectionHeaderSubtitle>
 						<DestinationForm />
 					</SectionHeader>
 				) : (
 					<>
-						<div className="flex w-full flex-1 flex-col items-center justify-center gap-md rounded-base text-center">
-							<FileUpIcon className="size-8" />
-							<p className="font-semibold text-foreground">
-								Drag your file here
-							</p>
-							<Button size="sm" onClick={handleSelectFile}>
-								Select a file
-							</Button>
+						<div className="flex size-full flex-1 items-center justify-center">
+							<div className="px-acquaintances py-friends rounded-container border-border items-center justify-center border border-dashed text-center">
+								<Empty>
+									<EmptyHeader>
+										<EmptyMedia variant="icon">
+											<FileUpIcon />
+										</EmptyMedia>
+										<EmptyTitle>Drag your file here</EmptyTitle>
+										<EmptyDescription>
+											To get started, add a file
+										</EmptyDescription>
+									</EmptyHeader>
+									<EmptyContent>
+										<Button onClick={handleSelectFile}>Select a file</Button>
+									</EmptyContent>
+								</Empty>
+							</div>
 						</div>
 
 						<Sheet open={!!selectedFile} onOpenChange={clearSelectedFile}>
-							<SheetContent className="flex min-w-[1000px] flex-col">
+							<SheetContent variant="inset" className="flex min-w-250 flex-col">
 								<SheetHeader>
 									<SheetTitle>Archive a file</SheetTitle>
 									<SheetDescription>
 										Fill in the form below to archive a file.
 									</SheetDescription>
 								</SheetHeader>
-								<div className="-mx-md flex-grow overflow-y-auto pb-sm pt-md">
-									<div className="relative flex gap-md px-md">
+								<div className="px-friends pb-best-friends grow overflow-y-auto">
+									<div className="gap-friends relative flex">
 										{selectedFile ? (
 											<>
-												<div className="sticky top-0 h-[85vh] w-full max-w-[600px]">
+												<div className="sticky top-0 h-[85vh] w-full max-w-150">
 													<FilePreview file={selectedFile} />
 												</div>
-												<div className="relative mb-lg w-full pb-md">
+												<div className="mb-casual pb-friends relative w-full">
 													<FileRenamer
 														file={selectedFile}
 														onDone={onFileRenamed}
@@ -105,5 +122,3 @@ function HomePage() {
 		</Layout>
 	)
 }
-
-export { HomePage }

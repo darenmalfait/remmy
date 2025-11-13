@@ -1,28 +1,33 @@
-import { toast } from '@nerdfish/ui'
+import { toast } from '@nerdfish/react/toast'
 import { ipcRenderer } from 'electron'
-import * as React from 'react'
-
+import {
+	createContext,
+	useCallback,
+	useContext,
+	useEffect,
+	useMemo,
+	useState,
+	type ReactNode,
+} from 'react'
 interface FileUploadContextProps {
 	selectedFile?: string
 	onFileRenamed: () => void
 	clearSelectedFile: () => void
 }
 
-const FileUploadContext = React.createContext<FileUploadContextProps | null>(
-	null,
-)
+const FileUploadContext = createContext<FileUploadContextProps | null>(null)
 FileUploadContext.displayName = 'FileUploadContext'
 
 interface FileUploadProviderProps {
-	children: React.ReactNode
+	children: ReactNode
 }
 
 // import { FileUploadProvider } from "path-to-context/FileUploadContext"
 // use <FileUploadProvider> as a wrapper around the part you need the context for
 function FileUploadProvider({ children }: FileUploadProviderProps) {
-	const [selectedFile, setSelectedFile] = React.useState<string | undefined>()
+	const [selectedFile, setSelectedFile] = useState<string | undefined>()
 
-	React.useEffect(() => {
+	useEffect(() => {
 		ipcRenderer.on('file-drop', (_, files) => {
 			const file = files[0]
 			if (!file) return
@@ -35,21 +40,24 @@ function FileUploadProvider({ children }: FileUploadProviderProps) {
 		}
 	}, [selectedFile])
 
-	const onFileRenamed = React.useCallback(() => {
+	const onFileRenamed = useCallback(() => {
 		setSelectedFile(undefined)
 		toast.success('File has been successfully moved')
 	}, [])
 
-	const clearSelectedFile = React.useCallback(() => {
+	const clearSelectedFile = useCallback(() => {
 		setSelectedFile(undefined)
 	}, [])
 
 	return (
-		<FileUploadContext.Provider
-			value={{ selectedFile, onFileRenamed, clearSelectedFile }}
+		<FileUploadContext
+			value={useMemo(
+				() => ({ selectedFile, onFileRenamed, clearSelectedFile }),
+				[selectedFile, onFileRenamed, clearSelectedFile],
+			)}
 		>
 			{children}
-		</FileUploadContext.Provider>
+		</FileUploadContext>
 	)
 }
 
@@ -57,7 +65,7 @@ function FileUploadProvider({ children }: FileUploadProviderProps) {
 // within functional component
 // const { sessionToken, ...FileUploadContext } = useFileUpload()
 function useFileUpload(): FileUploadContextProps {
-	const context = React.useContext(FileUploadContext)
+	const context = useContext(FileUploadContext)
 
 	if (!context) {
 		throw new Error('You should use useFileUpload within an FileUploadContext')

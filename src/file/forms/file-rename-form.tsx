@@ -1,24 +1,29 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { getLocalTimeZone, parseDate } from '@internationalized/date'
+import { Button } from '@nerdfish/react/button'
+import { DateField, DateInput } from '@nerdfish/react/date-field'
+import { DatePicker } from '@nerdfish/react/date-picker'
 import {
-	Button,
-	DateTimePicker,
-	Form,
-	FormControl,
-	FormDescription,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-	Input,
+	FieldGroup,
+	Field,
+	FieldLabel,
+	FieldDescription,
+	FieldError,
+} from '@nerdfish/react/field'
+import { Input } from '@nerdfish/react/input'
+import { InputGroup, InputGroupAddon } from '@nerdfish/react/input-group'
+import {
 	Select,
 	SelectContent,
 	SelectItem,
 	SelectTrigger,
 	SelectValue,
-} from '@nerdfish/ui'
+} from '@nerdfish/react/select'
+import { format as formatDate } from 'date-fns'
 import { defaults } from 'lodash'
-import * as React from 'react'
-import { useForm } from 'react-hook-form'
+import { CalendarIcon } from 'lucide-react'
+import { useCallback } from 'react'
+import { useForm, Controller } from 'react-hook-form'
 import { z } from 'zod'
 import { useDestinations } from '../../destinations/destinations-provider'
 import { FilenamePreview } from '../../filename/components/filename-preview'
@@ -83,7 +88,7 @@ export function FileRenameForm({
 		}),
 	})
 
-	const handleSubmit = React.useCallback(
+	const handleSubmit = useCallback(
 		(values: FileRenameFormSchema) => {
 			const format = filenameFormats.find(
 				({ id }) => id === values.filenameFormatId,
@@ -117,123 +122,150 @@ export function FileRenameForm({
 	)
 
 	return (
-		<Form {...form}>
-			<form
-				noValidate
-				onSubmit={form.handleSubmit(handleSubmit)}
-				className="space-y-lg"
-			>
-				<FormField
+		<form
+			noValidate
+			onSubmit={form.handleSubmit(handleSubmit)}
+			className="space-y-casual"
+		>
+			<FieldGroup>
+				<Controller
 					control={form.control}
 					name="filenameFormatId"
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>Format</FormLabel>
-							<FormControl>
-								<Select
-									onValueChange={field.onChange}
-									defaultValue={field.value}
-								>
-									<FormControl>
-										<SelectTrigger>
-											<SelectValue placeholder="Select a format" />
-										</SelectTrigger>
-									</FormControl>
-									<SelectContent>
-										{filenameFormats.map((format) => (
-											<SelectItem key={format.id} value={format.id}>
-												{format.name}
-											</SelectItem>
-										))}
-									</SelectContent>
-								</Select>
-							</FormControl>
-							<FormMessage />
-						</FormItem>
+					render={({ field, fieldState }) => (
+						<Field>
+							<FieldLabel>Format</FieldLabel>
+							<Select onValueChange={field.onChange} defaultValue={field.value}>
+								<SelectTrigger>
+									<SelectValue />
+								</SelectTrigger>
+								<SelectContent>
+									<SelectItem value={null}>Select a format</SelectItem>
+									{filenameFormats.map((format) => (
+										<SelectItem key={format.id} value={format.id}>
+											{format.name}
+										</SelectItem>
+									))}
+								</SelectContent>
+							</Select>
+							{fieldState.invalid ? (
+								<FieldError errors={[fieldState.error]} />
+							) : null}
+						</Field>
 					)}
 				/>
-				<FormField
+				<Controller
 					control={form.control}
 					name="destination"
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>Destination</FormLabel>
-							<FormControl>
-								<Select
-									onValueChange={field.onChange}
-									defaultValue={field.value}
-								>
-									<FormControl>
-										<SelectTrigger>
-											<SelectValue placeholder="Select a destination" />
-										</SelectTrigger>
-									</FormControl>
-									<SelectContent>
-										{destinations.map((destination) => (
-											<SelectItem key={destination.id} value={destination.path}>
-												{destination.name}
-											</SelectItem>
-										))}
-									</SelectContent>
-								</Select>
-							</FormControl>
-							<FormMessage />
-						</FormItem>
+					render={({ field, fieldState }) => (
+						<Field>
+							<FieldLabel>Destination</FieldLabel>
+							<Select onValueChange={field.onChange} defaultValue={field.value}>
+								<SelectTrigger>
+									<SelectValue />
+								</SelectTrigger>
+								<SelectContent>
+									<SelectItem value={null}>Select a destination</SelectItem>
+									{destinations.map((destination) => (
+										<SelectItem key={destination.id} value={destination.path}>
+											{destination.name}
+										</SelectItem>
+									))}
+								</SelectContent>
+							</Select>
+							{fieldState.invalid ? (
+								<FieldError errors={[fieldState.error]} />
+							) : null}
+						</Field>
 					)}
 				/>
-				<FormField
+				<Controller
 					control={form.control}
 					name="date"
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>Date</FormLabel>
-							<FormControl>
-								<DateTimePicker
-									{...field}
-									onChange={(value) => field.onChange(value)}
-								/>
-							</FormControl>
-							<FormMessage />
-						</FormItem>
+					render={({ field, fieldState }) => (
+						<Field>
+							<FieldLabel>Date</FieldLabel>
+							<InputGroup>
+								<DateField
+									className="w-full"
+									value={
+										field.value
+											? parseDate(formatDate(field.value, 'yyyy-MM-dd'))
+											: undefined
+									}
+									onChange={(e) => {
+										field.onChange(
+											e
+												? new Date(
+														formatDate(
+															e.toDate(getLocalTimeZone()),
+															'yyyy-MM-dd',
+														),
+													)
+												: undefined,
+										)
+									}}
+								>
+									<DateInput />
+								</DateField>
+								<InputGroupAddon
+									align="inline-end"
+									className="pr-friends@! ml-bff"
+								>
+									<DatePicker
+										selected={field.value ? new Date(field.value) : undefined}
+										onSelect={(value) =>
+											field.onChange(
+												value
+													? new Date(formatDate(value, 'yyyy-MM-dd'))
+													: undefined,
+											)
+										}
+									>
+										<Button variant="ghost" size="sm" icon>
+											<CalendarIcon className="size-4" />
+										</Button>
+									</DatePicker>
+								</InputGroupAddon>
+							</InputGroup>
+
+							{fieldState.invalid ? (
+								<FieldError errors={[fieldState.error]} />
+							) : null}
+						</Field>
 					)}
 				/>
-				<FormField
+				<Controller
 					control={form.control}
 					name="description"
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>
-								Description{' '}
-								<FormDescription>
-									ie: company name, project name, etc.
-								</FormDescription>
-							</FormLabel>
-
-							<FormControl>
-								<Input {...field} />
-							</FormControl>
-							<FormMessage />
-						</FormItem>
+					render={({ field, fieldState }) => (
+						<Field>
+							<FieldLabel>Description</FieldLabel>
+							<FieldDescription>
+								ie: company name, project name, etc.
+							</FieldDescription>
+							<Input aria-invalid={fieldState.invalid} {...field} />
+							{fieldState.invalid ? (
+								<FieldError errors={[fieldState.error]} />
+							) : null}
+						</Field>
 					)}
 				/>
+
 				{!!form.watch('description')?.length ? (
-					<FormField
+					<Controller
 						control={form.control}
 						name="detail"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>
-									Detail
-									<FormDescription>
-										ie: article title, project name, etc.
-									</FormDescription>
-								</FormLabel>
-
-								<FormControl>
-									<Input {...field} />
-								</FormControl>
-								<FormMessage />
-							</FormItem>
+						render={({ field, fieldState }) => (
+							<Field>
+								<FieldLabel>Detail</FieldLabel>
+								<FieldDescription>
+									ie: company name, project name, etc.
+								</FieldDescription>
+								<Input aria-invalid={fieldState.invalid} {...field} />
+								{fieldState.invalid ? (
+									<FieldError errors={[fieldState.error]} />
+								) : null}
+							</Field>
 						)}
 					/>
 				) : null}
@@ -248,9 +280,11 @@ export function FileRenameForm({
 						inTextSeparator={selectedFilenameFormat.inTextSeparator}
 					/>
 				) : null}
+			</FieldGroup>
 
-				<Button type="submit">Rename</Button>
-			</form>
-		</Form>
+			<Button className="mt-casual" type="submit">
+				Rename
+			</Button>
+		</form>
 	)
 }

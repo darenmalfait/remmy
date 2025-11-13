@@ -1,16 +1,18 @@
 'use client'
 
+import { Button } from '@nerdfish/react/button'
 import {
-	Button,
 	Command,
 	CommandGroup,
 	CommandItem,
 	CommandList,
-	inputVariants,
+} from '@nerdfish/react/command'
+import { inputVariants } from '@nerdfish/react/input'
+import {
 	Popover,
 	PopoverContent,
 	PopoverTrigger,
-} from '@nerdfish/ui'
+} from '@nerdfish/react/popover'
 import { cx } from '@nerdfish/utils'
 import {
 	CalendarIcon,
@@ -20,20 +22,25 @@ import {
 	TrashIcon,
 } from 'lucide-react'
 import { AnimatePresence, Reorder } from 'motion/react'
-import * as React from 'react'
+import {
+	useCallback,
+	useState,
+	type ComponentProps,
+	type ComponentType,
+} from 'react'
 import * as uuid from 'uuid'
 import { useSettings } from '../../settings/settings-provider'
 import { defaultFilenameSettings } from '../settings'
 import { type FilenameConfiguration } from '../types'
 
 interface OptionSelectorProps
-	extends Omit<React.ComponentProps<'input'>, 'onChange'> {
+	extends Omit<ComponentProps<'input'>, 'onChange'> {
 	value?: string
 	className?: string
 	placeholder?: string
 	items?: { label: string; value: string }[]
 	defaultValue?: string
-	icon?: React.ComponentType<{ className?: string }>
+	icon?: ComponentType<{ className?: string }>
 	inputSize?: 'sm' | 'md' | 'lg'
 	onRemove?: () => void
 	onChange?: (value: string) => void
@@ -52,10 +59,10 @@ function OptionSelector({
 	onRemove,
 	...props
 }: OptionSelectorProps) {
-	const [open, setOpen] = React.useState(false)
-	const [value, setValue] = React.useState(valueProp ?? defaultValue)
+	const [open, setOpen] = useState(false)
+	const [value, setValue] = useState(valueProp ?? defaultValue)
 
-	const handleChange = React.useCallback(
+	const handleChange = useCallback(
 		(v: string) => {
 			setValue(v === value ? '' : v)
 			onChange?.(v)
@@ -63,40 +70,42 @@ function OptionSelector({
 		},
 		[onChange, value],
 	)
-	const handleRemove = React.useCallback(() => {
+	const handleRemove = useCallback(() => {
 		onRemove?.()
 	}, [onRemove])
 
 	return (
 		<Popover open={open} onOpenChange={setOpen}>
-			<PopoverTrigger asChild>
-				<Button
-					role="combobox"
-					aria-haspopup="listbox"
-					aria-controls="listbox"
-					aria-expanded={open}
-					size="sm"
-					className={cx('w-auto', className)}
-				>
-					<div className="flex w-full flex-nowrap items-center justify-between space-x-2 whitespace-nowrap">
-						<input ref={ref} type="hidden" value={value} {...props} />
+			<PopoverTrigger
+				render={
+					<Button
+						role="combobox"
+						aria-haspopup="listbox"
+						aria-controls="listbox"
+						aria-expanded={open}
+						size="sm"
+						className={cx('w-auto', className)}
+					>
+						<div className="flex w-full flex-nowrap items-center justify-between space-x-2 whitespace-nowrap">
+							<input ref={ref} type="hidden" value={value} {...props} />
 
-						{value
-							? items.find((item) => item.value === value)?.label
-							: placeholder}
-						<Icon className="ml-auto h-4 w-4 shrink-0 opacity-50" />
-					</div>
-				</Button>
-			</PopoverTrigger>
-			<PopoverContent className="bg-popover w-full min-w-[200px] !p-sm">
+							{value
+								? items.find((item) => item.value === value)?.label
+								: placeholder}
+							<Icon className="ml-auto h-4 w-4 shrink-0 opacity-50" />
+						</div>
+					</Button>
+				}
+			/>
+			<PopoverContent className="w-full min-w-50">
 				<Command>
 					<CommandList>
-						<CommandGroup className="!p-0">
+						<CommandGroup className="p-0!s">
 							{items.map((item) => (
 								<CommandItem
 									key={item.value}
 									onSelect={() => handleChange(item.value)}
-									className="rounded-[calc(theme(borderRadius.base)-theme(padding.sm))]"
+									className="rounded-[calc(var(--radius-base)-theme(padding.popover))]"
 								>
 									<CheckIcon
 										className={cx(
@@ -110,9 +119,9 @@ function OptionSelector({
 							{onRemove ? (
 								<CommandItem
 									onSelect={handleRemove}
-									className="text-foreground-danger"
+									className="text-destructive"
 								>
-									<TrashIcon className="mr-2 h-4 w-4" />
+									<TrashIcon className="mr-best-friends size-4" />
 									Remove
 								</CommandItem>
 							) : null}
@@ -126,7 +135,7 @@ function OptionSelector({
 
 OptionSelector.displayName = 'OptionSelector'
 
-function DateFormatPicker(props: React.ComponentProps<typeof OptionSelector>) {
+function DateFormatPicker(props: ComponentProps<typeof OptionSelector>) {
 	return (
 		<OptionSelector
 			{...props}
@@ -167,7 +176,7 @@ function DateFormatPicker(props: React.ComponentProps<typeof OptionSelector>) {
 	)
 }
 
-function SeparatorPicker(props: React.ComponentProps<typeof OptionSelector>) {
+function SeparatorPicker(props: ComponentProps<typeof OptionSelector>) {
 	const { settings } = useSettings()
 	return (
 		<OptionSelector
@@ -188,7 +197,7 @@ function SeparatorPicker(props: React.ComponentProps<typeof OptionSelector>) {
 	)
 }
 
-function DescriptionPicker(props: React.ComponentProps<typeof OptionSelector>) {
+function DescriptionPicker(props: ComponentProps<typeof OptionSelector>) {
 	return (
 		<OptionSelector
 			{...props}
@@ -204,7 +213,7 @@ function DescriptionPicker(props: React.ComponentProps<typeof OptionSelector>) {
 	)
 }
 
-function DetailPicker(props: React.ComponentProps<typeof OptionSelector>) {
+function DetailPicker(props: ComponentProps<typeof OptionSelector>) {
 	return (
 		<OptionSelector
 			{...props}
@@ -232,24 +241,26 @@ function AddNewSection({
 }: {
 	onSelect: (value: FilenameConfiguration['type']) => void
 }) {
-	const [open, setOpen] = React.useState<boolean>(false)
+	const [open, setOpen] = useState<boolean>(false)
 
 	return (
 		<Popover open={open} onOpenChange={setOpen}>
-			<PopoverTrigger asChild>
-				<Button type="button" icon size="sm" variant="secondary">
-					<PlusIcon />
-				</Button>
-			</PopoverTrigger>
-			<PopoverContent className="bg-popover w-full min-w-[200px] !p-sm">
+			<PopoverTrigger
+				render={
+					<Button type="button" icon size="sm" variant="secondary">
+						<PlusIcon />
+					</Button>
+				}
+			/>
+			<PopoverContent className="w-full min-w-50">
 				<Command>
 					<CommandList>
-						<CommandGroup className="!p-0">
+						<CommandGroup className="p-0!">
 							{Object.keys(ComponentMap).map((key) => (
 								<CommandItem
 									key={key}
 									onSelect={onSelect as any}
-									className="rounded-[calc(theme(borderRadius.base)-theme(padding.sm))]"
+									className="rounded-[calc(var(--radius-base)-theme(padding.popover))]"
 								>
 									{key}
 								</CommandItem>
@@ -273,10 +284,10 @@ export function FilenameFormatInput({
 	return (
 		<div className={inputVariants()}>
 			<div className="w-full overflow-x-auto">
-				<div className="flex flex-nowrap gap-x-sm pr-sm">
+				<div className="gap-x-best-friends pr-best-friends flex flex-nowrap">
 					<Reorder.Group
 						as="div"
-						className="flex flex-row items-center space-x-sm"
+						className="space-x-best-friends flex flex-row items-center"
 						axis="x"
 						values={value}
 						onReorder={onChange}

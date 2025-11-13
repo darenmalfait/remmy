@@ -1,24 +1,24 @@
-import { Button, H2 } from '@nerdfish/ui'
+import { Button } from '@nerdfish/react/button'
 import { cx } from '@nerdfish/utils'
 import { XIcon } from 'lucide-react'
-import * as React from 'react'
+import { useEffect, type ComponentProps } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useFileUpload } from '../file/file-upload-provider'
 
-function Layout({
+export function Layout({
 	className,
 	children,
 	title,
 	isRoot = false,
 	...props
-}: React.ComponentProps<'div'> & {
+}: ComponentProps<'div'> & {
 	title?: string
 	isRoot?: boolean
 }) {
 	const navigate = useNavigate()
 	const { selectedFile } = useFileUpload()
 
-	React.useEffect(() => {
+	useEffect(() => {
 		//if current path is not root
 		if (selectedFile && window.location.pathname !== '/') {
 			void navigate('/')
@@ -29,18 +29,21 @@ function Layout({
 
 	return (
 		<div
-			className={cx('flex min-h-screen flex-col space-y-4 p-8', className)}
+			className={cx(
+				'space-y-friends p-casual flex min-h-screen flex-col',
+				className,
+			)}
 			{...props}
 		>
 			{title ? (
-				<div className="flex items-center justify-between">
-					<H2 variant="primary">{title}</H2>
+				<div className="mb-casual flex items-center justify-between">
+					<h2 className="typography-title">{title}</h2>
 
 					{shouldShowBackButton ? (
 						<Button
 							variant="ghost"
 							icon
-							className="-mr-md"
+							className="-mr-friends"
 							aria-label="Go Back"
 							onClick={() => navigate('/')}
 						>
@@ -54,5 +57,3 @@ function Layout({
 		</div>
 	)
 }
-
-export { Layout }

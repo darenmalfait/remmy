@@ -1,17 +1,15 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
-	Form,
-	FormControl,
-	FormDescription,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-	Input,
-	Switch,
-} from '@nerdfish/ui'
-import * as React from 'react'
-import { useForm } from 'react-hook-form'
+	FieldGroup,
+	FieldLabel,
+	FieldError,
+	Field,
+	FieldDescription,
+} from '@nerdfish/react/field'
+import { Input } from '@nerdfish/react/input'
+import { Switch } from '@nerdfish/react/switch'
+import { useCallback } from 'react'
+import { Controller, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { useSettings } from '../settings-provider'
 
@@ -39,7 +37,7 @@ export function FileAnalysisForm({
 		},
 	})
 
-	const handleSubmit = React.useCallback(
+	const handleSubmit = useCallback(
 		(values: FileAnalysisFormSchema) => {
 			updateSetting('ocrEnabled', values.ocrEnabled)
 			updateSetting('vatLookupEnabled', values.vatLookupEnabled)
@@ -54,79 +52,80 @@ export function FileAnalysisForm({
 	const vatLookupEnabled = ocrEnabled && form.watch('vatLookupEnabled')
 
 	return (
-		<Form {...form}>
-			<form
-				noValidate
-				onChange={form.handleSubmit(handleSubmit)}
-				onSubmit={form.handleSubmit(handleSubmit)}
-				className="space-y-md"
-			>
-				<FormField
+		<form
+			noValidate
+			onChange={form.handleSubmit(handleSubmit)}
+			onSubmit={form.handleSubmit(handleSubmit)}
+			className="space-y-md"
+		>
+			<FieldGroup>
+				<Controller
 					control={form.control}
 					name="ocrEnabled"
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel className="flex w-full cursor-pointer items-center justify-between gap-md rounded-base py-md transition-all hover:bg-background-muted hover:px-md">
-								Enable OCR
-								<FormControl>
-									<Switch
-										variant="success"
-										data-checked={field.value}
-										checked={field.value}
-										onCheckedChange={field.onChange}
-									/>
-								</FormControl>
-							</FormLabel>
-							<FormMessage />
-						</FormItem>
+					render={({ field, fieldState }) => (
+						<Field>
+							<FieldLabel className="gap-friends rounded-base py-friends hover:bg-background-muted hover:px-friends flex w-full cursor-pointer items-center justify-between transition-all">
+								<span>Enable OCR</span>
+								<Switch
+									aria-invalid={fieldState.invalid}
+									data-checked={field.value}
+									checked={field.value}
+									onCheckedChange={field.onChange}
+								/>
+							</FieldLabel>
+
+							{fieldState.invalid ? (
+								<FieldError errors={[fieldState.error]} />
+							) : null}
+						</Field>
 					)}
 				/>
 
 				{ocrEnabled ? (
-					<FormField
+					<Controller
 						control={form.control}
 						name="vatLookupEnabled"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel className="flex w-full cursor-pointer items-center justify-between gap-md rounded-base py-md transition-all hover:bg-background-muted hover:px-md">
-									Enable VAT lookup
-									<FormControl>
-										<Switch
-											variant="success"
-											data-checked={field.value}
-											checked={field.value}
-											onCheckedChange={field.onChange}
-										/>
-									</FormControl>
-								</FormLabel>
-								<FormMessage />
-							</FormItem>
+						render={({ field, fieldState }) => (
+							<Field>
+								<FieldLabel className="gap-friends rounded-base py-friends hover:bg-background-muted hover:px-friends flex w-full cursor-pointer items-center justify-between transition-all">
+									<span>Enable VAT lookup</span>
+									<Switch
+										aria-invalid={fieldState.invalid}
+										data-checked={field.value}
+										checked={field.value}
+										onCheckedChange={field.onChange}
+									/>
+								</FieldLabel>
+
+								{fieldState.invalid ? (
+									<FieldError errors={[fieldState.error]} />
+								) : null}
+							</Field>
 						)}
 					/>
 				) : null}
 
 				{vatLookupEnabled ? (
-					<FormField
+					<Controller
 						control={form.control}
 						name="ownVatNumber"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>
-									Your VAT number
-									<FormDescription>
-										Enter your own VAT number to ignore this from invoices
-									</FormDescription>
-								</FormLabel>
+						render={({ field, fieldState }) => (
+							<Field>
+								<FieldLabel>Your VAT number</FieldLabel>
+								<FieldDescription>
+									Enter your own VAT number to ignore this from invoices
+								</FieldDescription>
 
-								<FormControl>
-									<Input {...field} />
-								</FormControl>
-								<FormMessage />
-							</FormItem>
+								<Input aria-invalid={fieldState.invalid} {...field} />
+
+								{fieldState.invalid ? (
+									<FieldError errors={[fieldState.error]} />
+								) : null}
+							</Field>
 						)}
 					/>
 				) : null}
-			</form>
-		</Form>
+			</FieldGroup>
+		</form>
 	)
 }

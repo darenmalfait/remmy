@@ -1,9 +1,7 @@
-import * as React from 'react'
+import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 
-import '@nerdfish/theme/dist/nerdfishui.css'
 import './styles/main.css'
-import './styles/fonts.css'
 
 import { App } from './app'
 
@@ -11,7 +9,7 @@ import { App } from './app'
 const root = createRoot(document.getElementById('remmy')!)
 
 root.render(
-	<React.StrictMode>
+	<StrictMode>
 		<App />
-	</React.StrictMode>,
+	</StrictMode>,
 )
