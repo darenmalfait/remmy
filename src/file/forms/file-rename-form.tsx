@@ -83,7 +83,7 @@ export function FileRenameForm({
 		defaultValues: defaults(initialValues, {
 			date: new Date(),
 			description: transformName(initialFilename),
-			destination: destinations[0]?.path,
+			destination: destinations.find(({ isDefault }) => !!isDefault)?.path,
 			filenameFormatId: defaultFilenameFormat?.id,
 		}),
 	})

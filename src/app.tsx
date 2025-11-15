@@ -11,7 +11,7 @@ export function App() {
 	return (
 		<AppProviders>
 			<Router>
-				<div className={cx('bg-background flex h-full flex-col pl-14')}>
+				<div className={cx('bg-background isolate flex h-full flex-col pl-14')}>
 					<Sidebar />
 
 					<div className="text-foreground relative h-screen overflow-y-auto">
