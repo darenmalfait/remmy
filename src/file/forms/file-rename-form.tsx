@@ -136,7 +136,7 @@ export function FileRenameForm({
 							<FieldLabel>Format</FieldLabel>
 							<Select onValueChange={field.onChange} defaultValue={field.value}>
 								<SelectTrigger>
-									<SelectValue />
+									<SelectValue>{selectedFilenameFormat?.name}</SelectValue>
 								</SelectTrigger>
 								<SelectContent>
 									<SelectItem value={null}>Select a format</SelectItem>
@@ -161,7 +161,13 @@ export function FileRenameForm({
 							<FieldLabel>Destination</FieldLabel>
 							<Select onValueChange={field.onChange} defaultValue={field.value}>
 								<SelectTrigger>
-									<SelectValue />
+									<SelectValue>
+										{
+											destinations.find(
+												(destination) => destination.path === field.value,
+											)?.name
+										}
+									</SelectValue>
 								</SelectTrigger>
 								<SelectContent>
 									<SelectItem value={null}>Select a destination</SelectItem>

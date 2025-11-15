@@ -27,7 +27,8 @@ export function FileRenamer({
 
 	useEffect(() => {
 		async function handleFile() {
-			if (!settings.ocrEnabled) return
+			if (!settings.ocrEnabled || !file.toLowerCase().endsWith('.pdf'))
+				return setLoadingStatus('loaded')
 
 			try {
 				const text = await ocr(file)
