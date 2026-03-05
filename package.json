@@ -43,7 +43,7 @@
     "@hookform/resolvers": "^5.2.2",
     "@internationalized/date": "^3.10.0",
     "@nerdfish/config": "^1.9.4",
-    "@nerdfish/react": "^1.1.0",
+    "@nerdfish/react": "^1.1.2",
     "@nerdfish/utils": "^2.0.1",
     "@t3-oss/env-core": "^0.13.8",
     "@tailwindcss/aspect-ratio": "^0.4.2",
