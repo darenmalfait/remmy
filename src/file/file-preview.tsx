@@ -1,5 +1,7 @@
+import fs from 'fs'
 import { useState } from 'react'
 import { Document, Page, pdfjs } from 'react-pdf'
+import { parseXmlToInvoice } from '../lib/utils/document-parser/parse-xml-to-invoice'
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 	'pdfjs-dist/build/pdf.worker.min.mjs',
@@ -10,6 +12,21 @@ export function FilePreview({ file }: { file?: string }) {
 	const [numPages, setNumPages] = useState<number>()
 
 	if (!file) return null
+
+	if (file.endsWith('.xml')) {
+		try {
+			const invoice = parseXmlToInvoice(fs.readFileSync(file, 'utf8'))
+			// TODO invoice preview
+			return (
+				<div className="rounded-base flex h-full w-full flex-col overflow-y-scroll">
+					<pre>{JSON.stringify(invoice, null, 2)}</pre>
+				</div>
+			)
+		} catch (error) {
+			console.error(error)
+			return <div>Error parsing XML</div>
+		}
+	}
 
 	if (file.endsWith('.pdf')) {
 		return (

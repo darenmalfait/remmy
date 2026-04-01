@@ -1,9 +1,11 @@
+import fs from 'fs'
 import { Skeleton } from '@nerdfish/react/skeleton'
 import { Spinner } from '@nerdfish/react/spinner'
 import { extractDateFromText } from 'extract-date-js'
 import { useEffect, useState } from 'react'
 import { Section } from '../components/section'
 import { transformName } from '../filename/utils'
+import { parseXmlToInvoice } from '../lib/utils/document-parser/parse-xml-to-invoice'
 import { getVATNumberFromText, ocr } from '../ocr/utils/ocr'
 import { useSettings } from '../settings/settings-provider'
 import { checkVat } from '../vat/utils/vat'
@@ -24,15 +26,34 @@ export function FileRenamer({
 	const { settings } = useSettings()
 	const [date, setDate] = useState<Date | undefined>()
 	const [description, setDescription] = useState<string | undefined>()
+	const [detail, setDetail] = useState<string | undefined>()
 
 	useEffect(() => {
 		async function handleFile() {
-			if (!settings.ocrEnabled || !file.toLowerCase().endsWith('.pdf'))
-				return setLoadingStatus('loaded')
+			if (!settings.ocrEnabled) return setLoadingStatus('loaded')
 
 			try {
-				const text = await ocr(file)
+				const lower = file.toLowerCase()
+				const isPdf = lower.endsWith('.pdf')
+				const isXml = lower.endsWith('.xml')
 
+				if (!isPdf && !isXml) {
+					setLoadingStatus('loaded')
+					return
+				}
+
+				if (isXml) {
+					const invoice = parseXmlToInvoice(fs.readFileSync(file, 'utf8'))
+
+					setDate(new Date(invoice.issueDate))
+					setDescription(invoice.seller.name)
+
+					setDetail(invoice.invoiceLines.map((line) => line.name).join(', '))
+					setLoadingStatus('loaded')
+					return
+				}
+
+				const text = await ocr(file)
 				if (!text) {
 					setLoadingStatus('loaded')
 					return
@@ -41,23 +62,26 @@ export function FileRenamer({
 				const documentDate = extractDateFromText(text)
 				setDate(new Date(documentDate ?? Date.now()))
 
-				if (settings.vatLookupEnabled) {
-					const vat = getVATNumberFromText(text, [settings.ownVatNumber])
-
-					if (vat) {
-						const vatData = await checkVat(vat)
-
-						if (!vatData?.name) {
-							console.info('vat not found')
-							setLoadingStatus('loaded')
-							return
-						}
-
-						const d = transformName(vatData.name)
-						setDescription(d.length ? transformName(vatData.name) : undefined)
-					}
+				if (!settings.vatLookupEnabled) {
+					setLoadingStatus('loaded')
+					return
 				}
 
+				const vat = getVATNumberFromText(text, [settings.ownVatNumber])
+				if (!vat) {
+					setLoadingStatus('loaded')
+					return
+				}
+
+				const vatData = await checkVat(vat)
+				if (!vatData?.name) {
+					console.info('vat not found')
+					setLoadingStatus('loaded')
+					return
+				}
+
+				const d = transformName(vatData.name)
+				setDescription(d.length ? transformName(vatData.name) : undefined)
 				setLoadingStatus('loaded')
 			} catch (error) {
 				console.error(error)
@@ -93,6 +117,7 @@ export function FileRenamer({
 						initialValues={{
 							date: date ?? new Date(),
 							description,
+							detail,
 						}}
 						onSubmit={onDone}
 					/>
