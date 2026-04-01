@@ -33,6 +33,14 @@ function formatDate(date?: Date, format?: string) {
 	const year = date.getFullYear()
 
 	switch (format.toLowerCase()) {
+		case 'yyyymmdd': {
+			dateStr = `${year}${month}${day}`
+			break
+		}
+		case 'yyyymm': {
+			dateStr = `${year}${month}`
+			break
+		}
 		case 'yyyy-mm-dd': {
 			dateStr = `${year}-${month}-${day}`
 			break

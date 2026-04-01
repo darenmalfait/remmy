@@ -141,8 +141,16 @@ function DateFormatPicker(props: ComponentProps<typeof OptionSelector>) {
 			{...props}
 			name="dateFormat"
 			icon={CalendarIcon}
-			defaultValue="yyyy_mm_dd"
+			defaultValue="yyyymmdd"
 			items={[
+				{
+					label: `YYYYMMDD`,
+					value: 'yyyymmdd',
+				},
+				{
+					label: `YYYYMM`,
+					value: 'yyyymm',
+				},
 				{
 					label: `YYYY-MM-DD`,
 					value: 'yyyy-mm-dd',

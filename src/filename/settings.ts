@@ -1,5 +1,5 @@
 export const defaultFilenameSettings = {
-	date: 'yyyy_mm_dd',
+	date: 'yyyymmdd',
 	separator: '-',
 	description: 'lowercase',
 	detail: 'lowercase',
