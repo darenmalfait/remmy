@@ -55,7 +55,7 @@
     "axios": "=1.13.5",
     "date-fns": "^4.1.0",
     "dotenv": "^17.2.3",
-    "electron": "^36.9.5",
+    "electron": "^39.0.0",
     "electron-packager": "^17.1.2",
     "electron-updater": "^6.7.2",
     "extract-date-js": "^1.0.2",
