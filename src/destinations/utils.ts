@@ -3,12 +3,21 @@ import { type Destination } from './types'
 
 export const STORAGE_KEY_DESTINATIONS = 'remmy-destinations'
 
-export function loadDestinations(): { destinations?: Destination[] } {
-	const { destinations } = loadLocal(STORAGE_KEY_DESTINATIONS) ?? {}
-
-	return { destinations }
+export type PersistedDestinations = {
+	destinations?: Destination[]
+	sameFolderAsDefault?: boolean
 }
 
-export function saveDestinations(destinations: Destination[]): void {
-	saveLocal(STORAGE_KEY_DESTINATIONS, { destinations })
+export function loadDestinations(): PersistedDestinations {
+	return loadLocal(STORAGE_KEY_DESTINATIONS) ?? {}
+}
+
+export function saveDestinations(
+	destinations: Destination[],
+	sameFolderAsDefault: boolean,
+): void {
+	saveLocal(STORAGE_KEY_DESTINATIONS, {
+		destinations,
+		sameFolderAsDefault,
+	})
 }

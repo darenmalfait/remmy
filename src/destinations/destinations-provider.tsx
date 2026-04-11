@@ -25,10 +25,12 @@ export const defaultDestinations: Destination[] = []
 
 interface DestinationsContextProps {
 	destinations: Destination[]
+	sameFolderAsDefault: boolean
 	addDestination: (value: Omit<Destination, 'id'>) => DestinationActionResult
 	updateDestination: (props: Destination) => DestinationActionResult
 	removeDestination: (id: string) => DestinationActionResult
 	setDefaultDestination: (id: string) => DestinationActionResult
+	setSameFolderAsDefault: () => DestinationActionResult
 }
 
 const DestinationsContext = createContext<DestinationsContextProps | null>(null)
@@ -43,13 +45,21 @@ interface DestinationsProviderProps {
 function DestinationsProvider({ children }: DestinationsProviderProps) {
 	const [destinations, setDestinations] =
 		useState<Destination[]>(defaultDestinations)
+	const [sameFolderAsDefault, setSameFolderAsDefault] = useState(false)
 
 	useEffect(() => {
 		function restoreDestinations() {
 			const existing = loadDestinations()
 
 			if (existing.destinations) {
-				setDestinations([...defaultDestinations, ...existing.destinations])
+				let restored = [...defaultDestinations, ...existing.destinations]
+				const useSameFolder =
+					!!existing.sameFolderAsDefault && restored.length > 0
+				if (useSameFolder) {
+					restored = restored.map((d) => ({ ...d, isDefault: false }))
+				}
+				setDestinations(restored)
+				setSameFolderAsDefault(useSameFolder)
 			}
 		}
 
@@ -108,13 +118,13 @@ function DestinationsProvider({ children }: DestinationsProviderProps) {
 			]
 
 			setDestinations(newDestinations)
-			saveDestinations(newDestinations)
+			saveDestinations(newDestinations, sameFolderAsDefault)
 
 			return {
 				status: 'success',
 			}
 		},
-		[destinations],
+		[destinations, sameFolderAsDefault],
 	)
 
 	const removeDestination = useCallback(
@@ -122,14 +132,16 @@ function DestinationsProvider({ children }: DestinationsProviderProps) {
 			const newDestinations = destinations.filter(
 				(destination) => destination.id !== id,
 			)
+			const nextSameFolder = sameFolderAsDefault && newDestinations.length > 0
 			setDestinations(newDestinations)
-			saveDestinations(newDestinations)
+			setSameFolderAsDefault(nextSameFolder)
+			saveDestinations(newDestinations, nextSameFolder)
 
 			return {
 				status: 'success',
 			}
 		},
-		[destinations],
+		[destinations, sameFolderAsDefault],
 	)
 
 	const setDefaultDestination = useCallback(
@@ -139,7 +151,8 @@ function DestinationsProvider({ children }: DestinationsProviderProps) {
 				isDefault: destination.id === defaultId,
 			}))
 			setDestinations(newDestinations)
-			saveDestinations(newDestinations)
+			setSameFolderAsDefault(false)
+			saveDestinations(newDestinations, false)
 
 			return {
 				status: 'success',
@@ -147,6 +160,20 @@ function DestinationsProvider({ children }: DestinationsProviderProps) {
 		},
 		[destinations],
 	)
+
+	const setSameFolderAsDefaultChoice = useCallback(() => {
+		const newDestinations = destinations.map((destination) => ({
+			...destination,
+			isDefault: false,
+		}))
+		setDestinations(newDestinations)
+		setSameFolderAsDefault(true)
+		saveDestinations(newDestinations, true)
+
+		return {
+			status: 'success',
+		}
+	}, [destinations])
 
 	const addDestination = useCallback(
 		(values: Omit<Destination, 'id'>) => {
@@ -191,22 +218,25 @@ function DestinationsProvider({ children }: DestinationsProviderProps) {
 
 			const id = uuid.v4()
 
+			const isFirst = destinations.length === 0
 			const newDestinations = [
 				...destinations,
 				{
 					id,
-					isDefault: destinations.length === 0,
+					isDefault: isFirst,
 					...values,
 				},
 			]
+			const nextSameFolder = isFirst ? false : sameFolderAsDefault
 			setDestinations(newDestinations)
-			saveDestinations(newDestinations)
+			setSameFolderAsDefault(nextSameFolder)
+			saveDestinations(newDestinations, nextSameFolder)
 
 			return {
 				status: 'success',
 			}
 		},
-		[destinations],
+		[destinations, sameFolderAsDefault],
 	)
 
 	return (
@@ -214,17 +244,21 @@ function DestinationsProvider({ children }: DestinationsProviderProps) {
 			value={useMemo(
 				() => ({
 					destinations,
+					sameFolderAsDefault,
 					updateDestination,
 					removeDestination,
 					addDestination,
 					setDefaultDestination,
+					setSameFolderAsDefault: setSameFolderAsDefaultChoice,
 				}),
 				[
 					destinations,
+					sameFolderAsDefault,
 					updateDestination,
 					removeDestination,
 					addDestination,
 					setDefaultDestination,
+					setSameFolderAsDefaultChoice,
 				],
 			)}
 		>

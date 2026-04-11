@@ -29,6 +29,42 @@ import { useDestinations } from './destinations-provider'
 import { DestinationForm } from './forms/destination-form'
 import { type Destination } from './types'
 
+function SameFolderAsSourceItem() {
+	const { sameFolderAsDefault, setSameFolderAsDefault } = useDestinations()
+
+	return (
+		<li className="space-x-friends py-friends group/destination-item flex max-w-full justify-between">
+			<div className="flex grow flex-col">
+				<p className="typography-body-small line-clamp-1">
+					Same folder as file
+				</p>
+				<p className="text-foreground-muted line-clamp-1 max-w-full text-left text-sm">
+					Keep the renamed file in the directory it is already in
+				</p>
+			</div>
+			<div className="space-x-best-friends flex items-center">
+				{sameFolderAsDefault ? (
+					<Badge
+						variant="success"
+						appearance="muted"
+						className="cursor-pointer"
+					>
+						default
+					</Badge>
+				) : (
+					<Button
+						variant="ghost"
+						size="xs"
+						onClick={() => setSameFolderAsDefault()}
+					>
+						set default
+					</Button>
+				)}
+			</div>
+		</li>
+	)
+}
+
 function DestinationItem(destination: Destination) {
 	const { removeDestination, setDefaultDestination } = useDestinations()
 
@@ -116,6 +152,7 @@ export function DestinationsPage() {
 						) : (
 							<>
 								<ul className="mb-casual divide-border divide-y">
+									<SameFolderAsSourceItem />
 									{destinations.map((destination) => (
 										<DestinationItem key={destination.id} {...destination} />
 									))}

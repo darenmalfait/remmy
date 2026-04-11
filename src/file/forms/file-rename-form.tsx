@@ -1,3 +1,4 @@
+import path from 'path'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { getLocalTimeZone, parseDate } from '@internationalized/date'
 import { Button } from '@nerdfish/react/button'
@@ -25,6 +26,7 @@ import { CalendarIcon } from 'lucide-react'
 import { useCallback } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { z } from 'zod'
+import { SAME_AS_SOURCE_DESTINATION } from '../../destinations/constants'
 import { useDestinations } from '../../destinations/destinations-provider'
 import { FilenamePreview } from '../../filename/components/filename-preview'
 import { useFilenameFormat } from '../../filename/filename-format-provider'
@@ -66,7 +68,7 @@ export function FileRenameForm({
 	initialValues,
 	onSubmit,
 }: FileRenameFormProps) {
-	const { destinations } = useDestinations()
+	const { destinations, sameFolderAsDefault } = useDestinations()
 	const { filenameFormats } = useFilenameFormat()
 
 	const { extension, initialFilename } = getIntialFileInfo(
@@ -83,7 +85,9 @@ export function FileRenameForm({
 		defaultValues: defaults(initialValues, {
 			date: new Date(),
 			description: transformName(initialFilename),
-			destination: destinations.find(({ isDefault }) => !!isDefault)?.path,
+			destination: sameFolderAsDefault
+				? SAME_AS_SOURCE_DESTINATION
+				: destinations.find(({ isDefault }) => !!isDefault)?.path,
 			filenameFormatId: defaultFilenameFormat?.id,
 		}),
 	})
@@ -96,7 +100,12 @@ export function FileRenameForm({
 
 			if (!format) throw new Error('filename format could not be found')
 
-			const newLocation = `${addTrailingSlash(values.destination)}${rename({
+			const destinationFolder =
+				values.destination === SAME_AS_SOURCE_DESTINATION
+					? path.dirname(path.resolve(file))
+					: values.destination
+
+			const newLocation = `${addTrailingSlash(destinationFolder)}${rename({
 				extension,
 				date: new Date(values.date ?? new Date()),
 				description: values.description,
@@ -162,15 +171,18 @@ export function FileRenameForm({
 							<Select onValueChange={field.onChange} defaultValue={field.value}>
 								<SelectTrigger>
 									<SelectValue>
-										{
-											destinations.find(
-												(destination) => destination.path === field.value,
-											)?.name
-										}
+										{field.value === SAME_AS_SOURCE_DESTINATION
+											? 'Same folder as file'
+											: destinations.find(
+													(destination) => destination.path === field.value,
+												)?.name}
 									</SelectValue>
 								</SelectTrigger>
 								<SelectContent>
 									<SelectItem value={null}>Select a destination</SelectItem>
+									<SelectItem value={SAME_AS_SOURCE_DESTINATION}>
+										Same folder as file
+									</SelectItem>
 									{destinations.map((destination) => (
 										<SelectItem key={destination.id} value={destination.path}>
 											{destination.name}
